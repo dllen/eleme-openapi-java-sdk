@@ -1,7 +1,6 @@
 package eleme.openapi.sdk.oauth;
 
 import eleme.openapi.sdk.config.Constants;
-import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.ErrorResponse;
 import eleme.openapi.sdk.utils.Base64;
 import eleme.openapi.sdk.utils.EleHashMap;
@@ -13,7 +12,6 @@ public abstract class BaseOAuthRequest<T extends ErrorResponse> implements OAuth
     protected Map<String, String> headerMap; // HTTP请求头参数
     protected Map<String, String> bodyMap; // HTTP Body参数
     protected EleHashMap customParams; // 自定义表单参数
-    protected OverallContext context = OverallContext.getInstance();
 
     protected void setAuthorization(String appKey, String appSecret) {
         String headOauthKey = Constants.HEAD_OAUTH_KEY;

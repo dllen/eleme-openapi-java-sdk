@@ -2,9 +2,9 @@ import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.OrderService;
 import eleme.openapi.sdk.config.OverallContext;
-import eleme.openapi.sdk.oauth.OAuthClient;
+import eleme.openapi.sdk.oauth.IOAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.impl.DefaultOAuthClient;
+import eleme.openapi.sdk.oauth.impl.DefaultIOAuthClient;
 import eleme.openapi.sdk.oauth.impl.ServerOAuthCodeImpl;
 import eleme.openapi.sdk.oauth.parser.Converter;
 import eleme.openapi.sdk.oauth.parser.JsonConverter;
@@ -16,29 +16,25 @@ import org.junit.Before;
 
 public class Test {
 
-    private OAuthClient oAuthClient = null;
-    //设置基础信息
-    private OverallContext context = OverallContext.getInstance();
+    private IOAuthClient IOAuthClient = null;
+
 
     @Before
     public void before() {
+        //设置基础信息
         //Client
-//        context.setApp_key("wYO4C8ZLzB");
-//        context.setApp_secret("852d028e8af1a1a93019c38351da175c4bc9ecce");
-
+        OverallContext context = new OverallContext(true, "wYO4C8ZLzB", "852d028e8af1a1a93019c38351da175c4bc9ecce");
         //Server
-        context.setApp_key("whjJ8amGkn");
-        context.setApp_secret("ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
-        context.setOauthTokenUrl("https://open-api-sandbox-shop.alpha.elenet.me/token");
-        context.setApiUrl("https://open-api-sandbox-shop.alpha.elenet.me/api/v1/");
+//      OverallContext context = new OverallContext(true, "whjJ8amGkn", "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
+
+
     }
 
     @org.junit.Test
     public void clientTokenTest() throws OAuthException {
-        oAuthClient = new DefaultOAuthClient(
-                "https://open-api-sandbox-shop.alpha.elenet.me/token");
+        IOAuthClient = new DefaultIOAuthClient(OverallContext.oauthTokenUrl);
         ClientTokenRequest oAuthRequest = new ClientTokenRequest();
-        OAuthResponse execute = oAuthClient.execute(oAuthRequest);
+        OAuthResponse execute = IOAuthClient.execute(oAuthRequest);
         if (execute.isSuccess()) {
             System.out.println(execute);
         } else {
@@ -50,8 +46,8 @@ public class Test {
     @org.junit.Test
     public void serverOAuthCodeTest() throws OAuthException {
         ServerOAuthCodeImpl serverOAuthCode = new ServerOAuthCodeImpl(
-                "https://open-api-sandbox-shop.alpha.elenet.me/authorize",
-                "whjJ8amGkn");
+                OverallContext.oauthCodeUrl,
+                OverallContext.app_key);
         String authUrl = serverOAuthCode.getAuthUrl("https://www.baidu.com",
                 "all",
                 "xyz");
@@ -61,12 +57,11 @@ public class Test {
     @org.junit.Test
     public void serverTokenTest() throws OAuthException {
         String autoCode = "0a952a361cdf0e18b7da3762b443f373";
-        oAuthClient = new DefaultOAuthClient(
-                "https://open-api-sandbox-shop.alpha.elenet.me/token");
+        IOAuthClient = new DefaultIOAuthClient(OverallContext.oauthTokenUrl);
         ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
         serverTokenRequest.setCode(autoCode);
         serverTokenRequest.setRedirectUri("https://www.baidu.com");
-        OAuthResponse o1 = oAuthClient.execute(serverTokenRequest);
+        OAuthResponse o1 = IOAuthClient.execute(serverTokenRequest);
         if (o1.isSuccess()) {
             System.out.println(o1);
         } else {
@@ -78,11 +73,10 @@ public class Test {
     @org.junit.Test
     public void serverRefreshTokenTest() throws OAuthException {
         String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
-        oAuthClient = new DefaultOAuthClient(
-                "https://open-api-sandbox-shop.alpha.elenet.me/token");
+        IOAuthClient = new DefaultIOAuthClient(OverallContext.oauthTokenUrl);
         ServerRefreshTokenRequest refreshTokenRequest = new ServerRefreshTokenRequest();
         refreshTokenRequest.setRefreshToken(refreshTokenStr);
-        OAuthResponse o2 = oAuthClient.execute(refreshTokenRequest);
+        OAuthResponse o2 = IOAuthClient.execute(refreshTokenRequest);
         System.out.println(o2);
     }
 
@@ -91,12 +85,11 @@ public class Test {
     public void getOrderApiTest() throws OAuthException, ServiceException {
         //129338804
         String autoCode = "9223d7dc069bf7c31d21ccbdb17de08f";
-        oAuthClient = new DefaultOAuthClient(
-                "https://open-api-sandbox-shop.alpha.elenet.me/token");
+        IOAuthClient = new DefaultIOAuthClient(OverallContext.oauthTokenUrl);
         ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
         serverTokenRequest.setCode(autoCode);
         serverTokenRequest.setRedirectUri("https://www.baidu.com");
-        OAuthResponse o1 = oAuthClient.execute(serverTokenRequest);
+        OAuthResponse o1 = IOAuthClient.execute(serverTokenRequest);
         if (o1.isSuccess()) {
             System.out.println(o1.toString());
             OrderService o = new OrderService(o1);
@@ -111,7 +104,6 @@ public class Test {
     @org.junit.Test
     public void jsonTest() throws OAuthException {
         Converter converter = new JsonConverter();
-
         OAuthResponse oAuthResponse = converter.toResponse(
                 "{\"access_token\":\"49c6d624dfaaf53f426d09b6a28617ff\", \"token_type\":\"bearer\", \"expires_in\":86400, \"refresh_token\":\"f0a2cf99245383e2a9acfd7d21d74198\"}",
                 OAuthResponse.class);

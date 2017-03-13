@@ -1,5 +1,6 @@
 package eleme.openapi.sdk.oauth.request;
 
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.BaseOAuthRequest;
 import eleme.openapi.sdk.oauth.response.OAuthResponse;
 
@@ -14,7 +15,7 @@ public class ServerTokenRequest extends BaseOAuthRequest<OAuthResponse> {
     }
 
     public Map<String, String> getHeaderMap() {
-        setAuthorization(context.getApp_key(), context.getApp_secret());
+        setAuthorization(OverallContext.app_key, OverallContext.app_secret);
         return super.headerMap;
     }
 
@@ -22,7 +23,7 @@ public class ServerTokenRequest extends BaseOAuthRequest<OAuthResponse> {
         putBodyParam("grant_type", "authorization_code");
         putBodyParam("code", this.code);
         putBodyParam("redirect_uri", this.redirectUri);
-        putBodyParam("client_id", context.getApp_key());
+        putBodyParam("client_id", OverallContext.app_key);
         return super.bodyMap;
     }
 

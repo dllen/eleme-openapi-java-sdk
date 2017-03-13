@@ -27,7 +27,6 @@ public abstract class WebUtils {
     private static final String DEFAULT_CHARSET = Constants.CHARSET_UTF8;
     private static final String METHOD_POST = "POST";
     private static final String METHOD_GET = "GET";
-    private static OverallContext context = OverallContext.getInstance();
     private static JSONWriter jsonWriter = new JSONWriter();
 
     private static class DefaultTrustManager implements X509TrustManager {
@@ -419,8 +418,8 @@ public abstract class WebUtils {
                              Type type
     ) throws ServiceException {
         final long timestamp = System.currentTimeMillis() / 1000;
-        final String appKey = context.getApp_key();
-        String secret = context.getApp_secret();
+        final String appKey = OverallContext.app_key;
+        String secret = OverallContext.app_secret;
         String accessToken = token.getAccessToken();
 
         Map<String, Object> requestPayload = new HashMap();

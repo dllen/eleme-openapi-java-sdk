@@ -2,7 +2,7 @@ package eleme.openapi.sdk.oauth.impl;
 
 
 import eleme.openapi.sdk.config.Constants;
-import eleme.openapi.sdk.oauth.OAuthClient;
+import eleme.openapi.sdk.oauth.IOAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.OAuthRequest;
 import eleme.openapi.sdk.oauth.parser.OAuthParser;
@@ -15,13 +15,13 @@ import java.io.IOException;
 /**
  * 客户端模式获取Token
  */
-public class DefaultOAuthClient implements OAuthClient {
+public class DefaultIOAuthClient implements IOAuthClient {
     private String serverUrl;
     private int connectTimeout = 15000; // 默认连接超时时间为15秒
     private int readTimeout = 30000; // 默认响应超时时间为30秒
     private boolean useSimplifyJson = false; // 是否采用精简化的JSON返回
 
-    public DefaultOAuthClient(String serverUrl) {
+    public DefaultIOAuthClient(String serverUrl) {
         this.serverUrl = serverUrl;
     }
 
