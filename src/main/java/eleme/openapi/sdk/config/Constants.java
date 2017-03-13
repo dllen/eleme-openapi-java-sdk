@@ -1,4 +1,4 @@
-package eleme.openapi.sdk.conf;
+package eleme.openapi.sdk.config;
 
 public abstract class Constants {
 

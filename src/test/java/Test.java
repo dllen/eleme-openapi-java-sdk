@@ -1,7 +1,7 @@
 import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.OrderService;
-import eleme.openapi.sdk.conf.OverallContext;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.impl.DefaultOAuthClient;

@@ -2,8 +2,8 @@ package eleme.openapi.sdk.utils;
 
 import eleme.openapi.sdk.api.exception.*;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
-import eleme.openapi.sdk.conf.Constants;
-import eleme.openapi.sdk.conf.OverallContext;
+import eleme.openapi.sdk.config.Constants;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.OAuthResponse;
 import eleme.openapi.sdk.utils.json.JSONWriter;
 
@@ -124,104 +124,6 @@ public abstract class WebUtils {
         return rsp;
     }
 
-    /**
-     * 执行带文件上传的HTTP POST请求。
-     *
-     * @param url        请求地址
-     * @param params     文本请求参数
-     * @param fileParams 文件请求参数
-     * @return 响应字符串
-     * @throws IOException
-     */
-    public static String doPost(String url,
-                                Map<String, String> params,
-                                Map<String, FileItem> fileParams,
-                                int connectTimeout,
-                                int readTimeout) throws IOException {
-        if (fileParams == null || fileParams.isEmpty()) {
-            return doPost(url, params, DEFAULT_CHARSET, connectTimeout, readTimeout);
-        } else {
-            return doPost(url, params, fileParams, DEFAULT_CHARSET, connectTimeout, readTimeout);
-        }
-    }
-
-    public static String doPost(String url, Map<String, String> params, Map<String, FileItem> fileParams,
-                                String charset, int connectTimeout, int readTimeout) throws IOException {
-        return doPost(url, params, fileParams, charset, connectTimeout, readTimeout, null);
-    }
-
-    /**
-     * 执行带文件上传的HTTP POST请求。
-     *
-     * @param url        请求地址
-     * @param params     文本请求参数
-     * @param fileParams 文件请求参数
-     * @param charset    字符集，如UTF-8, GBK, GB2312
-     * @param headerMap  需要传递的header头，可以为空
-     * @return 响应字符串
-     * @throws IOException
-     */
-    public static String doPost(String url, Map<String, String> params, Map<String, FileItem> fileParams,
-                                String charset, int connectTimeout, int readTimeout, Map<String, String> headerMap) throws IOException {
-        if (fileParams == null || fileParams.isEmpty()) {
-            return doPost(url, params, charset, connectTimeout, readTimeout, headerMap);
-        } else {
-            return _doPostWithFile(url, params, fileParams, charset, connectTimeout, readTimeout, headerMap);
-        }
-
-    }
-
-    private static String _doPostWithFile(String url, Map<String, String> params, Map<String, FileItem> fileParams,
-                                          String charset, int connectTimeout, int readTimeout, Map<String, String> headerMap) throws IOException {
-        String boundary = System.currentTimeMillis() + ""; // 随机分隔线
-        HttpURLConnection conn = null;
-        OutputStream out = null;
-        String rsp = null;
-        try {
-            String ctype = "multipart/form-data;charset=" + charset + ";boundary=" + boundary;
-            conn = getConnection(new URL(url), METHOD_POST, ctype, headerMap);
-            conn.setConnectTimeout(connectTimeout);
-            conn.setReadTimeout(readTimeout);
-            out = conn.getOutputStream();
-
-            byte[] entryBoundaryBytes = ("\r\n--" + boundary + "\r\n").getBytes(charset);
-
-            // 组装文本请求参数
-            Set<Map.Entry<String, String>> textEntrySet = params.entrySet();
-            for (Map.Entry<String, String> textEntry : textEntrySet) {
-                byte[] textBytes = getTextEntry(textEntry.getKey(), textEntry.getValue(), charset);
-                out.write(entryBoundaryBytes);
-                out.write(textBytes);
-            }
-
-            // 组装文件请求参数
-            Set<Map.Entry<String, FileItem>> fileEntrySet = fileParams.entrySet();
-            for (Map.Entry<String, FileItem> fileEntry : fileEntrySet) {
-                FileItem fileItem = fileEntry.getValue();
-                if (!fileItem.isValid()) {
-                    continue;
-                }
-                byte[] fileBytes = getFileEntry(fileEntry.getKey(), fileItem.getFileName(), fileItem.getMimeType(), charset);
-                out.write(entryBoundaryBytes);
-                out.write(fileBytes);
-                fileItem.write(out);
-            }
-
-            // 添加请求结束标志
-            byte[] endBoundaryBytes = ("\r\n--" + boundary + "--\r\n").getBytes(charset);
-            out.write(endBoundaryBytes);
-            rsp = getResponseAsString(conn);
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-
-        return rsp;
-    }
 
     private static byte[] getTextEntry(String fieldName, String fieldValue, String charset) throws IOException {
         StringBuilder entry = new StringBuilder();

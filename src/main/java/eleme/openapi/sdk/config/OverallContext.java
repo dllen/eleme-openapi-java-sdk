@@ -1,4 +1,4 @@
-package eleme.openapi.sdk.conf;
+package eleme.openapi.sdk.config;
 
 public class OverallContext {
     private static class OverallContextHolder {

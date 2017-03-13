@@ -1,6 +1,6 @@
 package eleme.openapi.sdk.utils;
 
-import eleme.openapi.sdk.conf.Constants;
+import eleme.openapi.sdk.config.Constants;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;

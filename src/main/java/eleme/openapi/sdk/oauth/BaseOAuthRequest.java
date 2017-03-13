@@ -1,7 +1,7 @@
 package eleme.openapi.sdk.oauth;
 
-import eleme.openapi.sdk.conf.Constants;
-import eleme.openapi.sdk.conf.OverallContext;
+import eleme.openapi.sdk.config.Constants;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.ErrorResponse;
 import eleme.openapi.sdk.utils.Base64;
 import eleme.openapi.sdk.utils.EleHashMap;

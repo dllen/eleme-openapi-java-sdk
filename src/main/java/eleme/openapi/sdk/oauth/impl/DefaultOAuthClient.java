@@ -1,7 +1,7 @@
 package eleme.openapi.sdk.oauth.impl;
 
 
-import eleme.openapi.sdk.conf.Constants;
+import eleme.openapi.sdk.config.Constants;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.OAuthRequest;
