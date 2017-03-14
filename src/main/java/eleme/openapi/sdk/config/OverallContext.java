@@ -12,10 +12,12 @@ public class OverallContext {
     public static String oauthTokenUrl;
     public static String apiUrl;
 
-    public OverallContext(boolean sandbox, String appKey, String appSecret) {
+    public OverallContext(boolean sandbox, String appKey, String appSecret) throws Exception {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
             isInit = true;
-            return;
+            System.out.println("init.....");
+        } else {
+            throw new Exception("初始化失败");
         }
         app_key = appKey;
         app_secret = appSecret;
