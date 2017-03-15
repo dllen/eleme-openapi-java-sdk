@@ -1,11 +1,15 @@
 package eleme.openapi.sdk.utils;
 
+import eleme.openapi.sdk.api.deserializer.DateDeserializer;
 import eleme.openapi.sdk.api.exception.*;
+import eleme.openapi.sdk.api.json.gson.Gson;
+import eleme.openapi.sdk.api.json.gson.GsonBuilder;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
+import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
 import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.OAuthResponse;
-import eleme.openapi.sdk.utils.json.JSONWriter;
 
 import javax.net.ssl.*;
 import java.io.*;
@@ -17,17 +21,14 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class WebUtils {
 
     private static final String DEFAULT_CHARSET = Constants.CHARSET_UTF8;
     private static final String METHOD_POST = "POST";
     private static final String METHOD_GET = "GET";
-    private static JSONWriter jsonWriter = new JSONWriter();
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
 
     private static class DefaultTrustManager implements X509TrustManager {
         public X509Certificate[] getAcceptedIssuers() {
@@ -416,65 +417,52 @@ public abstract class WebUtils {
                              Map<String, Object> parameters,
                              OAuthResponse token,
                              Type type
-    ) throws ServiceException {
+    ) throws ServiceException, OAuthException {
         final long timestamp = System.currentTimeMillis() / 1000;
-        final String appKey = OverallContext.app_key;
-        String secret = OverallContext.app_secret;
+        final String appKey = OverallContext.getApp_key();
+        String secret = OverallContext.getApp_secret();
         String accessToken = token.getAccessToken();
 
-        Map<String, Object> requestPayload = new HashMap();
+        Map<String, Object> requestPayload = new HashMap<String, Object>();
         requestPayload.put("nop", "1.0.0");
         requestPayload.put("id", UUID.randomUUID().toString().toLowerCase());
         requestPayload.put("action", action);
         requestPayload.put("token", accessToken);
-        requestPayload.put("metas", new HashMap<String, Object>() {
-            {
-                put("app_key", appKey);
-                put("timestamp", timestamp);
-            }
-        });
+
+        Map<String, Object> metasHashMap = new HashMap<String, Object>();
+        metasHashMap.put("app_key", appKey);
+        metasHashMap.put("timestamp", timestamp);
+
+        requestPayload.put("metas", metasHashMap);
         requestPayload.put("params", parameters);
         String signature = SignatureUtil.generateSignature(appKey, secret, timestamp, action, accessToken, parameters);
         requestPayload.put("signature", signature);
 
-        System.out.println(">>>" + jsonWriter.write(requestPayload));
-
-        /*try {
-            logger.info("request: " + objectMapper.writeValueAsString(requestPayload));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        ResponsePayload responsePayload = doRequest(requestPayload);
-        try {
-            logger.info("response: " + objectMapper.writeValueAsString(responsePayload));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
+        String requestJson = gson.toJson(requestPayload);
+        ResponsePayload responsePayload = doRequest(requestJson);
         if (responsePayload.getError() != null) {
             ServiceException serviceException = toException(responsePayload.getError());
             if (serviceException != null)
                 throw serviceException;
             throw new ServerErrorException();
         }
-
         if (type == void.class)
             return null;
-        return objectMapper.convertValue(responsePayload.getResult(), objectMapper.constructType(type));*/
-
-        return null;
+        String s2 = gson.toJson(responsePayload.getResult());
+        return gson.fromJson(s2, type);
     }
 
-    /*private static ResponsePayload doRequest(Map requestPayload) {
+    private static ResponsePayload doRequest(String requestJson) throws OAuthException {
         try {
-            String response = httpClientUtil.post(Config.getAPIServerUrl(), objectMapper.writeValueAsString(requestPayload));
-            ResponsePayload payload = objectMapper.readValue(response, ResponsePayload.class);
-            return payload;
+            String response = doPost(OverallContext.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
+            return gson.fromJson(response, ResponsePayload.class);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } catch (OAuthException e) {
+            throw new OAuthException(e);
         }
-    }*/
+    }
 
     private static ServiceException toException(ErrorPayload error) throws ServiceException {
         String code = error.getCode();
@@ -500,5 +488,4 @@ public abstract class WebUtils {
         }
         return null;
     }
-
 }

@@ -2,6 +2,7 @@ package eleme.openapi.sdk.api.base;
 
 import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.OAuthResponse;
 import eleme.openapi.sdk.utils.WebUtils;
 
@@ -23,8 +24,7 @@ public class BaseNopService {
         }
     }
 
-
-    public <T> T call(Map<String, Object> parameters) throws ServiceException {
+    public <T> T call(Map<String, Object> parameters) throws ServiceException, OAuthException {
         String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
         Method method = getMethod(methodName);
         Service annotation = (Service) service.getAnnotation(Service.class);
@@ -34,7 +34,7 @@ public class BaseNopService {
         return WebUtils.call(action, parameters, oAuthResponse, method.getGenericReturnType());
     }
 
-    protected Method getMethod(String methodName) {
+    private Method getMethod(String methodName) {
         return methodMap.get(methodName);
     }
 }

@@ -1,23 +1,24 @@
 package eleme.openapi.sdk.config;
 
+import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.utils.StringUtils;
 
 public class OverallContext {
 
-    public static boolean isInit = false;
+    private static boolean isInit = false;
 
-    public static String app_key;
-    public static String app_secret;
-    public static String oauthCodeUrl;
-    public static String oauthTokenUrl;
-    public static String apiUrl;
+    private static String app_key;
+    private static String app_secret;
+    private static String oauthCodeUrl;
+    private static String oauthTokenUrl;
+    private static String apiUrl;
 
-    public OverallContext(boolean sandbox, String appKey, String appSecret) throws Exception {
+    public OverallContext(boolean sandbox, String appKey, String appSecret) throws OAuthException {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
             isInit = true;
-            System.out.println("init.....");
+            System.out.println("init...");
         } else {
-            throw new Exception("初始化失败");
+            throw new OAuthException("appKey and appSecret is required.");
         }
         app_key = appKey;
         app_secret = appSecret;
@@ -30,5 +31,49 @@ public class OverallContext {
             oauthTokenUrl = BasicURL.OAuth.PRODUCTION_TOKEN;
             apiUrl = BasicURL.OpenApi.PRODUCTION_Api;
         }
+    }
+
+    public static void setOauthCodeUrl(String oauthCodeUrl) throws OAuthException {
+        check();
+        OverallContext.oauthCodeUrl = oauthCodeUrl;
+    }
+
+    public static void setOauthTokenUrl(String oauthTokenUrl) throws OAuthException {
+        check();
+        OverallContext.oauthTokenUrl = oauthTokenUrl;
+    }
+
+    public static void setApiUrl(String apiUrl) throws OAuthException {
+        check();
+        OverallContext.apiUrl = apiUrl;
+    }
+
+    public static String getOauthCodeUrl() throws OAuthException {
+        check();
+        return oauthCodeUrl;
+    }
+
+    public static String getOauthTokenUrl() throws OAuthException {
+        check();
+        return oauthTokenUrl;
+    }
+
+    public static String getApiUrl() throws OAuthException {
+        check();
+        return apiUrl;
+    }
+
+    public static String getApp_key() throws OAuthException {
+        check();
+        return app_key;
+    }
+
+    public static String getApp_secret() throws OAuthException {
+        check();
+        return app_secret;
+    }
+
+    private static void check() throws OAuthException {
+        if (!isInit) throw new OAuthException("OverallContext is not initialized");
     }
 }

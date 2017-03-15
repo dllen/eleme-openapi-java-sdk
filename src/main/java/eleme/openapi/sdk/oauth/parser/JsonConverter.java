@@ -18,6 +18,13 @@ public class JsonConverter implements Converter {
             Map<?, ?> rootJson = (Map<?, ?>) rootObj;
             return fromJson(rootJson, clazz);
         }
+        if (rootObj instanceof List<?>) {
+            List<?> rootJson = (List<?>) rootObj;
+            for (Object o : rootJson) {
+                Map<?, ?> rj = (Map<?, ?>) o;
+                return fromJson(rj, clazz);
+            }
+        }
         return null;
     }
 
