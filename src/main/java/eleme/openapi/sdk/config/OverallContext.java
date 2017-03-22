@@ -16,7 +16,7 @@ public class OverallContext {
     public OverallContext(boolean sandbox, String appKey, String appSecret) throws OAuthException {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
             isInit = true;
-            System.out.println("init...");
+            System.out.println("OverallContext init...");
         } else {
             throw new OAuthException("appKey and appSecret is required.");
         }

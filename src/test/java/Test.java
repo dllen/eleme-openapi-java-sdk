@@ -1,27 +1,26 @@
 import eleme.openapi.sdk.api.entity.order.OOrder;
+import eleme.openapi.sdk.api.entity.user.OUser;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.OrderService;
+import eleme.openapi.sdk.api.service.UserService;
 import eleme.openapi.sdk.config.OverallContext;
-import eleme.openapi.sdk.oauth.IOAuthClient;
+import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.impl.DefaultIOAuthClient;
-import eleme.openapi.sdk.oauth.impl.ServerOAuthCodeImpl;
-import eleme.openapi.sdk.oauth.request.ClientTokenRequest;
-import eleme.openapi.sdk.oauth.request.ServerRefreshTokenRequest;
-import eleme.openapi.sdk.oauth.request.ServerTokenRequest;
 import eleme.openapi.sdk.oauth.response.OAuthResponse;
 import org.junit.Before;
 
 public class Test {
 
-    private IOAuthClient IOAuthClient = null;
+    private OAuthClient client = OAuthClient.getInstance();
 
     @Before
     public void before() {
         //设置基础信息
         //Client
         try {
+            //个人
 //            OverallContext context = new OverallContext(true, "wYO4C8ZLzB", "852d028e8af1a1a93019c38351da175c4bc9ecce");
+            //企业
             OverallContext context = new OverallContext(true, "whjJ8amGkn", "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,10 +28,9 @@ public class Test {
         //Server
     }
 
+    @org.junit.Test
     public void clientTokenTest() throws OAuthException {
-        IOAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ClientTokenRequest oAuthRequest = new ClientTokenRequest();
-        OAuthResponse execute = IOAuthClient.execute(oAuthRequest);
+        OAuthResponse execute = client.getTokenInClientCredentials();
         if (execute.isSuccess()) {
             System.out.println(execute);
         } else {
@@ -41,23 +39,20 @@ public class Test {
         }
     }
 
+    @org.junit.Test
     public void serverOAuthCodeTest() throws OAuthException {
-        ServerOAuthCodeImpl serverOAuthCode = new ServerOAuthCodeImpl(
-                OverallContext.getOauthCodeUrl(),
-                OverallContext.getApp_key());
-        String authUrl = serverOAuthCode.getAuthUrl("https://www.baidu.com",
-                "all",
-                "xyz");
+        String redirect_uri = "https://www.baidu.com";
+        String scope = "all";
+        String state = "xyz";
+        String authUrl = client.getAuthUrl(redirect_uri, scope, state);
         System.out.println(authUrl);
     }
 
     public void serverTokenTest() throws OAuthException {
         String autoCode = "0a952a361cdf0e18b7da3762b443f373";
-        IOAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
-        serverTokenRequest.setCode(autoCode);
-        serverTokenRequest.setRedirectUri("https://www.baidu.com");
-        OAuthResponse o1 = IOAuthClient.execute(serverTokenRequest);
+        String redirect_uri = "https://www.baidu.com";
+        OAuthResponse o1 = client.getTokenByCode(autoCode, redirect_uri);
+
         if (o1.isSuccess()) {
             System.out.println(o1);
         } else {
@@ -68,27 +63,35 @@ public class Test {
 
     public void serverRefreshTokenTest() throws OAuthException {
         String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
-        IOAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ServerRefreshTokenRequest refreshTokenRequest = new ServerRefreshTokenRequest();
-        refreshTokenRequest.setRefreshToken(refreshTokenStr);
-        OAuthResponse o2 = IOAuthClient.execute(refreshTokenRequest);
-        System.out.println(o2);
+        OAuthResponse o1 = client.getTokenByRefreshToken(refreshTokenStr);
+
+        if (o1.isSuccess()) {
+            System.out.println(o1);
+        } else {
+            System.out.println(o1.getError());
+            System.out.println(o1.getError_description());
+        }
     }
 
-
+    @org.junit.Test
     public void getOrderApiTest() throws OAuthException, ServiceException {
         //129338804
-        String autoCode = "e361c1debe9c878e269099f783a372bc";
-        IOAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
-        serverTokenRequest.setCode(autoCode);
-        serverTokenRequest.setRedirectUri("https://www.baidu.com");
-        OAuthResponse o1 = IOAuthClient.execute(serverTokenRequest);
+        String authCode = "06f41cbfe305afb1bfbf925459e7fcc2";
+        String redirect_uri = "https://www.baidu.com";
+//        OAuthResponse o1 = client.getTokenByCode(authCode, redirect_uri);
+//        OAuthResponse o1 = client.getTokenInClientCredentials();
+        OAuthResponse o1 = client.getToken();
         if (o1.isSuccess()) {
             System.out.println(o1.toString());
             OrderService o = new OrderService(o1);
             OOrder order = o.getOrder("1200897830718471331");
             System.out.println(order);
+
+
+            UserService u = new UserService(o1);
+            OUser user = u.getUser();
+            System.out.println(user.getUserName());
+
         } else {
             System.out.println(o1.getError());
             System.out.println(o1.getError_description());

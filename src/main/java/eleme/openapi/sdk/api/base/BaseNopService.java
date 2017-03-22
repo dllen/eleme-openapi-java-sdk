@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseNopService {
-    private OAuthResponse oAuthResponse;
+    private OAuthResponse token;
     private Map<String, Method> methodMap = new HashMap<String, Method>();
     private Class service;
 
-    public BaseNopService(OAuthResponse oAuthResponse, Class service) {
-        this.oAuthResponse = oAuthResponse;
+    public BaseNopService(OAuthResponse token, Class service) {
+        this.token = token;
         this.service = service;
         Method[] methods = service.getMethods();
         for (Method method : methods) {
@@ -31,7 +31,7 @@ public class BaseNopService {
         if (annotation == null)
             throw new RuntimeException("服务未找到Service注解");
         String action = String.format("%s.%s", annotation.value(), methodName);
-        return WebUtils.call(action, parameters, oAuthResponse, method.getGenericReturnType());
+        return WebUtils.call(action, parameters, token, method.getGenericReturnType());
     }
 
     private Method getMethod(String methodName) {

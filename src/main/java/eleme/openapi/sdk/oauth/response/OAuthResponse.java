@@ -17,17 +17,6 @@ public class OAuthResponse extends ErrorResponse {
     @TokenField("refresh_token")
     private String refreshToken;
 
-    @TokenField("scope")
-    private String scope;
-
-    public String getScope() {
-        return scope;
-    }
-
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-
     public String getAccessToken() {
         return accessToken;
     }
