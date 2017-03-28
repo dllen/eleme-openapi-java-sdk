@@ -2,9 +2,7 @@ package eleme.openapi.sdk.oauth.response;
 
 import eleme.openapi.sdk.oauth.mapping.TokenField;
 
-
-public class OAuthResponse extends ErrorResponse {
-
+public class Token extends ErrorResponse {
     @TokenField("access_token")
     private String accessToken;
 
@@ -51,11 +49,11 @@ public class OAuthResponse extends ErrorResponse {
 
     @Override
     public String toString() {
-        return "Token{\n" +
-                    "accessToken='" + accessToken + '\'' +
-                ",\n tokenType='" + tokenType + '\'' +
-                ",\n expires=" + expires +
-                ",\n refreshToken='" + refreshToken + '\'' +
+        return "Token{" +
+                "accessToken='" + accessToken + '\'' +
+                ", tokenType='" + tokenType + '\'' +
+                ", expires=" + expires +
+                ", refreshToken='" + refreshToken + '\'' +
                 '}';
     }
 }

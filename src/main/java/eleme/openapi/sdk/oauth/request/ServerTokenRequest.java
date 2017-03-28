@@ -3,16 +3,16 @@ package eleme.openapi.sdk.oauth.request;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.BaseOAuthRequest;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.response.OAuthResponse;
+import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.Map;
 
-public class ServerTokenRequest extends BaseOAuthRequest<OAuthResponse> {
+public class ServerTokenRequest extends BaseOAuthRequest<Token> {
     private String code;
     private String redirectUri;
 
-    public Class<OAuthResponse> getResponseClass() {
-        return OAuthResponse.class;
+    public Class<Token> getResponseClass() {
+        return Token.class;
     }
 
     public Map<String, String> getHeaderMap() throws OAuthException {

@@ -6,28 +6,17 @@ import eleme.openapi.sdk.oauth.impl.ServerOAuthCodeImpl;
 import eleme.openapi.sdk.oauth.request.ClientTokenRequest;
 import eleme.openapi.sdk.oauth.request.ServerRefreshTokenRequest;
 import eleme.openapi.sdk.oauth.request.ServerTokenRequest;
-import eleme.openapi.sdk.oauth.response.OAuthResponse;
+import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.utils.PropertiesUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OAuthClient {
-
+public enum OAuthClient {
+    INSTANCE;
     private IOAuthClient ioAuthClient = null;
 
     private static Map<String, String> tokenMap = new HashMap<String, String>();
-
-    private static class OAuthClientHolder {
-        private static final OAuthClient INSTANCE = new OAuthClient();
-    }
-
-    private OAuthClient() {
-    }
-
-    public static final OAuthClient getInstance() {
-        return OAuthClientHolder.INSTANCE;
-    }
 
     /**
      * 客户端授权模式获取Token
@@ -35,10 +24,10 @@ public class OAuthClient {
      * @return Token信息
      * @throws OAuthException 获取ToKen异常信息
      */
-    public OAuthResponse getTokenInClientCredentials() throws OAuthException {
+    public Token getTokenInClientCredentials() throws OAuthException {
         ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
         ClientTokenRequest oAuthRequest = new ClientTokenRequest();
-        OAuthResponse token = ioAuthClient.execute(oAuthRequest);
+        Token token = ioAuthClient.execute(oAuthRequest);
         setTokenInfo(token);
         return token;
     }
@@ -56,9 +45,7 @@ public class OAuthClient {
         ServerOAuthCodeImpl serverOAuthCode = new ServerOAuthCodeImpl(
                 OverallContext.getOauthCodeUrl(),
                 OverallContext.getApp_key());
-        return serverOAuthCode.getAuthUrl(redirect_uri,
-                scope,
-                state);
+        return serverOAuthCode.getAuthUrl(redirect_uri, scope, state);
     }
 
     /**
@@ -69,12 +56,12 @@ public class OAuthClient {
      * @return Token信息
      * @throws OAuthException 获取ToKen异常信息
      */
-    public OAuthResponse getTokenByCode(String authCode, String redirect_uri) throws OAuthException {
+    public Token getTokenByCode(String authCode, String redirect_uri) throws OAuthException {
         ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
         ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
         serverTokenRequest.setCode(authCode);
         serverTokenRequest.setRedirectUri(redirect_uri);
-        OAuthResponse token = ioAuthClient.execute(serverTokenRequest);
+        Token token = ioAuthClient.execute(serverTokenRequest);
         setTokenInfo(token);
         return token;
     }
@@ -86,11 +73,11 @@ public class OAuthClient {
      * @return Token信息
      * @throws OAuthException 获取ToKen异常信息
      */
-    public OAuthResponse getTokenByRefreshToken(String refreshToken) throws OAuthException {
+    public Token getTokenByRefreshToken(String refreshToken) throws OAuthException {
         ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
         ServerRefreshTokenRequest refreshTokenRequest = new ServerRefreshTokenRequest();
         refreshTokenRequest.setRefreshToken(refreshToken);
-        OAuthResponse token = ioAuthClient.execute(refreshTokenRequest);
+        Token token = ioAuthClient.execute(refreshTokenRequest);
         setTokenInfo(token);
         return token;
     }
@@ -101,7 +88,7 @@ public class OAuthClient {
      * @return
      * @throws OAuthException
      */
-    public OAuthResponse getToken() throws OAuthException {
+    public Token getToken() throws OAuthException {
         String access_token = PropertiesUtils.getPropValueByKey("access_token");
         String token_type = PropertiesUtils.getPropValueByKey("token_type");
         String expires_in = PropertiesUtils.getPropValueByKey("expires_in");
@@ -109,7 +96,7 @@ public class OAuthClient {
         if (access_token.isEmpty()) {
             throw new OAuthException("access_token is null");
         }
-        OAuthResponse token = new OAuthResponse();
+        Token token = new Token();
         token.setAccessToken(access_token);
         token.setTokenType(token_type);
         token.setExpires(Long.valueOf(expires_in));
@@ -117,8 +104,8 @@ public class OAuthClient {
         return token;
     }
 
-    private static void setTokenInfo(OAuthResponse token) {
-        if (token.isSuccess()) {
+    private static void setTokenInfo(Token token) {
+        if (null != token && token.isSuccess()) {
             tokenMap.put("access_token", token.getAccessToken());
             tokenMap.put("token_type", token.getTokenType());
             tokenMap.put("expires_in", String.valueOf(token.getExpires()));

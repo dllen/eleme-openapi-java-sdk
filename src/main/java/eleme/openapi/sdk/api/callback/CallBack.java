@@ -2,7 +2,7 @@ package eleme.openapi.sdk.api.callback;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpsServer;
 import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.entity.other.OMessage;
 import eleme.openapi.sdk.api.entity.shop.OShop;
@@ -15,26 +15,27 @@ import eleme.openapi.sdk.api.utils.CallbackValidationUtil;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.response.OAuthResponse;
+import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.utils.StringUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CallBack {
     private static Gson gson = new Gson();
 
-    private static OAuthClient client = OAuthClient.getInstance();
+    private static OAuthClient client = OAuthClient.INSTANCE;
 
     static {
         try {
             //个人
 //            OverallContext context = new OverallContext(true, "wYO4C8ZLzB", "852d028e8af1a1a93019c38351da175c4bc9ecce");
             //企业
-            new OverallContext(true, "whjJ8amGkn", "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
+//            new OverallContext(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
+            new OverallContext(false, "kskFkyn4Kb", "5afbd840d6ac9bb836d325fa41628273");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,18 +43,17 @@ public class CallBack {
 
     public static void main(String[] args) throws Exception {
         startServer(8899);
-//        System.out.println(rtnHtml());
     }
 
     private static void startServer(Integer port) throws IOException {
-        InetSocketAddress address = new InetSocketAddress(port);
-        HttpServer server = HttpServer.create(address, 0);
-        server.createContext("/callback", new MyHandler());
-        server.createContext("/index", new Demo());
-        server.createContext("/getInfo", new Shop());
-        server.setExecutor(null);
-        server.start();
-        System.out.println("server start at: " + address.getAddress() + ":" + address.getPort());
+        HttpsServer server = HTTPSClient.createServer(port);
+        if (server !=null) {
+            server.createContext("/api", new MyHandler());
+            server.createContext("/index", new Demo());
+            server.createContext("/getInfo", new Shop());
+            server.setExecutor(null);
+            server.start();
+        }
     }
 
     static class Shop implements HttpHandler{
@@ -110,11 +110,11 @@ public class CallBack {
                 response(t, initHtml);
             }
 
-            OAuthClient client = OAuthClient.getInstance();
             long userId = 0L;
             String shopName = null;
             try {
-                OAuthResponse tokenByCode = client.getTokenByCode(code, "https://428fa4ed.ngrok.io");
+                Token tokenByCode = client.getTokenByCode(code, "https://69d94230.ngrok.io");
+                System.out.println(tokenByCode);
                 UserService userService = new UserService(tokenByCode);
                 System.out.println(userService.getUser().getUserName());
                 userId = userService.getUser().getUserId();

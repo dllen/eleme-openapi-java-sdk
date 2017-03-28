@@ -9,7 +9,7 @@ import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.response.OAuthResponse;
+import eleme.openapi.sdk.oauth.response.Token;
 
 import javax.net.ssl.*;
 import java.io.*;
@@ -415,17 +415,18 @@ public abstract class WebUtils {
      */
     public static <T> T call(String action,
                              Map<String, Object> parameters,
-                             OAuthResponse token,
+                             Token token,
                              Type type
     ) throws ServiceException, OAuthException {
         final long timestamp = System.currentTimeMillis() / 1000;
         final String appKey = OverallContext.getApp_key();
         String secret = OverallContext.getApp_secret();
         String accessToken = token.getAccessToken();
+        String requestId = UUID.randomUUID().toString().toLowerCase();
 
         Map<String, Object> requestPayload = new HashMap<String, Object>();
         requestPayload.put("nop", "1.0.0");
-        requestPayload.put("id", UUID.randomUUID().toString().toLowerCase());
+        requestPayload.put("id", requestId);
         requestPayload.put("action", action);
         requestPayload.put("token", accessToken);
 
@@ -440,6 +441,8 @@ public abstract class WebUtils {
 
         String requestJson = gson.toJson(requestPayload);
         ResponsePayload responsePayload = doRequest(requestJson);
+        System.out.println("request id: " + requestId);
+
         if (responsePayload.getError() != null) {
             ServiceException serviceException = toException(responsePayload.getError());
             if (serviceException != null)
@@ -454,6 +457,7 @@ public abstract class WebUtils {
 
     private static ResponsePayload doRequest(String requestJson) throws OAuthException {
         try {
+            System.out.println("request url :" + OverallContext.getApiUrl());
             String response = doPost(OverallContext.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
             return gson.fromJson(response, ResponsePayload.class);
         } catch (IOException e) {

@@ -1,17 +1,13 @@
-import eleme.openapi.sdk.api.entity.order.OOrder;
-import eleme.openapi.sdk.api.entity.user.OUser;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.api.service.OrderService;
-import eleme.openapi.sdk.api.service.UserService;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.response.OAuthResponse;
+import eleme.openapi.sdk.oauth.response.Token;
 import org.junit.Before;
 
 public class Test {
 
-    private OAuthClient client = OAuthClient.getInstance();
+    private OAuthClient client = OAuthClient.INSTANCE;
 
     @Before
     public void before() {
@@ -21,16 +17,22 @@ public class Test {
             //个人
 //            OverallContext context = new OverallContext(true, "wYO4C8ZLzB", "852d028e8af1a1a93019c38351da175c4bc9ecce");
             //企业
-            OverallContext context = new OverallContext(true, "whjJ8amGkn", "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
+//            OverallContext context = new OverallContext(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
+            OverallContext context = new OverallContext(false, "kskFkyn4Kb", "5afbd840d6ac9bb836d325fa41628273");
         } catch (Exception e) {
             e.printStackTrace();
         }
         //Server
     }
 
+    /**
+     * 客户端(个人)获取Token
+     *
+     * @throws OAuthException
+     */
     @org.junit.Test
     public void clientTokenTest() throws OAuthException {
-        OAuthResponse execute = client.getTokenInClientCredentials();
+        Token execute = client.getTokenInClientCredentials();
         if (execute.isSuccess()) {
             System.out.println(execute);
         } else {
@@ -39,19 +41,30 @@ public class Test {
         }
     }
 
+    /**
+     * 服务端(企业)获取授权URL
+     *
+     * @throws OAuthException
+     */
     @org.junit.Test
     public void serverOAuthCodeTest() throws OAuthException {
-        String redirect_uri = "https://www.baidu.com";
+        String redirect_uri = "https://16c6ceee.ngrok.io";
         String scope = "all";
         String state = "xyz";
         String authUrl = client.getAuthUrl(redirect_uri, scope, state);
         System.out.println(authUrl);
     }
 
+    /**
+     * 授权码(企业)模式获取Token
+     *
+     * @throws OAuthException
+     */
+    @org.junit.Test
     public void serverTokenTest() throws OAuthException {
-        String autoCode = "0a952a361cdf0e18b7da3762b443f373";
-        String redirect_uri = "https://www.baidu.com";
-        OAuthResponse o1 = client.getTokenByCode(autoCode, redirect_uri);
+        String autoCode = "e8929b3e36c3b02ddf375ca1e49fb477";
+        String redirect_uri = "https://69d94230.ngrok.io";
+        Token o1 = client.getTokenByCode(autoCode, redirect_uri);
 
         if (o1.isSuccess()) {
             System.out.println(o1);
@@ -61,9 +74,15 @@ public class Test {
         }
     }
 
+    /**
+     * 授权码(企业)模式刷新Token
+     *
+     * @throws OAuthException
+     */
+    @org.junit.Test
     public void serverRefreshTokenTest() throws OAuthException {
         String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
-        OAuthResponse o1 = client.getTokenByRefreshToken(refreshTokenStr);
+        Token o1 = client.getTokenByRefreshToken(client.getToken().getRefreshToken());
 
         if (o1.isSuccess()) {
             System.out.println(o1);
@@ -74,23 +93,22 @@ public class Test {
     }
 
     @org.junit.Test
-    public void getOrderApiTest() throws OAuthException, ServiceException {
+    public void getApiTest() throws OAuthException, ServiceException {
         //129338804
-        String authCode = "06f41cbfe305afb1bfbf925459e7fcc2";
-        String redirect_uri = "https://www.baidu.com";
-//        OAuthResponse o1 = client.getTokenByCode(authCode, redirect_uri);
-//        OAuthResponse o1 = client.getTokenInClientCredentials();
-        OAuthResponse o1 = client.getToken();
+        //生产test
+        //37993774
+//        Token o1 = client.getTokenByCode(authCode, redirect_uri);
+//        Token o1 = client.getTokenInClientCredentials();
+        Token o1 = client.getToken();
         if (o1.isSuccess()) {
             System.out.println(o1.toString());
-            OrderService o = new OrderService(o1);
-            OOrder order = o.getOrder("1200897830718471331");
-            System.out.println(order);
+//            OrderService o = new OrderService(o1);
+//            OOrder order = o.getOrder("1200897830718471331");
+//            System.out.println(order);
 
-
-            UserService u = new UserService(o1);
-            OUser user = u.getUser();
-            System.out.println(user.getUserName());
+//            UserService u = new UserService(o1);
+//            OUser user = u.getUser();
+//            System.out.println(user.getUserName());
 
         } else {
             System.out.println(o1.getError());
@@ -98,8 +116,4 @@ public class Test {
         }
     }
 
-
-    public void jsonTest() throws OAuthException {
-
-    }
 }

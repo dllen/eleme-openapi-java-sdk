@@ -13,7 +13,7 @@ public class OverallContext {
     private static String oauthTokenUrl;
     private static String apiUrl;
 
-    public OverallContext(boolean sandbox, String appKey, String appSecret) throws OAuthException {
+    public OverallContext(boolean isSandbox, String appKey, String appSecret) throws OAuthException {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
             isInit = true;
             System.out.println("OverallContext init...");
@@ -22,7 +22,7 @@ public class OverallContext {
         }
         app_key = appKey;
         app_secret = appSecret;
-        if (sandbox) {
+        if (isSandbox) {
             oauthCodeUrl = BasicURL.OAuth.SANDBOX_AUTHORIZE;
             oauthTokenUrl = BasicURL.OAuth.SANDBOX_TOKEN;
             apiUrl = BasicURL.OpenApi.SANDBOX_Api;

@@ -4,7 +4,7 @@ import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.oauth.OAuthException;
-import eleme.openapi.sdk.oauth.response.OAuthResponse;
+import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.api.entity.order.*;
 import eleme.openapi.sdk.api.enumeration.order.*;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Service("eleme.order")
 public class OrderService extends BaseNopService {
-    public OrderService(OAuthResponse oAuthResponse) {
+    public OrderService(Token oAuthResponse) {
         super(oAuthResponse, OrderService.class);
     }
 
