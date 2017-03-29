@@ -70,13 +70,6 @@ public final class JsonParser {
         }
     }
 
-    /**
-     * Returns the next value from the JSON stream as a parse tree.
-     *
-     * @throws JsonParseException if there is an IOException or if the specified
-     *                            text is not valid JSON
-     * @since 1.6
-     */
     public JsonElement parse(JsonReader json) throws JsonIOException, JsonSyntaxException {
         boolean lenient = json.isLenient();
         json.setLenient(true);

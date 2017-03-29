@@ -36,51 +36,28 @@ public final class $Gson$Types {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Returns a new parameterized type, applying {@code typeArguments} to
-     * {@code rawType} and enclosed by {@code ownerType}.
-     *
-     * @return a {@link java.io.Serializable serializable} parameterized type.
-     */
+
     public static ParameterizedType newParameterizedTypeWithOwner(
             Type ownerType, Type rawType, Type... typeArguments) {
         return new ParameterizedTypeImpl(ownerType, rawType, typeArguments);
     }
 
-    /**
-     * Returns an array type whose elements are all instances of
-     * {@code componentType}.
-     *
-     * @return a {@link java.io.Serializable serializable} generic array type.
-     */
+
     public static GenericArrayType arrayOf(Type componentType) {
         return new GenericArrayTypeImpl(componentType);
     }
 
-    /**
-     * Returns a type that represents an unknown type that extends {@code bound}.
-     * For example, if {@code bound} is {@code CharSequence.class}, this returns
-     * {@code ? extends CharSequence}. If {@code bound} is {@code Object.class},
-     * this returns {@code ?}, which is shorthand for {@code ? extends Object}.
-     */
+
     public static WildcardType subtypeOf(Type bound) {
         return new WildcardTypeImpl(new Type[]{bound}, EMPTY_TYPE_ARRAY);
     }
 
-    /**
-     * Returns a type that represents an unknown supertype of {@code bound}. For
-     * example, if {@code bound} is {@code String.class}, this returns {@code ?
-     * super String}.
-     */
+
     public static WildcardType supertypeOf(Type bound) {
         return new WildcardTypeImpl(new Type[]{Object.class}, new Type[]{bound});
     }
 
-    /**
-     * Returns a type that is functionally equal but not necessarily equal
-     * according to {@link Object#equals(Object) Object.equals()}. The returned
-     * type is {@link java.io.Serializable}.
-     */
+
     public static Type canonicalize(Type type) {
         if (type instanceof Class) {
             Class<?> c = (Class<?>) type;
@@ -143,9 +120,7 @@ public final class $Gson$Types {
         return a == b || (a != null && a.equals(b));
     }
 
-    /**
-     * Returns true if {@code a} and {@code b} are equal.
-     */
+
     public static boolean equals(Type a, Type b) {
         if (a == b) {
             // also handles (a == null && b == null)
@@ -209,11 +184,7 @@ public final class $Gson$Types {
         return type instanceof Class ? ((Class<?>) type).getName() : type.toString();
     }
 
-    /**
-     * Returns the generic supertype for {@code supertype}. For example, given a class {@code
-     * IntegerSet}, the result for when supertype is {@code Set.class} is {@code Set<Integer>} and the
-     * result when the supertype is {@code Collection.class} is {@code Collection<Integer>}.
-     */
+
     static Type getGenericSupertype(Type context, Class<?> rawType, Class<?> toResolve) {
         if (toResolve == rawType) {
             return context;
@@ -248,35 +219,21 @@ public final class $Gson$Types {
         return toResolve;
     }
 
-    /**
-     * Returns the generic form of {@code supertype}. For example, if this is {@code
-     * ArrayList<String>}, this returns {@code Iterable<String>} given the input {@code
-     * Iterable.class}.
-     *
-     * @param supertype a superclass of, or interface implemented by, this.
-     */
+
     static Type getSupertype(Type context, Class<?> contextRawType, Class<?> supertype) {
         checkArgument(supertype.isAssignableFrom(contextRawType));
         return resolve(context, contextRawType,
                 $Gson$Types.getGenericSupertype(context, contextRawType, supertype));
     }
 
-    /**
-     * Returns the component type of this array type.
-     *
-     * @throws ClassCastException if this type is not an array.
-     */
+
     public static Type getArrayComponentType(Type array) {
         return array instanceof GenericArrayType
                 ? ((GenericArrayType) array).getGenericComponentType()
                 : ((Class<?>) array).getComponentType();
     }
 
-    /**
-     * Returns the element type of this collection type.
-     *
-     * @throws IllegalArgumentException if this type is not a collection.
-     */
+
     public static Type getCollectionElementType(Type context, Class<?> contextRawType) {
         Type collectionType = getSupertype(context, contextRawType, Collection.class);
 
@@ -289,10 +246,7 @@ public final class $Gson$Types {
         return Object.class;
     }
 
-    /**
-     * Returns a two element array containing this map's key and value types in
-     * positions 0 and 1 respectively.
-     */
+
     public static Type[] getMapKeyAndValueTypes(Type context, Class<?> contextRawType) {
     /*
      * Work around a problem with the declaration of java.util.Properties. That

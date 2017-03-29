@@ -17,9 +17,6 @@ public enum OItemUpdateProperty {
      * OLabel 标签属性集合|可选|{"isFeatured":0,"isGum":0,"isNew":1,"isSpicy":1}
      */
     labels("labels"), 
-    /**
-     * List<OSpec> 规格|必选|[{"maxStock":100,"name":"大份","onShelf":1,"packingFee":1.0,"price":19.9,"stock":0},{"maxStock":100,"name":"中分","onShelf":1,"packingFee":1.0,"price":19.9,"stock":0}]
-     */
     specs("specs");
 
     private String productDesc;

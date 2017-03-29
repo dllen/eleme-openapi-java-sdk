@@ -6,7 +6,34 @@
 
     <groupId>me.ele.openapi</groupId>
     <artifactId>eleme-openapi-java-sdk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <tag>master</tag>
+        <url>https://coding.net/u/napos_openapi/p/eleme-openapi-java-sdk/git</url>
+        <connection>scm:git:git@git.coding.net:napos_openapi/eleme-openapi-java-sdk.git</connection>
+        <developerConnection>scm:git:git@git.coding.net:napos_openapi/eleme-openapi-java-sdk.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <name>caigaopei</name>
+            <email>gaopei.cai@ele.me</email>
+            <url>https://open.shop.ele.me/openapi</url>
+        </developer>
+    </developers>
+
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->

@@ -31,19 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * This class selects which fields and types to omit. It is configurable,
- * supporting version attributes {@link Since} and {@link Until}, modifiers,
- * synthetic fields, anonymous and local classes, inner classes, and fields with
- * the {@link Expose} annotation.
- * <p>
- * <p>This class is a type adapter factory; types that are excluded will be
- * adapted to null. It may delegate to another type adapter if only one
- * direction is excluded.
- *
- * @author Joel Leitch
- * @author Jesse Wilson
- */
+
 public final class Excluder implements TypeAdapterFactory, Cloneable {
     private static final double IGNORE_VERSIONS = -1.0d;
     public static final Excluder DEFAULT = new Excluder();

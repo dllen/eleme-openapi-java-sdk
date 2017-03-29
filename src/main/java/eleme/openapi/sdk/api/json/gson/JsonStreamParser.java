@@ -27,28 +27,6 @@ import java.io.StringReader;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * A streaming parser that allows reading of multiple {@link JsonElement}s from the specified reader
- * asynchronously.
- * <p>
- * <p>This class is conditionally thread-safe (see Item 70, Effective Java second edition). To
- * properly use this class across multiple threads, you will need to add some external
- * synchronization.  For example:
- * <p>
- * <pre>
- * JsonStreamParser parser = new JsonStreamParser("['first'] {'second':10} 'third'");
- * JsonElement element;
- * synchronized (parser) {  // synchronize on an object shared by threads
- *   if (parser.hasNext()) {
- *     element = parser.next();
- *   }
- * }
- * </pre>
- *
- * @author Inderjeet Singh
- * @author Joel Leitch
- * @since 1.4
- */
 public final class JsonStreamParser implements Iterator<JsonElement> {
     private final JsonReader parser;
     private final Object lock;

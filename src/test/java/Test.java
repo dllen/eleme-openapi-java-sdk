@@ -3,13 +3,11 @@ import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
-import org.junit.Before;
 
 public class Test {
 
     private OAuthClient client = OAuthClient.INSTANCE;
 
-    @Before
     public void before() {
         //设置基础信息
         //Client
@@ -30,7 +28,6 @@ public class Test {
      *
      * @throws OAuthException
      */
-    @org.junit.Test
     public void clientTokenTest() throws OAuthException {
         Token execute = client.getTokenInClientCredentials();
         if (execute.isSuccess()) {
@@ -46,7 +43,6 @@ public class Test {
      *
      * @throws OAuthException
      */
-    @org.junit.Test
     public void serverOAuthCodeTest() throws OAuthException {
         String redirect_uri = "https://16c6ceee.ngrok.io";
         String scope = "all";
@@ -60,7 +56,6 @@ public class Test {
      *
      * @throws OAuthException
      */
-    @org.junit.Test
     public void serverTokenTest() throws OAuthException {
         String autoCode = "e8929b3e36c3b02ddf375ca1e49fb477";
         String redirect_uri = "https://69d94230.ngrok.io";
@@ -79,7 +74,6 @@ public class Test {
      *
      * @throws OAuthException
      */
-    @org.junit.Test
     public void serverRefreshTokenTest() throws OAuthException {
         String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
         Token o1 = client.getTokenByRefreshToken(client.getToken().getRefreshToken());
@@ -92,7 +86,6 @@ public class Test {
         }
     }
 
-    @org.junit.Test
     public void getApiTest() throws OAuthException, ServiceException {
         //129338804
         //生产test

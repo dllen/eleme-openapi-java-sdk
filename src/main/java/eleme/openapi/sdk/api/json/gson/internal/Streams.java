@@ -26,17 +26,13 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.Writer;
 
-/**
- * Reads and writes GSON parse trees over streams.
- */
+
 public final class Streams {
     private Streams() {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Takes a reader in any state and returns the next value as a JsonElement.
-     */
+
     public static JsonElement parse(JsonReader reader) throws JsonParseException {
         boolean isEmpty = true;
         try {
@@ -62,9 +58,7 @@ public final class Streams {
         }
     }
 
-    /**
-     * Writes the JSON element to the writer, recursively.
-     */
+
     public static void write(JsonElement element, JsonWriter writer) throws IOException {
         TypeAdapters.JSON_ELEMENT.write(writer, element);
     }
@@ -73,10 +67,7 @@ public final class Streams {
         return appendable instanceof Writer ? (Writer) appendable : new AppendableWriter(appendable);
     }
 
-    /**
-     * Adapts an {@link Appendable} so it can be passed anywhere a {@link Writer}
-     * is used.
-     */
+
     private static final class AppendableWriter extends Writer {
         private final Appendable appendable;
         private final CurrentWrite currentWrite = new CurrentWrite();
@@ -104,9 +95,7 @@ public final class Streams {
         public void close() {
         }
 
-        /**
-         * A mutable char sequence pointing at a single char[].
-         */
+
         static class CurrentWrite implements CharSequence {
             char[] chars;
 
