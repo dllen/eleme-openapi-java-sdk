@@ -7,6 +7,7 @@ import eleme.openapi.sdk.api.json.gson.GsonBuilder;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
 import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
+import eleme.openapi.sdk.config.ElemeSdkLogger;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
@@ -29,6 +30,9 @@ public abstract class WebUtils {
     private static final String METHOD_POST = "POST";
     private static final String METHOD_GET = "GET";
     private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
+
+    private static ElemeSdkLogger elemeSdkLogger = OverallContext.getElemeSdkLogger();
+
 
     private static class DefaultTrustManager implements X509TrustManager {
         public X509Certificate[] getAcceptedIssuers() {
@@ -78,6 +82,8 @@ public abstract class WebUtils {
                                 Map<String, String> headerMap) throws IOException {
         String ctype = "application/x-www-form-urlencoded;charset=" + charset;
         String query = buildQuery(params, charset);
+        setLogInfo("request: " + query);
+
         byte[] content = {};
         if (query != null) {
             content = query.getBytes(charset);
@@ -120,7 +126,7 @@ public abstract class WebUtils {
                 conn.disconnect();
             }
         }
-
+        setLogInfo("response: " + rsp);
         return rsp;
     }
 
@@ -441,12 +447,14 @@ public abstract class WebUtils {
 
         String requestJson = gson.toJson(requestPayload);
         ResponsePayload responsePayload = doRequest(requestJson);
-        System.out.println("request id: " + requestId);
 
-        if (responsePayload.getError() != null) {
+        setLogInfo("request: " + requestJson);
+        if (responsePayload != null && null != responsePayload.getError()) {
             ServiceException serviceException = toException(responsePayload.getError());
-            if (serviceException != null)
+            if (serviceException != null) {
+                setLogError("error: " + serviceException.getMessage());
                 throw serviceException;
+            }
             throw new ServerErrorException();
         }
         if (type == void.class)
@@ -457,15 +465,16 @@ public abstract class WebUtils {
 
     private static ResponsePayload doRequest(String requestJson) throws OAuthException {
         try {
-            System.out.println("request url :" + OverallContext.getApiUrl());
             String response = doPost(OverallContext.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
+            setLogInfo("response: " + response);
             return gson.fromJson(response, ResponsePayload.class);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+
         } catch (OAuthException e) {
-            throw new OAuthException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
     private static ServiceException toException(ErrorPayload error) throws ServiceException {
@@ -491,5 +500,17 @@ public abstract class WebUtils {
             return new BusinessException(error.getCode(), error.getMessage());
         }
         return null;
+    }
+
+    private static void setLogInfo(String msg) {
+        if (null != elemeSdkLogger) {
+            elemeSdkLogger.info(msg);
+        }
+    }
+
+    private static void setLogError(String msg) {
+        if (null != elemeSdkLogger) {
+            elemeSdkLogger.error(msg);
+        }
     }
 }

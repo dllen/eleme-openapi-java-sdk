@@ -12,6 +12,7 @@ public class OverallContext {
     private static String oauthCodeUrl;
     private static String oauthTokenUrl;
     private static String apiUrl;
+    private static ElemeSdkLogger elemeSdkLogger;
 
     public OverallContext(boolean isSandbox, String appKey, String appSecret) throws OAuthException {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
@@ -31,6 +32,14 @@ public class OverallContext {
             oauthTokenUrl = BasicURL.OAuth.PRODUCTION_TOKEN;
             apiUrl = BasicURL.OpenApi.PRODUCTION_Api;
         }
+    }
+
+    public void setLog(ElemeSdkLogger elemeSdkLogger) {
+        OverallContext.elemeSdkLogger = elemeSdkLogger;
+    }
+
+    public static ElemeSdkLogger getElemeSdkLogger(){
+        return OverallContext.elemeSdkLogger;
     }
 
     public static void setOauthCodeUrl(String oauthCodeUrl) throws OAuthException {

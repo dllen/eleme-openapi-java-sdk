@@ -3,11 +3,13 @@ import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
+import org.junit.Before;
 
 public class Test {
 
     private OAuthClient client = OAuthClient.INSTANCE;
 
+    @Before
     public void before() {
         //设置基础信息
         //Client
@@ -43,8 +45,9 @@ public class Test {
      *
      * @throws OAuthException
      */
+    @org.junit.Test
     public void serverOAuthCodeTest() throws OAuthException {
-        String redirect_uri = "https://16c6ceee.ngrok.io";
+        String redirect_uri = "https://69d94230.ngrok.io";
         String scope = "all";
         String state = "xyz";
         String authUrl = client.getAuthUrl(redirect_uri, scope, state);
@@ -56,8 +59,9 @@ public class Test {
      *
      * @throws OAuthException
      */
+    @org.junit.Test
     public void serverTokenTest() throws OAuthException {
-        String autoCode = "e8929b3e36c3b02ddf375ca1e49fb477";
+        String autoCode = "feb88471de7aa6f8c7289bcc73d93903";
         String redirect_uri = "https://69d94230.ngrok.io";
         Token o1 = client.getTokenByCode(autoCode, redirect_uri);
 
@@ -74,10 +78,10 @@ public class Test {
      *
      * @throws OAuthException
      */
+    @org.junit.Test
     public void serverRefreshTokenTest() throws OAuthException {
         String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
         Token o1 = client.getTokenByRefreshToken(client.getToken().getRefreshToken());
-
         if (o1.isSuccess()) {
             System.out.println(o1);
         } else {

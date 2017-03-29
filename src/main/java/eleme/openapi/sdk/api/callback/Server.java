@@ -23,7 +23,7 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CallBack {
+public class Server {
     private static Gson gson = new Gson();
 
     private static OAuthClient client = OAuthClient.INSTANCE;
@@ -42,10 +42,10 @@ public class CallBack {
     }
 
     public static void main(String[] args) throws Exception {
-        startServer(8899);
+        start(8899);
     }
 
-    private static void startServer(Integer port) throws IOException {
+    private static void start(Integer port) throws IOException {
         HttpsServer server = HTTPSClient.createServer(port);
         if (server !=null) {
             server.createContext("/api", new MyHandler());
@@ -63,11 +63,11 @@ public class CallBack {
                 InputStream is = t.getRequestBody();
                 BufferedReader in = new BufferedReader(new InputStreamReader(is));
                 String line;
-                String body = "";
+                StringBuilder body = new StringBuilder();
                 while ((line = in.readLine()) != null) {
-                    body += line;
+                    body.append(line);
                 }
-                GetInfoRequest request = gson.fromJson(body, GetInfoRequest.class);
+                GetInfoRequest request = gson.fromJson(body.toString(), GetInfoRequest.class);
                 String shopId = request.getShopId();
                 ResponseResult result = new ResponseResult();
                 ResponseResult.Result rResult = new ResponseResult.Result();
@@ -113,7 +113,7 @@ public class CallBack {
             long userId = 0L;
             String shopName = null;
             try {
-                Token tokenByCode = client.getTokenByCode(code, "https://69d94230.ngrok.io");
+                Token tokenByCode = client.getTokenByCode(code, "https://localshot:8899");
                 System.out.println(tokenByCode);
                 UserService userService = new UserService(tokenByCode);
                 System.out.println(userService.getUser().getUserName());
