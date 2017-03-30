@@ -25,7 +25,7 @@ public class HttpServerDemo {
     private static Gson gson = new Gson();
 
     // 设置是否沙箱环境
-    private static final boolean isSandbox = false;
+    private static final boolean isSandbox = true;
     // 设置APPKEY
     private static final String key = "kskFkyn4Kb";
     // 设置APPSECRET
@@ -35,7 +35,18 @@ public class HttpServerDemo {
 
     static {
         // 初始化全局配置工具
-        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
+        OverallContext overallContext = new OverallContext(
+                isSandbox,
+                "whjJ8amGkn",
+                "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
+    }
+
+    public static void main(String[] args) {
+        try {
+            start(8899);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void start(Integer port) throws IOException {
@@ -65,8 +76,8 @@ public class HttpServerDemo {
                 ResponseResult result = new ResponseResult();
                 ResponseResult.Result rResult = new ResponseResult.Result();
                 try {
-                    if (!client.getToken().isSuccess()) {
-                        rResult.setOAuthUrl(client.getAuthUrl("", "", ""));
+                    if (client.getToken() == null || !client.getToken().isSuccess()) {
+                        rResult.setOAuthUrl(client.getAuthUrl("https://localhost:8899/demo", "all", "123"));
                         result.setResult(rResult);
                         String resultJson = gson.toJson(result);
                         response(t, resultJson);
@@ -92,19 +103,24 @@ public class HttpServerDemo {
             String initHtml = rtnHtml();
             if (StringUtils.isEmpty(query)) {
                 response(t, initHtml);
+                return;
             }
             Map<String, String> stringStringMap = queryToMap(t.getRequestURI().getQuery());
             String code = stringStringMap.get("code");
             if (StringUtils.isEmpty(code)) {
                 response(t, initHtml);
+                return;
             }
 
             long userId = 0L;
             String shopName = null;
             try {
-                Token tokenByCode = client.getTokenByCode(code, "https://localshot:8899");
-                System.out.println(tokenByCode);
-                UserService userService = new UserService(tokenByCode);
+                Token token = client.getTokenByCode(code, "https://localhost:8899");
+                if (!token.isSuccess()) {
+                    System.out.println(token.getError());
+                    System.out.println(token.getError_description());
+                }
+                UserService userService = new UserService(token);
                 System.out.println(userService.getUser().getUserName());
                 userId = userService.getUser().getUserId();
                 shopName = userService.getUser().getAuthorizedShops().get(0).getName();

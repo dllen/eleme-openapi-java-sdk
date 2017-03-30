@@ -90,6 +90,7 @@ public enum OAuthClient {
         String refresh_token = PropertiesUtils.getPropValueByKey("refresh_token");
         if (access_token.isEmpty()) {
             System.out.println("access_token is null");
+            return null;
         }
         Token token = new Token();
         token.setAccessToken(access_token);
