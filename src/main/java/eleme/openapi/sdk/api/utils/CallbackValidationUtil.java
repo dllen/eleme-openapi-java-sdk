@@ -3,7 +3,6 @@ package eleme.openapi.sdk.api.utils;
 import eleme.openapi.sdk.api.entity.other.OMessage;
 import eleme.openapi.sdk.api.json.gson.Gson;
 import eleme.openapi.sdk.config.OverallContext;
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.utils.SignatureUtil;
 
 import java.io.IOException;
@@ -42,8 +41,6 @@ public class CallbackValidationUtil {
             signature = getSignature(map, OverallContext.getApp_secret());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (OAuthException e) {
-            e.printStackTrace();
         }
         return signature.toUpperCase().equals(message.getSignature().toUpperCase());
     }

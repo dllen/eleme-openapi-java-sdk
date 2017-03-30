@@ -24,7 +24,7 @@ public class BaseNopService {
         }
     }
 
-    public <T> T call(Map<String, Object> parameters) throws ServiceException, OAuthException {
+    public <T> T call(Map<String, Object> parameters) throws ServiceException {
         String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
         Method method = getMethod(methodName);
         Service annotation = (Service) service.getAnnotation(Service.class);

@@ -9,7 +9,6 @@ import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
 import eleme.openapi.sdk.config.ElemeSdkLogger;
 import eleme.openapi.sdk.config.OverallContext;
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import javax.net.ssl.*;
@@ -23,6 +22,7 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.*;
+import java.util.zip.GZIPInputStream;
 
 public abstract class WebUtils {
 
@@ -218,6 +218,7 @@ public abstract class WebUtils {
         conn.setDoOutput(true);
         conn.setRequestProperty("Accept", "text/xml,text/javascript,text/html");
         conn.setRequestProperty("Content-Type", ctype);
+        conn.setRequestProperty("Accept-Encoding", "gzip");
         if (headerMap != null) {
             for (Map.Entry<String, String> entry : headerMap.entrySet()) {
                 conn.setRequestProperty(entry.getKey(), entry.getValue());
@@ -280,9 +281,9 @@ public abstract class WebUtils {
         String charset = getResponseCharset(conn.getContentType());
         InputStream es = conn.getErrorStream();
         if (es == null) {
-            return getStreamAsString(conn.getInputStream(), charset);
+            return getStreamAsString(conn.getInputStream(), charset, conn);
         } else {
-            String msg = getStreamAsString(es, charset);
+            String msg = getStreamAsString(es, charset, conn);
             if (StringUtils.isEmpty(msg)) {
                 throw new IOException(conn.getResponseCode() + ":" + conn.getResponseMessage());
             } else {
@@ -291,11 +292,16 @@ public abstract class WebUtils {
         }
     }
 
-    private static String getStreamAsString(InputStream stream, String charset) throws IOException {
+    private static String getStreamAsString(InputStream stream, String charset, HttpURLConnection conn) throws IOException {
         try {
-            Reader reader = new InputStreamReader(stream, charset);
-            StringBuilder response = new StringBuilder();
+            Reader reader = null;
+            if ("gzip".equals(conn.getContentEncoding())) {
+                reader = new InputStreamReader(new GZIPInputStream(stream),charset);
+            } else {
+                reader = new InputStreamReader(stream, charset);
+            }
 
+            StringBuilder response = new StringBuilder();
             final char[] buff = new char[1024];
             int read = 0;
             while ((read = reader.read(buff)) > 0) {
@@ -423,7 +429,7 @@ public abstract class WebUtils {
                              Map<String, Object> parameters,
                              Token token,
                              Type type
-    ) throws ServiceException, OAuthException {
+    ) throws ServiceException{
         final long timestamp = System.currentTimeMillis() / 1000;
         final String appKey = OverallContext.getApp_key();
         String secret = OverallContext.getApp_secret();
@@ -463,15 +469,12 @@ public abstract class WebUtils {
         return gson.fromJson(s2, type);
     }
 
-    private static ResponsePayload doRequest(String requestJson) throws OAuthException {
+    private static ResponsePayload doRequest(String requestJson) {
         try {
             String response = doPost(OverallContext.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
             setLogInfo("response: " + response);
             return gson.fromJson(response, ResponsePayload.class);
         } catch (IOException e) {
-            e.printStackTrace();
-
-        } catch (OAuthException e) {
             e.printStackTrace();
         }
         return null;

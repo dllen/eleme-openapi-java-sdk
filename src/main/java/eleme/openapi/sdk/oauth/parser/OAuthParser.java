@@ -1,6 +1,5 @@
 package eleme.openapi.sdk.oauth.parser;
 
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.ErrorResponse;
 
 public interface OAuthParser<T extends ErrorResponse> {
@@ -11,11 +10,11 @@ public interface OAuthParser<T extends ErrorResponse> {
      * @param rsp 响应字符串
      * @return 领域对象
      */
-    public T parse(String rsp) throws OAuthException;
+    public T parse(String rsp) ;
 
     /**
      * 获取响应类类型。
      */
-    public Class<T> getResponseClass() throws OAuthException;
+    public Class<T> getResponseClass() ;
 
 }

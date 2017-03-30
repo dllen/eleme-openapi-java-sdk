@@ -1,6 +1,5 @@
 package eleme.openapi.sdk.oauth.parser;
 
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.ErrorResponse;
 
 public class ObjectJsonParser<T extends ErrorResponse> implements OAuthParser<T> {
@@ -17,7 +16,7 @@ public class ObjectJsonParser<T extends ErrorResponse> implements OAuthParser<T>
         this.simplify = simplify;
     }
 
-    public T parse(String rsp) throws OAuthException {
+    public T parse(String rsp)  {
         Converter converter;
         if (this.simplify) {
             converter = new SimplifyJsonConverter();

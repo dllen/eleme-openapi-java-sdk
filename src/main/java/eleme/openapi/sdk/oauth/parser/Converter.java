@@ -1,6 +1,5 @@
 package eleme.openapi.sdk.oauth.parser;
 
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.ErrorResponse;
 
 public interface Converter {
@@ -12,6 +11,6 @@ public interface Converter {
      * @param clazz 领域类型
      * @return 响应对象
      */
-    public <T extends ErrorResponse> T toResponse(String rsp, Class<T> clazz) throws OAuthException;
+    public <T extends ErrorResponse> T toResponse(String rsp, Class<T> clazz);
 
 }

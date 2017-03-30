@@ -1,6 +1,5 @@
 package eleme.openapi.sdk.config;
 
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.utils.StringUtils;
 
 public class OverallContext {
@@ -14,12 +13,12 @@ public class OverallContext {
     private static String apiUrl;
     private static ElemeSdkLogger elemeSdkLogger;
 
-    public OverallContext(boolean isSandbox, String appKey, String appSecret) throws OAuthException {
+    public OverallContext(boolean isSandbox, String appKey, String appSecret)  {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
             isInit = true;
-            System.out.println("OverallContext init...");
+            System.out.println("init OverallContext ...");
         } else {
-            throw new OAuthException("appKey and appSecret is required.");
+            System.out.println("appKey and appSecret is required.");
         }
         app_key = appKey;
         app_secret = appSecret;
@@ -42,47 +41,47 @@ public class OverallContext {
         return OverallContext.elemeSdkLogger;
     }
 
-    public static void setOauthCodeUrl(String oauthCodeUrl) throws OAuthException {
+    public static void setOauthCodeUrl(String oauthCodeUrl)  {
         check();
         OverallContext.oauthCodeUrl = oauthCodeUrl;
     }
 
-    public static void setOauthTokenUrl(String oauthTokenUrl) throws OAuthException {
+    public static void setOauthTokenUrl(String oauthTokenUrl)  {
         check();
         OverallContext.oauthTokenUrl = oauthTokenUrl;
     }
 
-    public static void setApiUrl(String apiUrl) throws OAuthException {
+    public static void setApiUrl(String apiUrl)  {
         check();
         OverallContext.apiUrl = apiUrl;
     }
 
-    public static String getOauthCodeUrl() throws OAuthException {
+    public static String getOauthCodeUrl()  {
         check();
         return oauthCodeUrl;
     }
 
-    public static String getOauthTokenUrl() throws OAuthException {
+    public static String getOauthTokenUrl()  {
         check();
         return oauthTokenUrl;
     }
 
-    public static String getApiUrl() throws OAuthException {
+    public static String getApiUrl()  {
         check();
         return apiUrl;
     }
 
-    public static String getApp_key() throws OAuthException {
+    public static String getApp_key()  {
         check();
         return app_key;
     }
 
-    public static String getApp_secret() throws OAuthException {
+    public static String getApp_secret()  {
         check();
         return app_secret;
     }
 
-    private static void check() throws OAuthException {
-        if (!isInit) throw new OAuthException("OverallContext is not initialized");
+    private static void check()  {
+        if (!isInit) System.out.println("OverallContext is not initialized");
     }
 }

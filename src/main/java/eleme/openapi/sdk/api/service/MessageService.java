@@ -4,7 +4,6 @@ import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
 import eleme.openapi.sdk.api.entity.message.OMessage;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class MessageService extends BaseNopService {
     /**
      * 获取未到达的推送消息
      */
-    public List<String> getNonReachedMessages(int appId) throws ServiceException, OAuthException {
+    public List<String> getNonReachedMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("appId", appId);
         return call(params);
@@ -29,7 +28,7 @@ public class MessageService extends BaseNopService {
     /**
      * 获取未到达的推送消息实体
      */
-    public List<OMessage> getNonReachedOMessages(int appId) throws ServiceException, OAuthException {
+    public List<OMessage> getNonReachedOMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("appId", appId);
         return call(params);

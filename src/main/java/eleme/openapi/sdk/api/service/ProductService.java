@@ -2,11 +2,14 @@ package eleme.openapi.sdk.api.service;
 
 import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
+import eleme.openapi.sdk.api.entity.product.OCategory;
+import eleme.openapi.sdk.api.entity.product.OItem;
+import eleme.openapi.sdk.api.entity.product.OItemIdWithSpecIds;
+import eleme.openapi.sdk.api.enumeration.product.OItemCreateProperty;
+import eleme.openapi.sdk.api.enumeration.product.OItemUpdateProperty;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
-import eleme.openapi.sdk.api.entity.product.*;
-import eleme.openapi.sdk.api.enumeration.product.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +23,7 @@ public class ProductService extends BaseNopService {
     /**
      * 获取一个分类下的所有商品
      */
-    public Map<Long,OItem> getItemsByCategoryId(long categoryId) throws ServiceException, OAuthException {
+    public Map<Long,OItem> getItemsByCategoryId(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         return call(params);
@@ -29,7 +32,7 @@ public class ProductService extends BaseNopService {
     /**
      * 查询商品详情
      */
-    public OItem getItem(long itemId) throws ServiceException, OAuthException {
+    public OItem getItem(long itemId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         return call(params);
@@ -38,7 +41,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量查询商品详情
      */
-    public Map<Long,OItem> batchGetItems(List<Long> itemIds) throws ServiceException, OAuthException {
+    public Map<Long,OItem> batchGetItems(List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         return call(params);
@@ -47,7 +50,7 @@ public class ProductService extends BaseNopService {
     /**
      * 添加商品
      */
-    public OItem createItem(long categoryId, Map<OItemCreateProperty,Object> properties) throws ServiceException, OAuthException {
+    public OItem createItem(long categoryId, Map<OItemCreateProperty,Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         params.put("properties", properties);
@@ -57,7 +60,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量添加商品
      */
-    public Map<Long,OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty,Object>> items) throws ServiceException, OAuthException {
+    public Map<Long,OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty,Object>> items) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         params.put("items", items);
@@ -67,7 +70,7 @@ public class ProductService extends BaseNopService {
     /**
      * 更新商品
      */
-    public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty,Object> properties) throws ServiceException, OAuthException {
+    public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty,Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         params.put("categoryId", categoryId);
@@ -78,7 +81,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量置满库存
      */
-    public void batchFillStock(List<OItemIdWithSpecIds> specIds) throws ServiceException, OAuthException {
+    public void batchFillStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("specIds", specIds);
         call(params);
@@ -87,7 +90,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量沽清库存
      */
-    public void batchClearStock(List<OItemIdWithSpecIds> specIds) throws ServiceException, OAuthException {
+    public void batchClearStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("specIds", specIds);
         call(params);
@@ -96,7 +99,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量上架商品
      */
-    public void batchOnShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException, OAuthException {
+    public void batchOnShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("specIds", specIds);
         call(params);
@@ -105,7 +108,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量下架商品
      */
-    public void batchOffShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException, OAuthException {
+    public void batchOffShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("specIds", specIds);
         call(params);
@@ -114,7 +117,7 @@ public class ProductService extends BaseNopService {
     /**
      * 删除商品
      */
-    public OItem removeItem(long itemId) throws ServiceException, OAuthException {
+    public OItem removeItem(long itemId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         return call(params);
@@ -123,7 +126,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量删除商品
      */
-    public Map<Long,OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException, OAuthException {
+    public Map<Long,OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         return call(params);
@@ -132,7 +135,7 @@ public class ProductService extends BaseNopService {
     /**
      * 查询店铺商品分类
      */
-    public List<OCategory> getShopCategories(long shopId) throws ServiceException, OAuthException {
+    public List<OCategory> getShopCategories(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call(params);
@@ -141,7 +144,7 @@ public class ProductService extends BaseNopService {
     /**
      * 查询商品分类详情
      */
-    public OCategory getCategory(long categoryId) throws ServiceException, OAuthException {
+    public OCategory getCategory(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         return call(params);
@@ -150,7 +153,7 @@ public class ProductService extends BaseNopService {
     /**
      * 添加商品分类
      */
-    public OCategory createCategory(long shopId, String name, String description) throws ServiceException, OAuthException {
+    public OCategory createCategory(long shopId, String name, String description) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("name", name);
@@ -161,7 +164,7 @@ public class ProductService extends BaseNopService {
     /**
      * 更新商品分类
      */
-    public OCategory updateCategory(long categoryId, String name, String description) throws ServiceException, OAuthException {
+    public OCategory updateCategory(long categoryId, String name, String description) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         params.put("name", name);
@@ -172,7 +175,7 @@ public class ProductService extends BaseNopService {
     /**
      * 删除商品分类
      */
-    public OCategory removeCategory(long categoryId) throws ServiceException, OAuthException {
+    public OCategory removeCategory(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         return call(params);
@@ -181,7 +184,7 @@ public class ProductService extends BaseNopService {
     /**
      * 上传图片，返回图片的hash值
      */
-    public String uploadImage(String image) throws ServiceException, OAuthException {
+    public String uploadImage(String image) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("image", image);
         return call(params);
@@ -190,7 +193,7 @@ public class ProductService extends BaseNopService {
     /**
      * 通过远程URL上传图片，返回图片的hash值
      */
-    public String uploadImageWithRemoteUrl(String url) throws ServiceException, OAuthException {
+    public String uploadImageWithRemoteUrl(String url) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("url", url);
         return call(params);
@@ -199,7 +202,7 @@ public class ProductService extends BaseNopService {
     /**
      * 获取上传文件的访问URL，返回文件的Url地址
      */
-    public String getUploadedUrl(String hash) throws ServiceException, OAuthException {
+    public String getUploadedUrl(String hash) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("hash", hash);
         return call(params);

@@ -42,7 +42,7 @@ public class Converters {
      * @return 领域对象
      * @throws OAuthException
      */
-    public static <T> T convert(Class<T> clazz, Reader reader) throws OAuthException {
+    public static <T> T convert(Class<T> clazz, Reader reader) {
         T rsp = null;
 
         try {
@@ -183,7 +183,7 @@ public class Converters {
                 }
             }
         } catch (Exception e) {
-            throw new OAuthException(e);
+            e.printStackTrace();
         }
 
         return rsp;

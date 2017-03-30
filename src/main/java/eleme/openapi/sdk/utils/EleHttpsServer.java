@@ -1,4 +1,4 @@
-package eleme.openapi.sdk.api.callback;
+package eleme.openapi.sdk.utils;
 
 import com.sun.net.httpserver.*;
 
@@ -9,18 +9,14 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.security.KeyStore;
 
-public class HTTPSClient {
-    public static void main(String[] args){
+public class EleHttpsServer {
 
-    }
-
-
-    public static HttpsServer createServer(int port){
+    public static com.sun.net.httpserver.HttpsServer createServer(int port) {
         try {
             // setup the socket address
             InetSocketAddress address = new InetSocketAddress(port);
             // initialise the HTTPS server
-            HttpsServer server = HttpsServer.create(address, 0);
+            com.sun.net.httpserver.HttpsServer server = com.sun.net.httpserver.HttpsServer.create(address, 0);
             SSLContext sslContext = SSLContext.getInstance("TLS");
             // initialise the keystor
             char[] password = "123456".toCharArray();
@@ -34,7 +30,6 @@ public class HTTPSClient {
             // setup the trust manager factory
             TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
             tmf.init(ks);
-
             // setup the HTTPS context and parameters
             sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
             server.setHttpsConfigurator(new HttpsConfigurator(sslContext) {
@@ -57,8 +52,8 @@ public class HTTPSClient {
             });
             System.out.println("server start at: " + address.getAddress() + ":" + address.getPort());
             return server;
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return null;
     }

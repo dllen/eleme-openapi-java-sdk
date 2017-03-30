@@ -22,9 +22,8 @@ public enum OAuthClient {
      * 客户端授权模式获取Token
      *
      * @return Token信息
-     * @throws OAuthException 获取ToKen异常信息
      */
-    public Token getTokenInClientCredentials() throws OAuthException {
+    public Token getTokenInClientCredentials() {
         ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
         ClientTokenRequest oAuthRequest = new ClientTokenRequest();
         Token token = ioAuthClient.execute(oAuthRequest);
@@ -39,9 +38,8 @@ public enum OAuthClient {
      * @param scope        申请的权限范围
      * @param state        客户端当前状态
      * @return 授权URL
-     * @throws OAuthException 获取ToKen异常信息
      */
-    public String getAuthUrl(String redirect_uri, String scope, String state) throws OAuthException {
+    public String getAuthUrl(String redirect_uri, String scope, String state){
         ServerOAuthCodeImpl serverOAuthCode = new ServerOAuthCodeImpl(
                 OverallContext.getOauthCodeUrl(),
                 OverallContext.getApp_key());
@@ -54,9 +52,8 @@ public enum OAuthClient {
      * @param authCode     授权码
      * @param redirect_uri 重定向地址
      * @return Token信息
-     * @throws OAuthException 获取ToKen异常信息
      */
-    public Token getTokenByCode(String authCode, String redirect_uri) throws OAuthException {
+    public Token getTokenByCode(String authCode, String redirect_uri) {
         ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
         ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
         serverTokenRequest.setCode(authCode);
@@ -71,9 +68,8 @@ public enum OAuthClient {
      *
      * @param refreshToken
      * @return Token信息
-     * @throws OAuthException 获取ToKen异常信息
      */
-    public Token getTokenByRefreshToken(String refreshToken) throws OAuthException {
+    public Token getTokenByRefreshToken(String refreshToken) {
         ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
         ServerRefreshTokenRequest refreshTokenRequest = new ServerRefreshTokenRequest();
         refreshTokenRequest.setRefreshToken(refreshToken);
@@ -86,15 +82,14 @@ public enum OAuthClient {
      * 已获取Token信息后使用
      *
      * @return
-     * @throws OAuthException
      */
-    public Token getToken() throws OAuthException {
+    public Token getToken() {
         String access_token = PropertiesUtils.getPropValueByKey("access_token");
         String token_type = PropertiesUtils.getPropValueByKey("token_type");
         String expires_in = PropertiesUtils.getPropValueByKey("expires_in");
         String refresh_token = PropertiesUtils.getPropValueByKey("refresh_token");
         if (access_token.isEmpty()) {
-            throw new OAuthException("access_token is null");
+            System.out.println("access_token is null");
         }
         Token token = new Token();
         token.setAccessToken(access_token);

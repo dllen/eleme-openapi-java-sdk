@@ -3,7 +3,6 @@ package eleme.openapi.sdk.oauth.impl;
 
 import eleme.openapi.sdk.config.Constants;
 import eleme.openapi.sdk.oauth.IOAuthClient;
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.OAuthRequest;
 import eleme.openapi.sdk.oauth.parser.OAuthParser;
 import eleme.openapi.sdk.oauth.parser.ObjectJsonParser;
@@ -25,7 +24,7 @@ public class DefaultIOAuthClient implements IOAuthClient {
         this.serverUrl = serverUrl;
     }
 
-    public <T extends ErrorResponse> T execute(OAuthRequest<T> request) throws OAuthException {
+    public <T extends ErrorResponse> T execute(OAuthRequest<T> request) {
         try {
             String respJson = WebUtils.doPost(serverUrl,
                     request.getBodyMap(),

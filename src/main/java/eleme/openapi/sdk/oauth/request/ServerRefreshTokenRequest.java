@@ -15,12 +15,12 @@ public class ServerRefreshTokenRequest extends BaseOAuthRequest<Token> {
         return Token.class;
     }
 
-    public Map<String, String> getHeaderMap() throws OAuthException {
+    public Map<String, String> getHeaderMap()  {
         setAuthorization(OverallContext.getApp_key(), OverallContext.getApp_secret());
         return super.headerMap;
     }
 
-    public Map<String, String> getBodyMap() throws OAuthException {
+    public Map<String, String> getBodyMap()  {
         putBodyParam("grant_type", "refresh_token");
         putBodyParam("refresh_token", this.refreshToken);
         return super.bodyMap;

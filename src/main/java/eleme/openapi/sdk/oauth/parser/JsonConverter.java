@@ -1,6 +1,5 @@
 package eleme.openapi.sdk.oauth.parser;
 
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.ErrorResponse;
 import eleme.openapi.sdk.utils.json.ExceptionErrorListener;
 import eleme.openapi.sdk.utils.json.JSONReader;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JsonConverter implements Converter {
-    public <T extends ErrorResponse> T toResponse(String rsp, Class<T> clazz) throws OAuthException {
+    public <T extends ErrorResponse> T toResponse(String rsp, Class<T> clazz) {
         JSONReader reader = new JSONValidatingReader(new ExceptionErrorListener());
         Object rootObj = reader.read(rsp);
         if (rootObj instanceof Map<?, ?>) {
@@ -36,7 +35,7 @@ public class JsonConverter implements Converter {
      * @param clazz 泛型领域类型
      * @return 领域对象
      */
-    public <T> T fromJson(final Map<?, ?> json, Class<T> clazz) throws OAuthException {
+    public <T> T fromJson(final Map<?, ?> json, Class<T> clazz)  {
         return Converters.convert(clazz, new Reader() {
             public boolean hasReturnField(Object name) {
                 return json.containsKey(name);
@@ -46,7 +45,7 @@ public class JsonConverter implements Converter {
                 return json.get(name);
             }
 
-            public Object getObject(Object name, Class<?> type) throws OAuthException {
+            public Object getObject(Object name, Class<?> type)  {
                 Object tmp = json.get(name);
                 if (tmp instanceof Map<?, ?>) {
                     Map<?, ?> map = (Map<?, ?>) tmp;
@@ -56,7 +55,7 @@ public class JsonConverter implements Converter {
                 }
             }
 
-            public List<?> getListObjects(Object listName, Object itemName, Class<?> subType) throws OAuthException {
+            public List<?> getListObjects(Object listName, Object itemName, Class<?> subType)  {
                 List<Object> listObjs = null;
 
                 Object listTmp = json.get(listName);

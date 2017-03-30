@@ -1,4 +1,4 @@
-package eleme.openapi.sdk;
+package eleme.openapi.sdk.utils;
 
 import java.io.Serializable;
 
