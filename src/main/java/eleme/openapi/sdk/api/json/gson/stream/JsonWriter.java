@@ -90,11 +90,6 @@ public class JsonWriter implements Closeable, Flushable {
 
     private boolean serializeNulls = true;
 
-    /**
-     * Creates a new instance that writes a JSON-encoded stream to {@code out}.
-     * For best performance, ensure {@link Writer} is buffered; wrapping in
-     * {@link java.io.BufferedWriter BufferedWriter} if necessary.
-     */
     public JsonWriter(Writer out) {
         if (out == null) {
             throw new NullPointerException("out == null");
@@ -102,14 +97,6 @@ public class JsonWriter implements Closeable, Flushable {
         this.out = out;
     }
 
-    /**
-     * Sets the indentation string to be repeated for each level of indentation
-     * in the encoded document. If {@code indent.isEmpty()} the encoded document
-     * will be compact. Otherwise the encoded document will be more
-     * human-readable.
-     *
-     * @param indent a string containing only whitespace.
-     */
     public final void setIndent(String indent) {
         if (indent.length() == 0) {
             this.indent = null;
@@ -120,108 +107,51 @@ public class JsonWriter implements Closeable, Flushable {
         }
     }
 
-    /**
-     * Configure this writer to relax its syntax rules. By default, this writer
-     * only emits well-formed JSON as specified by <a
-     * href="http://www.ietf.org/rfc/rfc7159.txt">RFC 7159</a>. Setting the writer
-     * to lenient permits the following:
-     * <ul>
-     * <li>Top-level values of any type. With strict writing, the top-level
-     * value must be an object or an array.
-     * <li>Numbers may be {@link Double#isNaN() NaNs} or {@link
-     * Double#isInfinite() infinities}.
-     * </ul>
-     */
     public final void setLenient(boolean lenient) {
         this.lenient = lenient;
     }
 
-    /**
-     * Returns true if this writer has relaxed syntax rules.
-     */
     public boolean isLenient() {
         return lenient;
     }
 
-    /**
-     * Configure this writer to emit JSON that's safe for direct inclusion in HTML
-     * and XML documents. This escapes the HTML characters {@code <}, {@code >},
-     * {@code &} and {@code =} before writing them to the stream. Without this
-     * setting, your XML/HTML encoder should replace these characters with the
-     * corresponding escape sequences.
-     */
+
     public final void setHtmlSafe(boolean htmlSafe) {
         this.htmlSafe = htmlSafe;
     }
 
-    /**
-     * Returns true if this writer writes JSON that's safe for inclusion in HTML
-     * and XML documents.
-     */
     public final boolean isHtmlSafe() {
         return htmlSafe;
     }
 
-    /**
-     * Sets whether object members are serialized when their value is null.
-     * This has no impact on array elements. The default is true.
-     */
     public final void setSerializeNulls(boolean serializeNulls) {
         this.serializeNulls = serializeNulls;
     }
 
-    /**
-     * Returns true if object members are serialized when their value is null.
-     * This has no impact on array elements. The default is true.
-     */
     public final boolean getSerializeNulls() {
         return serializeNulls;
     }
 
-    /**
-     * Begins encoding a new array. Each call to this method must be paired with
-     * a call to {@link #endArray}.
-     *
-     * @return this writer.
-     */
     public JsonWriter beginArray() throws IOException {
         writeDeferredName();
         return open(EMPTY_ARRAY, "[");
     }
 
-    /**
-     * Ends encoding the current array.
-     *
-     * @return this writer.
-     */
     public JsonWriter endArray() throws IOException {
         return close(EMPTY_ARRAY, NONEMPTY_ARRAY, "]");
     }
 
-    /**
-     * Begins encoding a new object. Each call to this method must be paired
-     * with a call to {@link #endObject}.
-     *
-     * @return this writer.
-     */
     public JsonWriter beginObject() throws IOException {
         writeDeferredName();
         return open(EMPTY_OBJECT, "{");
     }
 
-    /**
-     * Ends encoding the current object.
-     *
-     * @return this writer.
-     */
+
     public JsonWriter endObject() throws IOException {
         return close(EMPTY_OBJECT, NONEMPTY_OBJECT, "}");
     }
 
-    /**
-     * Enters a new scope by appending any necessary whitespace and the given
-     * bracket.
-     */
+
     private JsonWriter open(int empty, String openBracket) throws IOException {
         beforeValue();
         push(empty);
@@ -229,10 +159,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Closes the current scope by appending any necessary whitespace and the
-     * given bracket.
-     */
     private JsonWriter close(int empty, int nonempty, String closeBracket)
             throws IOException {
         int context = peek();
@@ -277,12 +203,7 @@ public class JsonWriter implements Closeable, Flushable {
         stack[stackSize - 1] = topOfStack;
     }
 
-    /**
-     * Encodes the property name.
-     *
-     * @param name the name of the forthcoming value. May not be null.
-     * @return this writer.
-     */
+
     public JsonWriter name(String name) throws IOException {
         if (name == null) {
             throw new NullPointerException("name == null");
@@ -305,12 +226,6 @@ public class JsonWriter implements Closeable, Flushable {
         }
     }
 
-    /**
-     * Encodes {@code value}.
-     *
-     * @param value the literal string value, or null to encode a null literal.
-     * @return this writer.
-     */
     public JsonWriter value(String value) throws IOException {
         if (value == null) {
             return nullValue();
@@ -321,13 +236,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Writes {@code value} directly to the writer without quoting or
-     * escaping.
-     *
-     * @param value the literal string value, or null to encode a null literal.
-     * @return this writer.
-     */
     public JsonWriter jsonValue(String value) throws IOException {
         if (value == null) {
             return nullValue();
@@ -338,11 +246,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Encodes {@code null}.
-     *
-     * @return this writer.
-     */
     public JsonWriter nullValue() throws IOException {
         if (deferredName != null) {
             if (serializeNulls) {
@@ -357,11 +260,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Encodes {@code value}.
-     *
-     * @return this writer.
-     */
     public JsonWriter value(boolean value) throws IOException {
         writeDeferredName();
         beforeValue();
@@ -369,11 +267,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Encodes {@code value}.
-     *
-     * @return this writer.
-     */
     public JsonWriter value(Boolean value) throws IOException {
         if (value == null) {
             return nullValue();
@@ -384,13 +277,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Encodes {@code value}.
-     *
-     * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
-     *              {@link Double#isInfinite() infinities}.
-     * @return this writer.
-     */
     public JsonWriter value(double value) throws IOException {
         if (Double.isNaN(value) || Double.isInfinite(value)) {
             throw new IllegalArgumentException("Numeric values must be finite, but was " + value);
@@ -401,11 +287,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Encodes {@code value}.
-     *
-     * @return this writer.
-     */
     public JsonWriter value(long value) throws IOException {
         writeDeferredName();
         beforeValue();
@@ -413,13 +294,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Encodes {@code value}.
-     *
-     * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
-     *              {@link Double#isInfinite() infinities}.
-     * @return this writer.
-     */
     public JsonWriter value(Number value) throws IOException {
         if (value == null) {
             return nullValue();
@@ -436,10 +310,6 @@ public class JsonWriter implements Closeable, Flushable {
         return this;
     }
 
-    /**
-     * Ensures all buffered data is written to the underlying {@link Writer}
-     * and flushes that writer.
-     */
     public void flush() throws IOException {
         if (stackSize == 0) {
             throw new IllegalStateException("JsonWriter is closed.");
@@ -516,11 +386,6 @@ public class JsonWriter implements Closeable, Flushable {
         replaceTop(DANGLING_NAME);
     }
 
-    /**
-     * Inserts any necessary separators and whitespace before a literal value,
-     * inline array, or inline object. Also adjusts the stack to expect either a
-     * closing bracket or another element.
-     */
     @SuppressWarnings("fallthrough")
     private void beforeValue() throws IOException {
         switch (peek()) {

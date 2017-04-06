@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.ele.openapi</groupId>
-    <artifactId>eleme-openapi-java-sdk</artifactId>
-    <version>1.0</version>
+    <artifactId>eleme-openapi-sdk</artifactId>
+    <version>1.0.1</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -29,7 +29,7 @@
     <developers>
         <developer>
             <name>caigaopei</name>
-            <email>gaopei.cai@ele.me</email>
+            <email>open.shop@ele.me</email>
             <url>https://open.shop.ele.me/openapi</url>
         </developer>
     </developers>

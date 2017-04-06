@@ -86,17 +86,12 @@ public final class TreeTypeAdapter<T> extends TypeAdapter<T> {
                 : (delegate = gson.getDelegateAdapter(skipPast, typeToken));
     }
 
-    /**
-     * Returns a new factory that will match each type against {@code exactType}.
-     */
+
     public static TypeAdapterFactory newFactory(TypeToken<?> exactType, Object typeAdapter) {
         return new SingleTypeFactory(typeAdapter, exactType, false, null);
     }
 
-    /**
-     * Returns a new factory that will match each type and its raw type against
-     * {@code exactType}.
-     */
+
     public static TypeAdapterFactory newFactoryWithMatchRawType(
             TypeToken<?> exactType, Object typeAdapter) {
         // only bother matching raw types if exact type is a raw type
@@ -104,10 +99,7 @@ public final class TreeTypeAdapter<T> extends TypeAdapter<T> {
         return new SingleTypeFactory(typeAdapter, exactType, matchRawType, null);
     }
 
-    /**
-     * Returns a new factory that will match each type's raw type for assignability
-     * to {@code hierarchyType}.
-     */
+
     public static TypeAdapterFactory newTypeHierarchyFactory(
             Class<?> hierarchyType, Object typeAdapter) {
         return new SingleTypeFactory(typeAdapter, null, false, hierarchyType);

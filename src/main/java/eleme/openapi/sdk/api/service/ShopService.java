@@ -18,18 +18,12 @@ public class ShopService extends BaseNopService {
         super(oAuthResponse, ShopService.class);
     }
 
-    /**
-     * 查询店铺信息
-     */
     public OShop getShop(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call(params);
     }
 
-    /**
-     * 更新店铺基本信息
-     */
     public OShop updateShop(long shopId, Map<OShopProperty,Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
@@ -37,9 +31,6 @@ public class ShopService extends BaseNopService {
         return call(params);
     }
 
-    /**
-     * 批量获取店铺简要
-     */
     public Map<Long,OSimpleShop> mgetShopStatus(List<Long> shopIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopIds", shopIds);

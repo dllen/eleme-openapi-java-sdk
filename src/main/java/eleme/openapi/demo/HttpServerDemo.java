@@ -16,6 +16,7 @@ import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.utils.StringUtils;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -35,10 +36,12 @@ public class HttpServerDemo {
 
     static {
         // 初始化全局配置工具
-        OverallContext overallContext = new OverallContext(
+        /*OverallContext overallContext = new OverallContext(
                 isSandbox,
                 "whjJ8amGkn",
-                "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");
+                "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");*/
+
+        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
     }
 
     public static void main(String[] args) {

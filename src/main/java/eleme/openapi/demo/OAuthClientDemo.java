@@ -1,8 +1,14 @@
 package eleme.openapi.demo;
 
+import eleme.openapi.sdk.api.entity.product.OItemIdWithSpecIds;
+import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.api.service.ProductService;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OAuthClientDemo {
 
@@ -17,15 +23,18 @@ public class OAuthClientDemo {
 
     static {
         // 初始化全局配置工具
-        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
+        //203983896
+//        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
+        //203984252
+        OverallContext overallContext = new OverallContext(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
     }
 
     public static void main(String[] args) {
         OAuthClientDemo demo = new OAuthClientDemo();
 //        demo.clientTokenTest();
 //        demo.serverOAuthCodeTest();
-//        demo.serverTokenTest();
-        demo.serverRefreshTokenTest();
+        demo.serverTokenTest();
+//        demo.serverRefreshTokenTest();
     }
 
 
@@ -46,7 +55,7 @@ public class OAuthClientDemo {
      * 服务端(企业)获取授权URL
      */
     private void serverOAuthCodeTest() {
-        String redirect_uri = "https://69d94230.ngrok.io";
+        String redirect_uri = "https://localhost:8899";
         String scope = "all";
         String state = "xyz";
         String authUrl = client.getAuthUrl(redirect_uri, scope, state);
@@ -58,8 +67,8 @@ public class OAuthClientDemo {
      *
      */
     private void serverTokenTest() {
-        String autoCode = "feb88471de7aa6f8c7289bcc73d93903";
-        String redirect_uri = "https://69d94230.ngrok.io";
+        String autoCode = "b78a0878c76bf38c41ab6104ebc75e18";
+        String redirect_uri = "https://localhost:8899/demo";
         Token token = client.getTokenByCode(autoCode, redirect_uri);
         if (token.isSuccess()) {
             System.out.println(token);
@@ -82,5 +91,21 @@ public class OAuthClientDemo {
             System.out.println("code: " + token.getError());
             System.out.println("desc: " + token.getError_description());
         }
+    }
+
+    private void testService() throws ServiceException {
+        ProductService product = new ProductService(null);
+        List<OItemIdWithSpecIds> specIds = new ArrayList<OItemIdWithSpecIds>();
+        OItemIdWithSpecIds oItemIdWithSpecIds = new OItemIdWithSpecIds();
+        oItemIdWithSpecIds.setItemId(27970000058L);
+        List<Long> itemSpecIds = new ArrayList<Long>();
+        itemSpecIds.add(72970000221L);
+        itemSpecIds.add(72970000222L);
+        itemSpecIds.add(72970000225L);
+        oItemIdWithSpecIds.setItemSpecIds(itemSpecIds);
+        specIds.add(oItemIdWithSpecIds);
+
+        product.batchFillStock(specIds);
+
     }
 }

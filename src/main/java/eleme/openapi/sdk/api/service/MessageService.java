@@ -16,18 +16,12 @@ public class MessageService extends BaseNopService {
         super(oAuthResponse, MessageService.class);
     }
 
-    /**
-     * 获取未到达的推送消息
-     */
     public List<String> getNonReachedMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("appId", appId);
         return call(params);
     }
 
-    /**
-     * 获取未到达的推送消息实体
-     */
     public List<OMessage> getNonReachedOMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("appId", appId);

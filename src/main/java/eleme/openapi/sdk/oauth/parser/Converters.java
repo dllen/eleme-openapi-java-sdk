@@ -33,15 +33,6 @@ public class Converters {
     private Converters() {
     }
 
-    /**
-     * 使用指定 的读取器去转换字符串为对象。
-     *
-     * @param <T>    领域泛型
-     * @param clazz  领域类型
-     * @param reader 读取器
-     * @return 领域对象
-     * @throws OAuthException
-     */
     public static <T> T convert(Class<T> clazz, Reader reader) {
         T rsp = null;
 

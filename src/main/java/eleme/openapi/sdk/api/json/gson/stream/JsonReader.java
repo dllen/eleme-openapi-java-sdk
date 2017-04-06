@@ -125,9 +125,7 @@ public class JsonReader implements Closeable {
     private String[] pathNames = new String[32];
     private int[] pathIndices = new int[32];
 
-    /**
-     * Creates a new instance that reads a JSON-encoded stream from {@code in}.
-     */
+
     public JsonReader(Reader in) {
         if (in == null) {
             throw new NullPointerException("in == null");
