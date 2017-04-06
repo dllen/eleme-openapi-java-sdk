@@ -7,7 +7,6 @@ import eleme.openapi.sdk.api.json.gson.GsonBuilder;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
 import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
-import eleme.openapi.sdk.config.ElemeSdkLogger;
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.Token;
 
@@ -31,9 +30,6 @@ public abstract class WebUtils {
     private static final String METHOD_GET = "GET";
     private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
 
-    private static ElemeSdkLogger elemeSdkLogger = OverallContext.getElemeSdkLogger();
-
-
     private static class DefaultTrustManager implements X509TrustManager {
         public X509Certificate[] getAcceptedIssuers() {
             return null;
@@ -55,9 +51,9 @@ public abstract class WebUtils {
      * @return 响应字符串
      * @throws IOException
      */
-    public static String doPost(String url, Map<String, String> params, int connectTimeout, int readTimeout)
+    public static String doPost(OverallContext context, String url, Map<String, String> params, int connectTimeout, int readTimeout)
             throws IOException {
-        return doPost(url, params, DEFAULT_CHARSET, connectTimeout, readTimeout);
+        return doPost(context, url, params, DEFAULT_CHARSET, connectTimeout, readTimeout);
     }
 
     /**
@@ -69,12 +65,12 @@ public abstract class WebUtils {
      * @return 响应字符串
      * @throws IOException
      */
-    public static String doPost(String url, Map<String, String> params, String charset, int connectTimeout,
+    public static String doPost(OverallContext context, String url, Map<String, String> params, String charset, int connectTimeout,
                                 int readTimeout) throws IOException {
-        return doPost(url, params, charset, connectTimeout, readTimeout, null);
+        return doPost(context, url, params, charset, connectTimeout, readTimeout, null);
     }
 
-    public static String doPost(String url,
+    public static String doPost(OverallContext context, String url,
                                 Map<String, String> params,
                                 String charset,
                                 int connectTimeout,
@@ -82,13 +78,13 @@ public abstract class WebUtils {
                                 Map<String, String> headerMap) throws IOException {
         String ctype = "application/x-www-form-urlencoded;charset=" + charset;
         String query = buildQuery(params, charset);
-        setLogInfo("request: " + query);
+        setLogInfo(context, "request: " + query);
 
         byte[] content = {};
         if (query != null) {
             content = query.getBytes(charset);
         }
-        return _doPost(url, ctype, content, connectTimeout, readTimeout, headerMap);
+        return _doPost(context, url, ctype, content, connectTimeout, readTimeout, headerMap);
     }
 
     /**
@@ -101,12 +97,12 @@ public abstract class WebUtils {
      * @throws IOException
      */
     @Deprecated
-    public static String doPost(String url, String ctype, byte[] content, int connectTimeout, int readTimeout)
+    public static String doPost(OverallContext context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout)
             throws IOException {
-        return _doPost(url, ctype, content, connectTimeout, readTimeout, null);
+        return _doPost(context, url, ctype, content, connectTimeout, readTimeout, null);
     }
 
-    private static String _doPost(String url, String ctype, byte[] content, int connectTimeout, int readTimeout,
+    private static String _doPost(OverallContext context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout,
                                   Map<String, String> headerMap) throws IOException {
         HttpURLConnection conn = null;
         OutputStream out = null;
@@ -126,7 +122,7 @@ public abstract class WebUtils {
                 conn.disconnect();
             }
         }
-        setLogInfo("response: " + rsp);
+        setLogInfo(context, "response: " + rsp);
         return rsp;
     }
 
@@ -296,7 +292,7 @@ public abstract class WebUtils {
         try {
             Reader reader = null;
             if ("gzip".equals(conn.getContentEncoding())) {
-                reader = new InputStreamReader(new GZIPInputStream(stream),charset);
+                reader = new InputStreamReader(new GZIPInputStream(stream), charset);
             } else {
                 reader = new InputStreamReader(stream, charset);
             }
@@ -425,14 +421,14 @@ public abstract class WebUtils {
      * @param type       返回类型
      * @throws ServiceException
      */
-    public static <T> T call(String action,
+    public static <T> T call(OverallContext context, String action,
                              Map<String, Object> parameters,
                              Token token,
                              Type type
-    ) throws ServiceException{
+    ) throws ServiceException {
         final long timestamp = System.currentTimeMillis() / 1000;
-        final String appKey = OverallContext.getApp_key();
-        String secret = OverallContext.getApp_secret();
+        final String appKey = context.getApp_key();
+        String secret = context.getApp_secret();
         String accessToken = token.getAccessToken();
         String requestId = UUID.randomUUID().toString().toLowerCase();
 
@@ -452,13 +448,13 @@ public abstract class WebUtils {
         requestPayload.put("signature", signature);
 
         String requestJson = gson.toJson(requestPayload);
-        ResponsePayload responsePayload = doRequest(requestJson);
+        ResponsePayload responsePayload = doRequest(context, requestJson);
 
-        setLogInfo("request: " + requestJson);
+        setLogInfo(context, "request: " + requestJson);
         if (responsePayload != null && null != responsePayload.getError()) {
             ServiceException serviceException = toException(responsePayload.getError());
             if (serviceException != null) {
-                setLogError("error: " + serviceException.getMessage());
+                setLogError(context, "error: " + serviceException.getMessage());
                 throw serviceException;
             }
             throw new ServerErrorException();
@@ -469,10 +465,10 @@ public abstract class WebUtils {
         return gson.fromJson(s2, type);
     }
 
-    private static ResponsePayload doRequest(String requestJson) {
+    private static ResponsePayload doRequest(OverallContext context, String requestJson) {
         try {
-            String response = doPost(OverallContext.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
-            setLogInfo("response: " + response);
+            String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
+            setLogInfo(context, "response: " + response);
             return gson.fromJson(response, ResponsePayload.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -505,15 +501,15 @@ public abstract class WebUtils {
         return null;
     }
 
-    private static void setLogInfo(String msg) {
-        if (null != elemeSdkLogger) {
-            elemeSdkLogger.info(msg);
+    private static void setLogInfo(OverallContext context, String msg) {
+        if (null != context.getElemeSdkLogger()) {
+            context.getElemeSdkLogger().info(msg);
         }
     }
 
-    private static void setLogError(String msg) {
-        if (null != elemeSdkLogger) {
-            elemeSdkLogger.error(msg);
+    private static void setLogError(OverallContext context, String msg) {
+        if (null != context.getElemeSdkLogger()) {
+            context.getElemeSdkLogger().error(msg);
         }
     }
 }

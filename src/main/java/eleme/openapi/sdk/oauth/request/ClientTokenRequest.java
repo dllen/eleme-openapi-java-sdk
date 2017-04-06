@@ -8,12 +8,17 @@ import java.util.Map;
 
 public class ClientTokenRequest extends BaseOAuthRequest<Token> {
 
+    private OverallContext context;
+    public ClientTokenRequest(OverallContext context) {
+        this.context = context;
+    }
+
     public Class<Token> getResponseClass() {
         return Token.class;
     }
 
     public Map<String, String> getHeaderMap()  {
-        setAuthorization(OverallContext.getApp_key(), OverallContext.getApp_secret());
+        setAuthorization(context.getApp_key(), context.getApp_secret());
         return super.headerMap;
     }
 

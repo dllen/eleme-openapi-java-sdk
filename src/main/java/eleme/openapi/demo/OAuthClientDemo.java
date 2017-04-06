@@ -19,22 +19,24 @@ public class OAuthClientDemo {
     // 设置APPSECRET
     private static final String secret = "5afbd840d6ac9bb836d325fa41628273";
     // 初始化OAuthClient
-    private OAuthClient client = OAuthClient.INSTANCE;
+    private static OAuthClient client = null;
 
+    private static OverallContext context =null;
     static {
         // 初始化全局配置工具
         //203983896
 //        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
         //203984252
-        OverallContext overallContext = new OverallContext(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
+        context = new OverallContext(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
+        client = new OAuthClient(context);
     }
 
     public static void main(String[] args) {
         OAuthClientDemo demo = new OAuthClientDemo();
 //        demo.clientTokenTest();
 //        demo.serverOAuthCodeTest();
-        demo.serverTokenTest();
-//        demo.serverRefreshTokenTest();
+//        demo.serverTokenTest();
+        demo.serverRefreshTokenTest();
     }
 
 
@@ -67,7 +69,7 @@ public class OAuthClientDemo {
      *
      */
     private void serverTokenTest() {
-        String autoCode = "b78a0878c76bf38c41ab6104ebc75e18";
+        String autoCode = "d41662a2b774646de075d088b35764e6";
         String redirect_uri = "https://localhost:8899/demo";
         Token token = client.getTokenByCode(autoCode, redirect_uri);
         if (token.isSuccess()) {
@@ -94,7 +96,7 @@ public class OAuthClientDemo {
     }
 
     private void testService() throws ServiceException {
-        ProductService product = new ProductService(null);
+        ProductService product = new ProductService(null,null);
         List<OItemIdWithSpecIds> specIds = new ArrayList<OItemIdWithSpecIds>();
         OItemIdWithSpecIds oItemIdWithSpecIds = new OItemIdWithSpecIds();
         oItemIdWithSpecIds.setItemId(27970000058L);

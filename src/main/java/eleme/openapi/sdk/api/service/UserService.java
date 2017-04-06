@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
 import eleme.openapi.sdk.api.entity.user.OUser;
 import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.HashMap;
@@ -11,8 +12,8 @@ import java.util.Map;
 
 @Service("eleme.user")
 public class UserService extends BaseNopService {
-    public UserService(Token oAuthResponse) {
-        super(oAuthResponse, UserService.class);
+    public UserService(OverallContext context, Token token) {
+        super(context, token, UserService.class);
     }
 
     /**

@@ -6,6 +6,7 @@ import eleme.openapi.sdk.api.entity.shop.OShop;
 import eleme.openapi.sdk.api.entity.shop.OSimpleShop;
 import eleme.openapi.sdk.api.enumeration.shop.OShopProperty;
 import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.HashMap;
@@ -14,8 +15,8 @@ import java.util.Map;
 
 @Service("eleme.shop")
 public class ShopService extends BaseNopService {
-    public ShopService(Token oAuthResponse) {
-        super(oAuthResponse, ShopService.class);
+    public ShopService(OverallContext context, Token token) {
+        super(context,token, ShopService.class);
     }
 
     public OShop getShop(long shopId) throws ServiceException {

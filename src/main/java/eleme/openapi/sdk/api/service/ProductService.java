@@ -8,6 +8,7 @@ import eleme.openapi.sdk.api.entity.product.OItemIdWithSpecIds;
 import eleme.openapi.sdk.api.enumeration.product.OItemCreateProperty;
 import eleme.openapi.sdk.api.enumeration.product.OItemUpdateProperty;
 import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.HashMap;
@@ -16,11 +17,11 @@ import java.util.Map;
 
 @Service("eleme.product")
 public class ProductService extends BaseNopService {
-    public ProductService(Token oAuthResponse) {
-        super(oAuthResponse, ProductService.class);
+    public ProductService(OverallContext overallContext, Token token) {
+        super(overallContext, token, ProductService.class);
     }
 
-    public Map<Long,OItem> getItemsByCategoryId(long categoryId) throws ServiceException {
+    public Map<Long, OItem> getItemsByCategoryId(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         return call(params);
@@ -32,27 +33,27 @@ public class ProductService extends BaseNopService {
         return call(params);
     }
 
-    public Map<Long,OItem> batchGetItems(List<Long> itemIds) throws ServiceException {
+    public Map<Long, OItem> batchGetItems(List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         return call(params);
     }
 
-    public OItem createItem(long categoryId, Map<OItemCreateProperty,Object> properties) throws ServiceException {
+    public OItem createItem(long categoryId, Map<OItemCreateProperty, Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         params.put("properties", properties);
         return call(params);
     }
 
-    public Map<Long,OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty,Object>> items) throws ServiceException {
+    public Map<Long, OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty, Object>> items) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         params.put("items", items);
         return call(params);
     }
 
-    public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty,Object> properties) throws ServiceException {
+    public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty, Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         params.put("categoryId", categoryId);
@@ -90,7 +91,7 @@ public class ProductService extends BaseNopService {
         return call(params);
     }
 
-    public Map<Long,OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException {
+    public Map<Long, OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         return call(params);

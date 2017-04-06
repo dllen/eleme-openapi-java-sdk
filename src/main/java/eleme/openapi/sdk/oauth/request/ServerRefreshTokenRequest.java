@@ -2,13 +2,15 @@ package eleme.openapi.sdk.oauth.request;
 
 import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.BaseOAuthRequest;
-import eleme.openapi.sdk.oauth.OAuthException;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.Map;
 
 public class ServerRefreshTokenRequest extends BaseOAuthRequest<Token> {
-
+    private OverallContext context;
+    public ServerRefreshTokenRequest(OverallContext context) {
+        this.context = context;
+    }
     private String refreshToken;
 
     public Class<Token> getResponseClass() {
@@ -16,7 +18,7 @@ public class ServerRefreshTokenRequest extends BaseOAuthRequest<Token> {
     }
 
     public Map<String, String> getHeaderMap()  {
-        setAuthorization(OverallContext.getApp_key(), OverallContext.getApp_secret());
+        setAuthorization(context.getApp_key(), context.getApp_secret());
         return super.headerMap;
     }
 

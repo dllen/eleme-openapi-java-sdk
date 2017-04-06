@@ -12,8 +12,13 @@ import eleme.openapi.sdk.utils.PropertiesUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum OAuthClient {
-    INSTANCE;
+public class OAuthClient {
+
+    private OverallContext overallContext;
+    public OAuthClient(OverallContext overallContext){
+        this.overallContext = overallContext;
+    }
+
     private IOAuthClient ioAuthClient = null;
 
     private static Map<String, String> tokenMap = new HashMap<String, String>();
@@ -24,8 +29,8 @@ public enum OAuthClient {
      * @return Token信息
      */
     public Token getTokenInClientCredentials() {
-        ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ClientTokenRequest oAuthRequest = new ClientTokenRequest();
+        ioAuthClient = new DefaultIOAuthClient(overallContext);
+        ClientTokenRequest oAuthRequest = new ClientTokenRequest(overallContext);
         Token token = ioAuthClient.execute(oAuthRequest);
         setTokenInfo(token);
         return token;
@@ -41,8 +46,8 @@ public enum OAuthClient {
      */
     public String getAuthUrl(String redirect_uri, String scope, String state){
         ServerOAuthCodeImpl serverOAuthCode = new ServerOAuthCodeImpl(
-                OverallContext.getOauthCodeUrl(),
-                OverallContext.getApp_key());
+                overallContext.getOauthCodeUrl(),
+                overallContext.getApp_key());
         return serverOAuthCode.getAuthUrl(redirect_uri, scope, state);
     }
 
@@ -54,8 +59,8 @@ public enum OAuthClient {
      * @return Token信息
      */
     public Token getTokenByCode(String authCode, String redirect_uri) {
-        ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ServerTokenRequest serverTokenRequest = new ServerTokenRequest();
+        ioAuthClient = new DefaultIOAuthClient(overallContext);
+        ServerTokenRequest serverTokenRequest = new ServerTokenRequest(overallContext);
         serverTokenRequest.setCode(authCode);
         serverTokenRequest.setRedirectUri(redirect_uri);
         Token token = ioAuthClient.execute(serverTokenRequest);
@@ -70,8 +75,8 @@ public enum OAuthClient {
      * @return Token信息
      */
     public Token getTokenByRefreshToken(String refreshToken) {
-        ioAuthClient = new DefaultIOAuthClient(OverallContext.getOauthTokenUrl());
-        ServerRefreshTokenRequest refreshTokenRequest = new ServerRefreshTokenRequest();
+        ioAuthClient = new DefaultIOAuthClient(overallContext);
+        ServerRefreshTokenRequest refreshTokenRequest = new ServerRefreshTokenRequest(overallContext);
         refreshTokenRequest.setRefreshToken(refreshToken);
         Token token = ioAuthClient.execute(refreshTokenRequest);
         setTokenInfo(token);

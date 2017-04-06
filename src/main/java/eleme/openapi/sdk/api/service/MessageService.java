@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
 import eleme.openapi.sdk.api.entity.message.OMessage;
 import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.HashMap;
@@ -12,8 +13,8 @@ import java.util.Map;
 
 @Service("eleme.message")
 public class MessageService extends BaseNopService {
-    public MessageService(Token oAuthResponse) {
-        super(oAuthResponse, MessageService.class);
+    public MessageService(OverallContext context, Token token) {
+        super(context, token, MessageService.class);
     }
 
     public List<String> getNonReachedMessages(int appId) throws ServiceException {

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpServerDemo {
+
     private static Gson gson = new Gson();
 
     // 设置是否沙箱环境
@@ -32,7 +33,9 @@ public class HttpServerDemo {
     // 设置APPSECRET
     private static final String secret = "5afbd840d6ac9bb836d325fa41628273";
     // 初始化OAuthClient
-    private static OAuthClient client = OAuthClient.INSTANCE;
+    private static OAuthClient client = null;
+
+    private static OverallContext context = null;
 
     static {
         // 初始化全局配置工具
@@ -41,7 +44,8 @@ public class HttpServerDemo {
                 "whjJ8amGkn",
                 "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");*/
 
-        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
+        context = new OverallContext(isSandbox, key, secret);
+        client = new OAuthClient(context);
     }
 
     public static void main(String[] args) {
@@ -86,7 +90,7 @@ public class HttpServerDemo {
                         response(t, resultJson);
                         return;
                     }
-                    ShopService shopService = new ShopService(client.getToken());
+                    ShopService shopService = new ShopService(context,client.getToken());
                     OShop shop = shopService.getShop(Long.valueOf(shopId));
                     rResult.setShopName(shop.getName());
                     result.setResult(rResult);
@@ -123,7 +127,7 @@ public class HttpServerDemo {
                     System.out.println(token.getError());
                     System.out.println(token.getError_description());
                 }
-                UserService userService = new UserService(token);
+                UserService userService = new UserService(context,token);
                 System.out.println(userService.getUser().getUserName());
                 userId = userService.getUser().getUserId();
                 shopName = userService.getUser().getAuthorizedShops().get(0).getName();
@@ -165,12 +169,12 @@ public class HttpServerDemo {
                     body.append(line);
                 }
                 OMessage message = gson.fromJson(body.toString(), OMessage.class);
-                if (!CallbackValidationUtil.isValidMessage(message)) {
+                if (!CallbackValidationUtil.isValidMessage(message, secret)) {
                     throw new Exception("invalid post data : " + body);
                 }
                 //type=10的消息，调用确认订单接口完成接单流程
                 if (message.getType() == 10) {
-                    OrderService orderService = new OrderService(client.getToken());
+                    OrderService orderService = new OrderService(context,client.getToken());
                     OMessage.Message msg = gson.fromJson(message.getMessage(), OMessage.Message.class);
                     OOrder oOrder = orderService.confirmOrder(msg.getOrder_id());
                 }

@@ -6,6 +6,7 @@ import eleme.openapi.sdk.api.entity.order.ODeliveryRecord;
 import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.enumeration.order.OInvalidateType;
 import eleme.openapi.sdk.api.exception.ServiceException;
+import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.HashMap;
@@ -14,8 +15,8 @@ import java.util.Map;
 
 @Service("eleme.order")
 public class OrderService extends BaseNopService {
-    public OrderService(Token oAuthResponse) {
-        super(oAuthResponse, OrderService.class);
+    public OrderService(OverallContext context, Token token) {
+        super(context, token, OrderService.class);
     }
 
     public OOrder getOrder(String orderId) throws ServiceException {
@@ -24,7 +25,7 @@ public class OrderService extends BaseNopService {
         return call(params);
     }
 
-    public Map<String,OOrder> mgetOrders(List<String> orderIds) throws ServiceException {
+    public Map<String, OOrder> mgetOrders(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderIds", orderIds);
         return call(params);
@@ -63,7 +64,7 @@ public class OrderService extends BaseNopService {
         return call(params);
     }
 
-    public Map<String,ODeliveryRecord> batchGetDeliveryStates(List<String> orderIds) throws ServiceException {
+    public Map<String, ODeliveryRecord> batchGetDeliveryStates(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderIds", orderIds);
         return call(params);

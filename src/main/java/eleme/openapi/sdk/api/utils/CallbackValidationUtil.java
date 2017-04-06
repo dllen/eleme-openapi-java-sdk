@@ -2,7 +2,6 @@ package eleme.openapi.sdk.api.utils;
 
 import eleme.openapi.sdk.api.entity.other.OMessage;
 import eleme.openapi.sdk.api.json.gson.Gson;
-import eleme.openapi.sdk.config.OverallContext;
 import eleme.openapi.sdk.utils.SignatureUtil;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class CallbackValidationUtil {
      * @param message
      * @return
      */
-    public static boolean isValidMessage(OMessage message) {
+    public static boolean isValidMessage(OMessage message,String secret) {
         if (message == null) {
             return false;
         }
@@ -38,7 +37,7 @@ public class CallbackValidationUtil {
 
         String signature = null;
         try {
-            signature = getSignature(map, OverallContext.getApp_secret());
+            signature = getSignature(map, secret);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
