@@ -4,29 +4,29 @@
   1. JAVA version >= 1.6
   2. 创建Config配置类，填入key，secret和sandbox参数
   3. 使用sdk提供的接口进行开发调试
-  4. 上线前将Config中$sandbox值设为false以及填入正式环境的key和secret
+  4. 上线前将Config中isSandbox值设为false以及填入正式环境的key和secret
 
 ## Maven 引入SDK
 ```xml
-<dependency>
-    <groupId>me.ele.openapi</groupId>
-    <artifactId>eleme-openapi-sdk</artifactId>
-    <version>1.0.1</version>
-</dependency>
+  <dependency>
+      <groupId>me.ele.openapi</groupId>
+      <artifactId>eleme-openapi-sdk</artifactId>
+      <version>1.0.1</version>
+  </dependency>
 ```
 ## 基本用法
 ```java
-import eleme.openapi.sdk.config.Config;
-import eleme.openapi.sdk.api.service.ShopService;
+  import eleme.openapi.sdk.config.Config;
+  import eleme.openapi.sdk.api.service.ShopService;
 
-//实例化一个配置类
-Config config = new Config(true, "app_key", "app_secret");
+  //实例化一个配置类
+  Config config = new Config(true, "app_key", "app_secret");
 
-//使用config和token对象，实例化一个服务对象
-ShopService shopService = new ShopService(config,token);
+  //使用config和token对象，实例化一个服务对象
+  ShopService shopService = new ShopService(config,token);
 
-//调用服务方法，获取资源
-OShop shop = shopService.getShop(12345L);
+  //调用服务方法，获取资源
+  OShop shop = shopService.getShop(12345L);
 
 ```
 
@@ -38,39 +38,39 @@ OShop shop = shopService.getShop(12345L);
 > 企业应用
 
 ```java
-import eleme.openapi.sdk.config.Config;
-import eleme.openapi.sdk.oauth.OAuthClient;
+  import eleme.openapi.sdk.config.Config;
+  import eleme.openapi.sdk.oauth.OAuthClient;
 
-//实例化一个配置类
-Config config = new Config(true, "app_key", "app_secret");
+  //实例化一个配置类
+  Config config = new Config(true, "app_key", "app_secret");
 
-//使用config对象，实例化一个授权类
-OAuthClient client = new OAuthClient(config);
+  //使用config对象，实例化一个授权类
+  OAuthClient client = new OAuthClient(config);
 
-//根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
-String authUrl = client.getAuthUrl(redirect_uri, scope, state);
+  //根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
+  String authUrl = client.getAuthUrl(callback_url, scope, state);
 
-```
-商家打开授权URL，同意授权后，跳转到您的回调页面，并返回code
+  ```
+  商家打开授权URL，同意授权后，跳转到您的回调页面，并返回code
 
-```java
-//通过授权得到的code，以及正确的callback_url，获取token
-Token token = client.getTokenByCode(autoCode, redirect_uri);
+  ```java
+  //通过授权得到的code，以及正确的callback_url，获取token
+  Token token = client.getTokenByCode(autoCode, callback_url);
 ```
 > 个人应用
 
 ```java
-import eleme.openapi.sdk.config.Config;
-import eleme.openapi.sdk.oauth.OAuthClient;
+  import eleme.openapi.sdk.config.Config;
+  import eleme.openapi.sdk.oauth.OAuthClient;
 
-//实例化一个配置类
-Config config = new Config(true, "app_key", "app_secret");
+  //实例化一个配置类
+  Config config = new Config(true, "app_key", "app_secret");
 
-//使用config对象，实例化一个授权类
-OAuthClient client = new OAuthClient(config);
+  //使用config对象，实例化一个授权类
+  OAuthClient client = new OAuthClient(config);
 
-//使用授权类获取token
-Token token = client.getTokenInClientCredentials();
+  //使用授权类获取token
+  Token token = client.getTokenInClientCredentials();
 
 ```
 
@@ -79,19 +79,25 @@ Token token = client.getTokenInClientCredentials();
 - 如果token过期，通过refresh_token换取新的token
 
 ```java
-//实例化一个配置类
-Config config = new Config(true, "app_key", "app_secret");
+  //实例化一个配置类
+  Config config = new Config(true, "app_key", "app_secret");
 
-//使用config对象，实例化一个授权类
-OAuthClient client = new OAuthClient(config);
+  //使用config对象，实例化一个授权类
+  OAuthClient client = new OAuthClient(config);
 
-//根据refreshToken,刷新token
-Token token = client.getTokenByRefreshToken(refreshToken);
+  //根据refreshToken,刷新token
+  Token token = client.getTokenByRefreshToken(refreshToken);
 
 ```
-
-
 
 ## Demo使用方法
 
 该demo主要用来演示企业应用的授权流程和展示应用信息
+- 在开发者中心创建企业应用，记下沙箱环境店铺的账号和密码，并在沙箱环境中填入回调地址（该地址需要https）
+
+- 启动Demo服务 (eleme/openapi/demo)
+  - `HttpServerDemo.java` 中启动 start方法
+
+- 打开SDK生成的授权URL，使用沙箱店铺的账号和密码进行授权，成功后调转回调接口，输出页面，展示店铺信息
+
+- 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
