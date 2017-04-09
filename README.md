@@ -1,82 +1,97 @@
 # JAVA SDK 接入指南 & CHANGELOG
 
 ## API接入指南
-  1. 检查Java版本 java >= 1.6
-  2. 初始化OverallContext类
-   - 构造参数一(isSandbox): true(沙箱环境),false(生产环境)
-   - 构造参数二(key): 当前环境下APP对应的KEY
-   - 构造参数三(secret): 当前环境下APP对应的SECRET
+  1. JAVA version >= 1.6
+  2. 创建Config配置类，填入key，secret和sandbox参数
+  3. 使用sdk提供的接口进行开发调试
+  4. 上线前将Config中$sandbox值设为false以及填入正式环境的key和secret
 
-## API调用代码示例
-
-### 企业应用
-
-  - 第一步 设置全局配置工具类
-
+## Maven 引入SDK
+```xml
+<dependency>
+    <groupId>me.ele.openapi</groupId>
+    <artifactId>eleme-openapi-sdk</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
+## 基本用法
 ```java
-    OverallContext context = new OverallContext(ture, "key", "secret");
+import eleme.openapi.sdk.config.Config;
+import eleme.openapi.sdk.api.service.ShopService;
+
+//实例化一个配置类
+Config config = new Config(true, "app_key", "app_secret");
+
+//使用config和token对象，实例化一个服务对象
+ShopService shopService = new ShopService(config,token);
+
+//调用服务方法，获取资源
+OShop shop = shopService.getShop(12345L);
+
 ```
 
-  - 第二步 创建OAuthClient对象
+## 获取Token
+- 企业应用与个人应用的token获取方法略有不同。
+
+- 实际使用过程中，在token获取成功后，该token可以使用较长一段时间，需要缓存起来，请勿每次请求都重新获取token。
+
+> 企业应用
 
 ```java
-    OAuthClient oAuthClient = OAuthClient.INSTANCE;
-```
+import eleme.openapi.sdk.config.Config;
+import eleme.openapi.sdk.oauth.OAuthClient;
 
-  - 第三步 获取生成授权url
+//实例化一个配置类
+Config config = new Config(true, "app_key", "app_secret");
+
+//使用config对象，实例化一个授权类
+OAuthClient client = new OAuthClient(config);
+
+//根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
+String authUrl = client.getAuthUrl(redirect_uri, scope, state);
+
+```
+商家打开授权URL，同意授权后，跳转到您的回调页面，并返回code
 
 ```java
-    String authUrl = oAuthClient.getAuthUrl(callbackUrl, scope, state);
+//通过授权得到的code，以及正确的callback_url，获取token
+Token token = client.getTokenByCode(autoCode, redirect_uri);
 ```
-
-  - 第四步 在授权url中同意授权后，会跳转到CALLBACK_URL的页面，在通过链接上的参数，获取授权码code
-
-  - 第五步 通过code获取Token对象，要注意的是，此token在有效期内可重复使用，请将其全局保存，不要每次接口调用前申请一次Token
+> 个人应用
 
 ```java
-    Token token = oAuthClient.getTokenByCode(code, redirectUrl);
+import eleme.openapi.sdk.config.Config;
+import eleme.openapi.sdk.oauth.OAuthClient;
+
+//实例化一个配置类
+Config config = new Config(true, "app_key", "app_secret");
+
+//使用config对象，实例化一个授权类
+OAuthClient client = new OAuthClient(config);
+
+//使用授权类获取token
+Token token = client.getTokenInClientCredentials();
+
 ```
 
-  - 第六步 实例化一个资源服务并注入token，例如店铺服务
+> 刷新token
+
+- 如果token过期，通过refresh_token换取新的token
 
 ```java
-    ShopService shopService = new ShopService(token);
+//实例化一个配置类
+Config config = new Config(true, "app_key", "app_secret");
+
+//使用config对象，实例化一个授权类
+OAuthClient client = new OAuthClient(config);
+
+//根据refreshToken,刷新token
+Token token = client.getTokenByRefreshToken(refreshToken);
+
 ```
 
-  - 第七步 调用接口，获取资源数据
 
-```java
-    OShop shop = shopService.getShop(12345);
-```
 
-  - 第八步 如果token过期，通过refreshToken换取新的token
+## Demo使用方法
 
-```java
-    Token freshToken = oAuthClient.getTokenByRefreshToken(token.getToken().getRefreshToken(), scope);
-```
-
-### 个人应用
-
-  - 第一步 创建OAuthClient对象
-
-```java
-    OAuthClient oAuthClient = OAuthClient.INSTANCE;
-```
-
-  - 第二步 获取Token对象，要注意的是，此token在有效期内可重复使用，请将其全局保存，不要每次接口调用前申请一次Token
-
-```java
-    Token token = oAuthClient.getTokenInClientCredentials();
-```
-
-  - 第三步 实例化一个资源服务并注入token，例如店铺服务
-
-```java
-    ShopService shopService = new ShopService(token);
-```
-
-  - 第四步 调用接口，获取资源数据
-
-```java
-    OShop shop = shopService.getShop(12345l);
-```
+该demo主要用来演示企业应用的授权流程和展示应用信息

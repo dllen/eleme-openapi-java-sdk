@@ -2,7 +2,7 @@ package eleme.openapi.sdk.config;
 
 import eleme.openapi.sdk.utils.StringUtils;
 
-public class OverallContext {
+public class Config {
 
     private String app_key;
     private String app_secret;
@@ -11,9 +11,9 @@ public class OverallContext {
     private String apiUrl;
     private ElemeSdkLogger elemeSdkLogger;
 
-    public OverallContext(boolean isSandbox, String appKey, String appSecret) {
+    public Config(boolean isSandbox, String appKey, String appSecret) {
         if (StringUtils.areNotEmpty(appKey, appKey)) {
-            System.out.println("init OverallContext ...");
+            System.out.println("init Config ...");
         } else {
             System.out.println("appKey and appSecret is required.");
         }
