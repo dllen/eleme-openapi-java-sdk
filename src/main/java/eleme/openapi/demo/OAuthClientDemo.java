@@ -1,42 +1,39 @@
 package eleme.openapi.demo;
 
-import eleme.openapi.sdk.api.entity.product.OItemIdWithSpecIds;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.ProductService;
-import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
+import eleme.openapi.sdk.utils.PropertiesUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OAuthClientDemo {
 
     // 设置是否沙箱环境
     private static final boolean isSandbox = false;
     // 设置APPKEY
-    private static final String key = "kskFkyn4Kb";
+    private static final String key = "your app key";
     // 设置APPSECRET
-    private static final String secret = "5afbd840d6ac9bb836d325fa41628273";
+    private static final String secret = "your app secret";
     // 初始化OAuthClient
     private static OAuthClient client = null;
-
-    private static OverallContext context =null;
+    private static Map<String, String> tokenMap = new HashMap<String, String>();
+    private static Config config =null;
     static {
         // 初始化全局配置工具
-        //203983896
-//        OverallContext overallContext = new OverallContext(isSandbox, key, secret);
-        //203984252
-        context = new OverallContext(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
-        client = new OAuthClient(context);
+        config = new Config(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
+        client = new OAuthClient(config);
     }
 
     public static void main(String[] args) {
         OAuthClientDemo demo = new OAuthClientDemo();
-//        demo.clientTokenTest();
+        demo.clientTokenTest();
 //        demo.serverOAuthCodeTest();
 //        demo.serverTokenTest();
-        demo.serverRefreshTokenTest();
+//        demo.serverRefreshTokenTest();
     }
 
 
@@ -46,6 +43,7 @@ public class OAuthClientDemo {
     private void clientTokenTest() {
         Token token = client.getTokenInClientCredentials();
         if (token.isSuccess()) {
+            setTokenInfo(token);
             System.out.println(token);
         }else{
             System.out.println("code: " + token.getError());
@@ -73,6 +71,7 @@ public class OAuthClientDemo {
         String redirect_uri = "https://localhost:8899/demo";
         Token token = client.getTokenByCode(autoCode, redirect_uri);
         if (token.isSuccess()) {
+            setTokenInfo(token);
             System.out.println(token);
         }else{
             System.out.println("code: " + token.getError());
@@ -86,8 +85,9 @@ public class OAuthClientDemo {
      */
     private void serverRefreshTokenTest() {
         String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
-        Token token = client.getTokenByRefreshToken(client.getToken().getRefreshToken());
+        Token token = client.getTokenByRefreshToken(getToken().getRefreshToken());
         if (token.isSuccess()) {
+            setTokenInfo(token);
             System.out.println(token);
         }else{
             System.out.println("code: " + token.getError());
@@ -96,18 +96,38 @@ public class OAuthClientDemo {
     }
 
     private void testService() throws ServiceException {
-        ProductService product = new ProductService(null,null);
-        List<OItemIdWithSpecIds> specIds = new ArrayList<OItemIdWithSpecIds>();
-        OItemIdWithSpecIds oItemIdWithSpecIds = new OItemIdWithSpecIds();
-        oItemIdWithSpecIds.setItemId(27970000058L);
-        List<Long> itemSpecIds = new ArrayList<Long>();
-        itemSpecIds.add(72970000221L);
-        itemSpecIds.add(72970000222L);
-        itemSpecIds.add(72970000225L);
-        oItemIdWithSpecIds.setItemSpecIds(itemSpecIds);
-        specIds.add(oItemIdWithSpecIds);
+        ProductService product = new ProductService(config,getToken());
+    }
 
-        product.batchFillStock(specIds);
+    /**
+     * 已获取Token信息后使用
+     *
+     * @return
+     */
+    private static Token getToken() {
+        String access_token = PropertiesUtils.getPropValueByKey("access_token");
+        String token_type = PropertiesUtils.getPropValueByKey("token_type");
+        String expires_in = PropertiesUtils.getPropValueByKey("expires_in");
+        String refresh_token = PropertiesUtils.getPropValueByKey("refresh_token");
+        if (access_token.isEmpty()) {
+            System.out.println("access_token is null");
+            return null;
+        }
+        Token token = new Token();
+        token.setAccessToken(access_token);
+        token.setTokenType(token_type);
+        token.setExpires(Long.valueOf(expires_in));
+        token.setRefreshToken(refresh_token);
+        return token;
+    }
 
+    private static void setTokenInfo(Token token) {
+        if (null != token && token.isSuccess()) {
+            tokenMap.put("access_token", token.getAccessToken());
+            tokenMap.put("token_type", token.getTokenType());
+            tokenMap.put("expires_in", String.valueOf(token.getExpires()));
+            tokenMap.put("refresh_token", token.getRefreshToken());
+            PropertiesUtils.setProps(tokenMap);
+        }
     }
 }

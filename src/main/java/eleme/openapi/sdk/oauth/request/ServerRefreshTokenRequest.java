@@ -1,14 +1,14 @@
 package eleme.openapi.sdk.oauth.request;
 
-import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.BaseOAuthRequest;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import java.util.Map;
 
 public class ServerRefreshTokenRequest extends BaseOAuthRequest<Token> {
-    private OverallContext context;
-    public ServerRefreshTokenRequest(OverallContext context) {
+    private Config context;
+    public ServerRefreshTokenRequest(Config context) {
         this.context = context;
     }
     private String refreshToken;

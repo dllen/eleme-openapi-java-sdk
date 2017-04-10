@@ -5,7 +5,7 @@ import eleme.openapi.sdk.api.entity.product.*;
 import java.util.*;
 import java.time.LocalDateTime;
 
-public class OItemIdWithSpecIds{
+public class OItemIdWithSpecStock{
 
     /**
      * 商品Id
@@ -19,14 +19,14 @@ public class OItemIdWithSpecIds{
     }
     
     /**
-     * 商品规格Id的列表
+     * 商品规格Id以及对应的库存
      */
-    private List<Long> itemSpecIds;
-    public List<Long> getItemSpecIds() {
-        return itemSpecIds;
+    private Map<Long,Integer> stockMap;
+    public Map<Long,Integer> getStockMap() {
+        return stockMap;
     }
-    public void setItemSpecIds(List<Long> itemSpecIds) {
-        this.itemSpecIds = itemSpecIds;
+    public void setStockMap(Map<Long,Integer> stockMap) {
+        this.stockMap = stockMap;
     }
     
 }

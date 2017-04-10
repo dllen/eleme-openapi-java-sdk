@@ -1,9 +1,9 @@
 package eleme.openapi.sdk.api.entity.product;
 
 import eleme.openapi.sdk.api.enumeration.product.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.product.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class OSpec{
 
@@ -17,7 +17,6 @@ public class OSpec{
     public void setSpecId(long specId) {
         this.specId = specId;
     }
-
     
     /**
      * 名称
@@ -29,7 +28,6 @@ public class OSpec{
     public void setName(String name) {
         this.name = name;
     }
-
     
     /**
      * 商品价格
@@ -41,7 +39,6 @@ public class OSpec{
     public void setPrice(double price) {
         this.price = price;
     }
-
     
     /**
      * 库存量
@@ -53,7 +50,6 @@ public class OSpec{
     public void setStock(int stock) {
         this.stock = stock;
     }
-
     
     /**
      * 最大库存量
@@ -65,7 +61,6 @@ public class OSpec{
     public void setMaxStock(int maxStock) {
         this.maxStock = maxStock;
     }
-
     
     /**
      * 包装费
@@ -77,7 +72,6 @@ public class OSpec{
     public void setPackingFee(double packingFee) {
         this.packingFee = packingFee;
     }
-
     
     /**
      * 是否上架
@@ -89,6 +83,38 @@ public class OSpec{
     public void setOnShelf(int onShelf) {
         this.onShelf = onShelf;
     }
-
+    
+    /**
+     * 商品扩展码
+     */
+    private String extendCode;
+    public String getExtendCode() {
+        return extendCode;
+    }
+    public void setExtendCode(String extendCode) {
+        this.extendCode = extendCode;
+    }
+    
+    /**
+     * 商品条形码
+     */
+    private String barCode;
+    public String getBarCode() {
+        return barCode;
+    }
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
+    
+    /**
+     * 商品重量，单位为克。如果商品的店铺的类型是新零售，那么该属性必选
+     */
+    private Integer weight;
+    public Integer getWeight() {
+        return weight;
+    }
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
     
 }

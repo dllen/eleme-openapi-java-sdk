@@ -1,9 +1,9 @@
 package eleme.openapi.sdk.api.entity.order;
 
 import eleme.openapi.sdk.api.enumeration.order.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.order.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class OGoodsGroup{
 
@@ -17,7 +17,6 @@ public class OGoodsGroup{
     public void setName(String name) {
         this.name = name;
     }
-
     
     /**
      * 分组类型
@@ -29,7 +28,6 @@ public class OGoodsGroup{
     public void setType(OOrderDetailGroupType type) {
         this.type = type;
     }
-
     
     /**
      * 商品信息的列表
@@ -41,6 +39,5 @@ public class OGoodsGroup{
     public void setItems(List<OGoodsItem> items) {
         this.items = items;
     }
-
     
 }

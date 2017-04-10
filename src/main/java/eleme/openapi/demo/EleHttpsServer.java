@@ -1,4 +1,4 @@
-package eleme.openapi.sdk.utils;
+package eleme.openapi.demo;
 
 import com.sun.net.httpserver.*;
 
@@ -11,7 +11,7 @@ import java.security.KeyStore;
 
 public class EleHttpsServer {
 
-    public static com.sun.net.httpserver.HttpsServer createServer(int port) {
+    public static com.sun.net.httpserver.HttpsServer createHttpsServer(int port) {
         try {
             // setup the socket address
             InetSocketAddress address = new InetSocketAddress(port);

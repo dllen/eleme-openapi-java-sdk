@@ -2,7 +2,7 @@ package eleme.openapi.sdk.api.base;
 
 import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.utils.WebUtils;
 
@@ -14,12 +14,12 @@ public class BaseNopService {
     private Token token;
     private Map<String, Method> methodMap = new HashMap<String, Method>();
     private Class service;
-    private OverallContext overallContext;
+    private Config config;
 
-    public BaseNopService(OverallContext overallContext, Token token, Class service) {
+    public BaseNopService(Config config, Token token, Class service) {
         this.token = token;
         this.service = service;
-        this.overallContext = overallContext;
+        this.config = config;
         Method[] methods = service.getMethods();
         for (Method method : methods) {
             methodMap.put(method.getName(), method);
@@ -33,7 +33,7 @@ public class BaseNopService {
         if (annotation == null)
             throw new RuntimeException("服务未找到Service注解");
         String action = String.format("%s.%s", annotation.value(), methodName);
-        return WebUtils.call(overallContext, action, parameters, token, method.getGenericReturnType());
+        return WebUtils.call(config, action, parameters, token, method.getGenericReturnType());
     }
 
     private Method getMethod(String methodName) {

@@ -1,35 +1,38 @@
 package eleme.openapi.sdk.api.enumeration.order;
 
 public enum OOrderRefundStatus {
-
     /**
      * 未申请退单
      */
-    noRefund("noRefund"),
-
+    noRefund("noRefund"), 
+    
     /**
      * 用户申请退单
      */
-    applied("applied"),
+    applied("applied"), 
+    
     /**
      * 店铺拒绝退单
      */
-    rejected("rejected"),
+    rejected("rejected"), 
+    
     /**
      * 客服仲裁中
      */
-    arbitrating("arbitrating"),
+    arbitrating("arbitrating"), 
+    
     /**
      * 退单失败
      */
-    failed("failed"),
+    failed("failed"), 
+    
     /**
      * 退单成功
      */
     successful("successful");
+    
 
     private String orderDesc;
-
     OOrderRefundStatus(String orderDesc) {
         this.orderDesc = orderDesc;
     }

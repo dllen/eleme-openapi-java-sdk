@@ -7,7 +7,7 @@ import eleme.openapi.sdk.api.json.gson.GsonBuilder;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
 import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
-import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.response.Token;
 
 import javax.net.ssl.*;
@@ -51,7 +51,7 @@ public abstract class WebUtils {
      * @return 响应字符串
      * @throws IOException
      */
-    public static String doPost(OverallContext context, String url, Map<String, String> params, int connectTimeout, int readTimeout)
+    public static String doPost(Config context, String url, Map<String, String> params, int connectTimeout, int readTimeout)
             throws IOException {
         return doPost(context, url, params, DEFAULT_CHARSET, connectTimeout, readTimeout);
     }
@@ -65,12 +65,12 @@ public abstract class WebUtils {
      * @return 响应字符串
      * @throws IOException
      */
-    public static String doPost(OverallContext context, String url, Map<String, String> params, String charset, int connectTimeout,
+    public static String doPost(Config context, String url, Map<String, String> params, String charset, int connectTimeout,
                                 int readTimeout) throws IOException {
         return doPost(context, url, params, charset, connectTimeout, readTimeout, null);
     }
 
-    public static String doPost(OverallContext context, String url,
+    public static String doPost(Config context, String url,
                                 Map<String, String> params,
                                 String charset,
                                 int connectTimeout,
@@ -97,12 +97,12 @@ public abstract class WebUtils {
      * @throws IOException
      */
     @Deprecated
-    public static String doPost(OverallContext context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout)
+    public static String doPost(Config context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout)
             throws IOException {
         return _doPost(context, url, ctype, content, connectTimeout, readTimeout, null);
     }
 
-    private static String _doPost(OverallContext context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout,
+    private static String _doPost(Config context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout,
                                   Map<String, String> headerMap) throws IOException {
         HttpURLConnection conn = null;
         OutputStream out = null;
@@ -421,7 +421,7 @@ public abstract class WebUtils {
      * @param type       返回类型
      * @throws ServiceException
      */
-    public static <T> T call(OverallContext context, String action,
+    public static <T> T call(Config context, String action,
                              Map<String, Object> parameters,
                              Token token,
                              Type type
@@ -465,7 +465,7 @@ public abstract class WebUtils {
         return gson.fromJson(s2, type);
     }
 
-    private static ResponsePayload doRequest(OverallContext context, String requestJson) {
+    private static ResponsePayload doRequest(Config context, String requestJson) {
         try {
             String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
             setLogInfo(context, "response: " + response);
@@ -501,13 +501,13 @@ public abstract class WebUtils {
         return null;
     }
 
-    private static void setLogInfo(OverallContext context, String msg) {
+    private static void setLogInfo(Config context, String msg) {
         if (null != context.getElemeSdkLogger()) {
             context.getElemeSdkLogger().info(msg);
         }
     }
 
-    private static void setLogError(OverallContext context, String msg) {
+    private static void setLogError(Config context, String msg) {
         if (null != context.getElemeSdkLogger()) {
             context.getElemeSdkLogger().error(msg);
         }

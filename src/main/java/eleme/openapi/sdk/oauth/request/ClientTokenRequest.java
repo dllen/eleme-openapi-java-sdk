@@ -1,6 +1,6 @@
 package eleme.openapi.sdk.oauth.request;
 
-import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.BaseOAuthRequest;
 import eleme.openapi.sdk.oauth.response.Token;
 
@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class ClientTokenRequest extends BaseOAuthRequest<Token> {
 
-    private OverallContext context;
-    public ClientTokenRequest(OverallContext context) {
+    private Config context;
+    public ClientTokenRequest(Config context) {
         this.context = context;
     }
 

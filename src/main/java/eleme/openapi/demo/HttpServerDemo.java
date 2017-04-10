@@ -2,7 +2,7 @@ package eleme.openapi.demo;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import eleme.openapi.sdk.utils.EleHttpsServer;
+import com.sun.net.httpserver.HttpServer;
 import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.entity.other.OMessage;
 import eleme.openapi.sdk.api.entity.shop.OShop;
@@ -12,13 +12,14 @@ import eleme.openapi.sdk.api.service.OrderService;
 import eleme.openapi.sdk.api.service.ShopService;
 import eleme.openapi.sdk.api.service.UserService;
 import eleme.openapi.sdk.api.utils.CallbackValidationUtil;
-import eleme.openapi.sdk.config.OverallContext;
+import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.utils.StringUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,26 +27,31 @@ public class HttpServerDemo {
 
     private static Gson gson = new Gson();
 
+    private static Config config = null;
+
+    private static Token token = null;
+
+    private static OAuthClient client = null;
     // 设置是否沙箱环境
     private static final boolean isSandbox = true;
-    // 设置APPKEY
-    private static final String key = "kskFkyn4Kb";
-    // 设置APPSECRET
-    private static final String secret = "5afbd840d6ac9bb836d325fa41628273";
-    // 初始化OAuthClient
-    private static OAuthClient client = null;
 
-    private static OverallContext context = null;
+    // 设置APP KEY
+    private static final String key = "your app key";
+
+    // 设置APP SECRET
+    private static final String secret = "your app secret";
+
+    // 回调地址
+    private static String callbackUrl = "your callback url";
+
+    private static String scope = "all";
+
+    private static String state = "";
 
     static {
-        // 初始化全局配置工具
-        /*OverallContext overallContext = new OverallContext(
-                isSandbox,
-                "whjJ8amGkn",
-                "ff318ec51ab4d2c179fe603f90a4dbb83fd5d3cb");*/
-
-        context = new OverallContext(isSandbox, key, secret);
-        client = new OAuthClient(context);
+        config = new Config(isSandbox, key, secret);
+        client = new OAuthClient(config);
+        token = client.getTokenByCode("", "");
     }
 
     public static void main(String[] args) {
@@ -57,7 +63,8 @@ public class HttpServerDemo {
     }
 
     public static void start(Integer port) throws IOException {
-        com.sun.net.httpserver.HttpsServer server = EleHttpsServer.createServer(port);
+        InetSocketAddress address = new InetSocketAddress(port);
+        HttpServer server = HttpServer.create(address, 0);
         if (server != null) {
             server.createContext("/demo", new DemoHandler());
             server.createContext("/api", new ApiHandler());
@@ -83,14 +90,14 @@ public class HttpServerDemo {
                 ResponseResult result = new ResponseResult();
                 ResponseResult.Result rResult = new ResponseResult.Result();
                 try {
-                    if (client.getToken() == null || !client.getToken().isSuccess()) {
-                        rResult.setOAuthUrl(client.getAuthUrl("https://localhost:8899/demo", "all", "123"));
+                    if (token == null || !token.isSuccess()) {
+                        rResult.setOAuthUrl(client.getAuthUrl(callbackUrl, scope, state));
                         result.setResult(rResult);
                         String resultJson = gson.toJson(result);
                         response(t, resultJson);
                         return;
                     }
-                    ShopService shopService = new ShopService(context,client.getToken());
+                    ShopService shopService = new ShopService(config, token);
                     OShop shop = shopService.getShop(Long.valueOf(shopId));
                     rResult.setShopName(shop.getName());
                     result.setResult(rResult);
@@ -118,16 +125,15 @@ public class HttpServerDemo {
                 response(t, initHtml);
                 return;
             }
-
             long userId = 0L;
             String shopName = null;
             try {
-                Token token = client.getTokenByCode(code, "https://localhost:8899");
+                Token token = client.getTokenByCode(code, callbackUrl);
                 if (!token.isSuccess()) {
                     System.out.println(token.getError());
                     System.out.println(token.getError_description());
                 }
-                UserService userService = new UserService(context,token);
+                UserService userService = new UserService(config, token);
                 System.out.println(userService.getUser().getUserName());
                 userId = userService.getUser().getUserId();
                 shopName = userService.getUser().getAuthorizedShops().get(0).getName();
@@ -139,7 +145,6 @@ public class HttpServerDemo {
             response(t, responseHtml);
         }
     }
-
 
     private static void response(HttpExchange t, String responseMsg) {
         try {
@@ -157,6 +162,7 @@ public class HttpServerDemo {
         public void handle(HttpExchange t) throws IOException {
             int code = 200;
             String response = "ok";
+            OMessage oMessage = null;
             try {
                 if ("GET".equals(t.getRequestMethod())) {
                     return;
@@ -168,16 +174,11 @@ public class HttpServerDemo {
                 while ((line = in.readLine()) != null) {
                     body.append(line);
                 }
-                OMessage message = gson.fromJson(body.toString(), OMessage.class);
-                if (!CallbackValidationUtil.isValidMessage(message, secret)) {
+                oMessage = gson.fromJson(body.toString(), OMessage.class);
+                if (!CallbackValidationUtil.isValidMessage(oMessage, secret)) {
                     throw new Exception("invalid post data : " + body);
                 }
-                //type=10的消息，调用确认订单接口完成接单流程
-                if (message.getType() == 10) {
-                    OrderService orderService = new OrderService(context,client.getToken());
-                    OMessage.Message msg = gson.fromJson(message.getMessage(), OMessage.Message.class);
-                    OOrder oOrder = orderService.confirmOrder(msg.getOrder_id());
-                }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 code = 500;
@@ -190,12 +191,24 @@ public class HttpServerDemo {
                 OutputStream os = t.getResponseBody();
                 os.write(message.getBytes());
                 os.close();
+
+                //type=10的消息，调用确认订单接口完成接单流程
+                if (null != oMessage && oMessage.getType() == 10) {
+                    OrderService orderService = new OrderService(config, token);
+                    OMessage.Message msg = gson.fromJson(oMessage.getMessage(), OMessage.Message.class);
+                    try {
+                        OOrder oOrder = orderService.confirmOrder(msg.getOrder_id());
+                    } catch (ServiceException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
 
+
     private static String rtnHtml() throws IOException {
-        InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("page/index.html");
+        InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("page/demo.html");
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;

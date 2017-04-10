@@ -1,9 +1,9 @@
 package eleme.openapi.sdk.api.entity.product;
 
 import eleme.openapi.sdk.api.enumeration.product.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.product.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class OItem{
 
@@ -17,7 +17,6 @@ public class OItem{
     public void setDescription(String description) {
         this.description = description;
     }
-
     
     /**
      * 商品Id
@@ -29,7 +28,6 @@ public class OItem{
     public void setId(long id) {
         this.id = id;
     }
-
     
     /**
      * 商品名
@@ -41,7 +39,6 @@ public class OItem{
     public void setName(String name) {
         this.name = name;
     }
-
     
     /**
      * 是否有效
@@ -53,7 +50,6 @@ public class OItem{
     public void setIsValid(int isValid) {
         this.isValid = isValid;
     }
-
     
     /**
      * 最近一个月的售出份数
@@ -65,7 +61,6 @@ public class OItem{
     public void setRecentPopularity(int recentPopularity) {
         this.recentPopularity = recentPopularity;
     }
-
     
     /**
      * 商品分类Id
@@ -77,7 +72,6 @@ public class OItem{
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
-
     
     /**
      * 店铺Id
@@ -89,7 +83,6 @@ public class OItem{
     public void setShopId(long shopId) {
         this.shopId = shopId;
     }
-
     
     /**
      * 店铺名称
@@ -101,7 +94,6 @@ public class OItem{
     public void setShopName(String shopName) {
         this.shopName = shopName;
     }
-
     
     /**
      * 商品图片
@@ -113,7 +105,6 @@ public class OItem{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
     
     /**
      * 标签
@@ -125,7 +116,6 @@ public class OItem{
     public void setLabels(OLabel labels) {
         this.labels = labels;
     }
-
     
     /**
      * 规格的列表
@@ -137,6 +127,27 @@ public class OItem{
     public void setSpecs(List<OSpec> specs) {
         this.specs = specs;
     }
-
+    
+    /**
+     * 售卖时间
+     */
+    private OItemSellingTime sellingTime;
+    public OItemSellingTime getSellingTime() {
+        return sellingTime;
+    }
+    public void setSellingTime(OItemSellingTime sellingTime) {
+        this.sellingTime = sellingTime;
+    }
+    
+    /**
+     * 属性
+     */
+    private List<OItemAttribute> attributes;
+    public List<OItemAttribute> getAttributes() {
+        return attributes;
+    }
+    public void setAttributes(List<OItemAttribute> attributes) {
+        this.attributes = attributes;
+    }
     
 }

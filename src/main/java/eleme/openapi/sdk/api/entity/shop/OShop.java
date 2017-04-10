@@ -1,8 +1,7 @@
 package eleme.openapi.sdk.api.entity.shop;
 
-import eleme.openapi.sdk.api.enumeration.shop.*;
-import java.util.ArrayList;
-import java.util.Date;
+import eleme.openapi.sdk.api.enumeration.shop.OBusyLevel;
+
 import java.util.List;
 
 public class OShop{
@@ -17,7 +16,6 @@ public class OShop{
     public void setId(long id) {
         this.id = id;
     }
-
     
     /**
      * 店铺地址
@@ -29,7 +27,6 @@ public class OShop{
     public void setAddressText(String addressText) {
         this.addressText = addressText;
     }
-
     
     /**
      * 店铺默认配送费
@@ -41,7 +38,6 @@ public class OShop{
     public void setAgentFee(double agentFee) {
         this.agentFee = agentFee;
     }
-
     
     /**
      * 店铺营业状态
@@ -53,7 +49,6 @@ public class OShop{
     public void setBusyLevel(OBusyLevel busyLevel) {
         this.busyLevel = busyLevel;
     }
-
     
     /**
      * 城市Id
@@ -65,7 +60,6 @@ public class OShop{
     public void setCityId(int cityId) {
         this.cityId = cityId;
     }
-
     
     /**
      * 城市区号
@@ -77,7 +71,6 @@ public class OShop{
     public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
     }
-
     
     /**
      * 店铺关闭的原因
@@ -89,7 +82,6 @@ public class OShop{
     public void setCloseDescription(String closeDescription) {
         this.closeDescription = closeDescription;
     }
-
     
     /**
      * 起送价
@@ -101,7 +93,6 @@ public class OShop{
     public void setDeliverAmount(double deliverAmount) {
         this.deliverAmount = deliverAmount;
     }
-
     
     /**
      * 配送区域详情
@@ -113,7 +104,6 @@ public class OShop{
     public void setDeliverDescription(String deliverDescription) {
         this.deliverDescription = deliverDescription;
     }
-
     
     /**
      * 配送范围
@@ -125,7 +115,6 @@ public class OShop{
     public void setDeliverGeoJson(String deliverGeoJson) {
         this.deliverGeoJson = deliverGeoJson;
     }
-
     
     /**
      * 2周内的平均送餐时间
@@ -137,7 +126,6 @@ public class OShop{
     public void setDeliverSpent(int deliverSpent) {
         this.deliverSpent = deliverSpent;
     }
-
     
     /**
      * 店铺描述
@@ -149,7 +137,6 @@ public class OShop{
     public void setDescription(String description) {
         this.description = description;
     }
-
     
     /**
      * 店铺口味
@@ -161,7 +148,6 @@ public class OShop{
     public void setFlavors(String flavors) {
         this.flavors = flavors;
     }
-
     
     /**
      * 店铺Logo地址
@@ -173,7 +159,6 @@ public class OShop{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
     
     /**
      * 是否支持开发票
@@ -185,7 +170,6 @@ public class OShop{
     public void setInvoice(int invoice) {
         this.invoice = invoice;
     }
-
     
     /**
      * 支持的最小发票金额
@@ -197,7 +181,6 @@ public class OShop{
     public void setInvoiceMinAmount(double invoiceMinAmount) {
         this.invoiceMinAmount = invoiceMinAmount;
     }
-
     
     /**
      * 是否支持预定(n=0表示不支持预定,7>n>=1表示支持n天内的预定）
@@ -209,7 +192,6 @@ public class OShop{
     public void setIsBookable(int isBookable) {
         this.isBookable = isBookable;
     }
-
     
     /**
      * 营业时间bitmap
@@ -221,7 +203,6 @@ public class OShop{
     public void setOpenTimeBitmap(String openTimeBitmap) {
         this.openTimeBitmap = openTimeBitmap;
     }
-
     
     /**
      * 预定时间bitmap
@@ -233,7 +214,6 @@ public class OShop{
     public void setBookTimeBitmap(String bookTimeBitmap) {
         this.bookTimeBitmap = bookTimeBitmap;
     }
-
     
     /**
      * 预定时间选项
@@ -245,7 +225,6 @@ public class OShop{
     public void setDeliverTimes(List<String> deliverTimes) {
         this.deliverTimes = deliverTimes;
     }
-
     
     /**
      * 是否正在营业
@@ -257,7 +236,6 @@ public class OShop{
     public void setIsOpen(int isOpen) {
         this.isOpen = isOpen;
     }
-
     
     /**
      * 是否隐藏电话号码
@@ -269,7 +247,6 @@ public class OShop{
     public void setIsPhoneHidden(int isPhoneHidden) {
         this.isPhoneHidden = isPhoneHidden;
     }
-
     
     /**
      * 是否品牌馆餐厅
@@ -281,7 +258,6 @@ public class OShop{
     public void setIsPremium(int isPremium) {
         this.isPremium = isPremium;
     }
-
     
     /**
      * 是否支持超时赔付
@@ -293,7 +269,6 @@ public class OShop{
     public void setIsTimeEnsure(int isTimeEnsure) {
         this.isTimeEnsure = isTimeEnsure;
     }
-
     
     /**
      * 超时赔付详细信息
@@ -305,7 +280,6 @@ public class OShop{
     public void setTimeEnsureFullDescription(String timeEnsureFullDescription) {
         this.timeEnsureFullDescription = timeEnsureFullDescription;
     }
-
     
     /**
      * 店铺地址坐标-纬度
@@ -317,7 +291,6 @@ public class OShop{
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-
     
     /**
      * 店铺地址坐标-经度
@@ -329,7 +302,6 @@ public class OShop{
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-
     
     /**
      * 店铺接收饿了么短信的手机号码
@@ -341,7 +313,6 @@ public class OShop{
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
     
     /**
      * 免配送费的最低消费额度
@@ -353,7 +324,6 @@ public class OShop{
     public void setNoAgentFeeTotal(double noAgentFeeTotal) {
         this.noAgentFeeTotal = noAgentFeeTotal;
     }
-
     
     /**
      * 店铺评价的列表
@@ -365,7 +335,6 @@ public class OShop{
     public void setNumRatings(List<Short> numRatings) {
         this.numRatings = numRatings;
     }
-
     
     /**
      * 是否支持在线支付，0:不支持，1:支持
@@ -377,7 +346,6 @@ public class OShop{
     public void setOnlinePayment(int onlinePayment) {
         this.onlinePayment = onlinePayment;
     }
-
     
     /**
      * 店铺的联系电话的列表
@@ -389,7 +357,6 @@ public class OShop{
     public void setPhones(List<String> phones) {
         this.phones = phones;
     }
-
     
     /**
      * 店铺促销文案信息
@@ -401,7 +368,6 @@ public class OShop{
     public void setPromotionInfo(String promotionInfo) {
         this.promotionInfo = promotionInfo;
     }
-
     
     /**
      * 最近一个月美食销量
@@ -413,7 +379,6 @@ public class OShop{
     public void setRecentFoodPopularity(int recentFoodPopularity) {
         this.recentFoodPopularity = recentFoodPopularity;
     }
-
     
     /**
      * 店铺名称
@@ -425,7 +390,6 @@ public class OShop{
     public void setName(String name) {
         this.name = name;
     }
-
     
     /**
      * 店铺手机站url
@@ -437,7 +401,6 @@ public class OShop{
     public void setMobileUrl(String mobileUrl) {
         this.mobileUrl = mobileUrl;
     }
-
     
     /**
      * 营业时间的列表
@@ -449,7 +412,6 @@ public class OShop{
     public void setServingTime(List<String> servingTime) {
         this.servingTime = servingTime;
     }
-
     
     /**
      * 是否支持在线订餐
@@ -461,7 +423,6 @@ public class OShop{
     public void setSupportOnline(boolean supportOnline) {
         this.supportOnline = supportOnline;
     }
-
     
     /**
      * 废弃字段，请忽略
@@ -473,7 +434,6 @@ public class OShop{
     public void setServiceCategory(int serviceCategory) {
         this.serviceCategory = serviceCategory;
     }
-
     
     /**
      * 订单打包费
@@ -485,7 +445,6 @@ public class OShop{
     public void setPackingFee(double packingFee) {
         this.packingFee = packingFee;
     }
-
     
     /**
      * 店铺绑定的外部ID
@@ -497,6 +456,5 @@ public class OShop{
     public void setOpenId(String openId) {
         this.openId = openId;
     }
-
     
 }

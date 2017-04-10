@@ -2,22 +2,40 @@ package eleme.openapi.sdk.api.enumeration.product;
 
 public enum OItemUpdateProperty {
     /**
-     * String 商品名称|必选|"白切鸡"
+     * 商品名称
      */
     name("name"), 
+    
     /**
-     * String 商品描述|可选|"香脆可口，外焦里嫩"
+     * 商品描述
      */
     description("description"), 
+    
     /**
-     * String 图片imageHash|可选|"3077080f760e7bf0fc985e23dd3e36e2"
+     * 图片imageHash
      */
     imageHash("imageHash"), 
+    
     /**
-     * OLabel 标签属性集合|可选|{"isFeatured":0,"isGum":0,"isNew":1,"isSpicy":1}
+     * 标签属性集合
      */
     labels("labels"), 
-    specs("specs");
+    
+    /**
+     * 规格
+     */
+    specs("specs"), 
+    
+    /**
+     * 售卖时间
+     */
+    sellingTime("sellingTime"), 
+    
+    /**
+     * 属性
+     */
+    attributes("attributes");
+    
 
     private String productDesc;
     OItemUpdateProperty(String productDesc) {

@@ -1,9 +1,9 @@
 package eleme.openapi.sdk.api.entity.product;
 
 import eleme.openapi.sdk.api.enumeration.product.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.product.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class OCategory{
 
@@ -17,7 +17,6 @@ public class OCategory{
     public void setId(long id) {
         this.id = id;
     }
-
     
     /**
      * 商品分类名称
@@ -29,7 +28,6 @@ public class OCategory{
     public void setName(String name) {
         this.name = name;
     }
-
     
     /**
      * 商品分类描述
@@ -41,7 +39,6 @@ public class OCategory{
     public void setDescription(String description) {
         this.description = description;
     }
-
     
     /**
      * 是否有效
@@ -53,6 +50,5 @@ public class OCategory{
     public void setIsValid(int isValid) {
         this.isValid = isValid;
     }
-
     
 }

@@ -1,9 +1,9 @@
 package eleme.openapi.sdk.api.entity.order;
 
 import eleme.openapi.sdk.api.enumeration.order.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.order.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class ODeliveryRecord{
 
@@ -17,7 +17,6 @@ public class ODeliveryRecord{
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
-
     
     /**
      * 运单主状态
@@ -29,7 +28,6 @@ public class ODeliveryRecord{
     public void setState(OState state) {
         this.state = state;
     }
-
     
     /**
      * 运单子状态
@@ -41,7 +39,6 @@ public class ODeliveryRecord{
     public void setSubState(OSubState subState) {
         this.subState = subState;
     }
-
     
     /**
      * 配送员姓名
@@ -53,7 +50,6 @@ public class ODeliveryRecord{
     public void setDeliverName(String deliverName) {
         this.deliverName = deliverName;
     }
-
     
     /**
      * 配送员手机号
@@ -65,18 +61,16 @@ public class ODeliveryRecord{
     public void setDeliverPhone(String deliverPhone) {
         this.deliverPhone = deliverPhone;
     }
-
     
     /**
      * 记录创建时间
      */
-    private String createdAt;
-    public String getCreatedAt() {
+    private LocalDateTime createdAt;
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
     
 }

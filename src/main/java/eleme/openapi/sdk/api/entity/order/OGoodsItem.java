@@ -1,14 +1,14 @@
 package eleme.openapi.sdk.api.entity.order;
 
 import eleme.openapi.sdk.api.enumeration.order.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.order.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class OGoodsItem{
 
     /**
-     * 商品Id
+     * 篮子商品Id（根据篮子商品的类型取不同的值）
      */
     private long id;
     public long getId() {
@@ -17,7 +17,17 @@ public class OGoodsItem{
     public void setId(long id) {
         this.id = id;
     }
-
+    
+    /**
+     * 商品规格Id(与规格中的specId相同)
+     */
+    private Long skuId;
+    public Long getSkuId() {
+        return skuId;
+    }
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
+    }
     
     /**
      * 商品名称
@@ -29,10 +39,9 @@ public class OGoodsItem{
     public void setName(String name) {
         this.name = name;
     }
-
     
     /**
-     * 订单中商品项的标识
+     * 订单中商品项的标识(注意，此处不是商品分类Id)
      */
     private long categoryId;
     public long getCategoryId() {
@@ -41,7 +50,6 @@ public class OGoodsItem{
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
-
     
     /**
      * 商品单价
@@ -53,7 +61,6 @@ public class OGoodsItem{
     public void setPrice(double price) {
         this.price = price;
     }
-
     
     /**
      * 商品数量
@@ -65,7 +72,6 @@ public class OGoodsItem{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     
     /**
      * 总价
@@ -77,6 +83,60 @@ public class OGoodsItem{
     public void setTotal(double total) {
         this.total = total;
     }
-
+    
+    /**
+     * 多规格
+     */
+    private List<OGroupItemSpec> newSpecs;
+    public List<OGroupItemSpec> getNewSpecs() {
+        return newSpecs;
+    }
+    public void setNewSpecs(List<OGroupItemSpec> newSpecs) {
+        this.newSpecs = newSpecs;
+    }
+    
+    /**
+     * 多属性
+     */
+    private List<OGroupItemAttribute> attributes;
+    public List<OGroupItemAttribute> getAttributes() {
+        return attributes;
+    }
+    public void setAttributes(List<OGroupItemAttribute> attributes) {
+        this.attributes = attributes;
+    }
+    
+    /**
+     * 商品扩展码
+     */
+    private String extendCode;
+    public String getExtendCode() {
+        return extendCode;
+    }
+    public void setExtendCode(String extendCode) {
+        this.extendCode = extendCode;
+    }
+    
+    /**
+     * 商品条形码
+     */
+    private String barCode;
+    public String getBarCode() {
+        return barCode;
+    }
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
+    
+    /**
+     * 商品重量(单位克)
+     */
+    private Double weight;
+    public Double getWeight() {
+        return weight;
+    }
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
     
 }

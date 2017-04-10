@@ -2,7 +2,7 @@
 
 ## API接入指南
   1. JAVA version >= 1.6
-  2. 创建Config配置类，填入key，secret和sandbox参数
+  2. 创建Config配置类，填入key，secret和isSandbox 参数
   3. 使用sdk提供的接口进行开发调试
   4. 上线前将Config中isSandbox值设为false以及填入正式环境的key和secret
 

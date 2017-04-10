@@ -1,9 +1,9 @@
 package eleme.openapi.sdk.api.entity.product;
 
 import eleme.openapi.sdk.api.enumeration.product.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.entity.product.*;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class OLabel{
 
@@ -17,7 +17,6 @@ public class OLabel{
     public void setIsFeatured(int isFeatured) {
         this.isFeatured = isFeatured;
     }
-
     
     /**
      * 是否配菜
@@ -29,7 +28,6 @@ public class OLabel{
     public void setIsGum(int isGum) {
         this.isGum = isGum;
     }
-
     
     /**
      * 是否新菜
@@ -41,7 +39,6 @@ public class OLabel{
     public void setIsNew(int isNew) {
         this.isNew = isNew;
     }
-
     
     /**
      * 是否辣
@@ -53,6 +50,5 @@ public class OLabel{
     public void setIsSpicy(int isSpicy) {
         this.isSpicy = isSpicy;
     }
-
     
 }
