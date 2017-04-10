@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 店铺服务
+ */
 @Service("eleme.shop")
 public class ShopService extends BaseNopService {
     public ShopService(Config config,Token token) {
