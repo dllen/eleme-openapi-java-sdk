@@ -21,16 +21,17 @@ public class OAuthClientDemo {
     // 初始化OAuthClient
     private static OAuthClient client = null;
     private static Map<String, String> tokenMap = new HashMap<String, String>();
-    private static Config config =null;
+    private static Config config = null;
+
     static {
         // 初始化全局配置工具
-        config = new Config(true, "orpiSPZphl", "2620115fc8e1bcb2074d16e46c7115f5");
+        config = new Config(isSandbox, key, secret);
         client = new OAuthClient(config);
     }
 
     public static void main(String[] args) {
         OAuthClientDemo demo = new OAuthClientDemo();
-        demo.clientTokenTest();
+//        demo.clientTokenTest();
 //        demo.serverOAuthCodeTest();
 //        demo.serverTokenTest();
 //        demo.serverRefreshTokenTest();
@@ -45,7 +46,7 @@ public class OAuthClientDemo {
         if (token.isSuccess()) {
             setTokenInfo(token);
             System.out.println(token);
-        }else{
+        } else {
             System.out.println("code: " + token.getError());
             System.out.println("desc: " + token.getError_description());
         }
@@ -64,16 +65,15 @@ public class OAuthClientDemo {
 
     /**
      * 授权码(企业)模式获取Token
-     *
      */
     private void serverTokenTest() {
-        String autoCode = "d41662a2b774646de075d088b35764e6";
+        String autoCode = "XXXXXXXXXXXX";
         String redirect_uri = "https://localhost:8899/demo";
         Token token = client.getTokenByCode(autoCode, redirect_uri);
         if (token.isSuccess()) {
             setTokenInfo(token);
             System.out.println(token);
-        }else{
+        } else {
             System.out.println("code: " + token.getError());
             System.out.println("desc: " + token.getError_description());
         }
@@ -81,22 +81,23 @@ public class OAuthClientDemo {
 
     /**
      * 授权码(企业)模式刷新Token
-     *
      */
     private void serverRefreshTokenTest() {
-        String refreshTokenStr = "331dc23101c75d827d17541365b736cf";
+        String refreshTokenStr = "XXXXXXXXXXX";
         Token token = client.getTokenByRefreshToken(getToken().getRefreshToken());
         if (token.isSuccess()) {
             setTokenInfo(token);
             System.out.println(token);
-        }else{
+        } else {
             System.out.println("code: " + token.getError());
             System.out.println("desc: " + token.getError_description());
         }
     }
 
     private void testService() throws ServiceException {
-        ProductService product = new ProductService(config,getToken());
+        ProductService product = new ProductService(config, getToken());
+
+
     }
 
     /**
