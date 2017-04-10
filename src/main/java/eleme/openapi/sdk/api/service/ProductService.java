@@ -20,7 +20,7 @@ public class ProductService extends BaseNopService {
     /**
      * 获取一个分类下的所有商品
      *
-     * @param categoryId
+     * @param categoryId 商品分类Id
      * @return Map<Long,OItem>
      * @throws ServiceException
      */
@@ -33,7 +33,7 @@ public class ProductService extends BaseNopService {
     /**
      * 查询商品详情
      *
-     * @param itemId
+     * @param itemId 商品Id
      * @return OItem
      * @throws ServiceException
      */
@@ -46,7 +46,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量查询商品详情
      *
-     * @param itemIds
+     * @param itemIds 商品Id的列表
      * @return Map<Long,OItem>
      * @throws ServiceException
      */
@@ -59,8 +59,8 @@ public class ProductService extends BaseNopService {
     /**
      * 添加商品
      *
-     * @param categoryId
-     * @param properties
+     * @param categoryId 商品分类Id
+     * @param properties 商品属性
      * @return OItem
      * @throws ServiceException
      */
@@ -74,8 +74,8 @@ public class ProductService extends BaseNopService {
     /**
      * 批量添加商品
      *
-     * @param categoryId
-     * @param items
+     * @param categoryId 商品分类Id
+     * @param items 商品属性的列表
      * @return Map<Long,OItem>
      * @throws ServiceException
      */
@@ -89,9 +89,9 @@ public class ProductService extends BaseNopService {
     /**
      * 更新商品
      *
-     * @param itemId
-     * @param categoryId
-     * @param properties
+     * @param itemId 商品Id
+     * @param categoryId 商品分类Id
+     * @param properties 商品属性
      * @return OItem
      * @throws ServiceException
      */
@@ -106,7 +106,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量置满库存
      *
-     * @param specIds
+     * @param specIds 商品及商品规格的列表
      * @return void
      * @throws ServiceException
      */
@@ -119,7 +119,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量沽清库存
      *
-     * @param specIds
+     * @param specIds 商品及商品规格的列表
      * @return void
      * @throws ServiceException
      */
@@ -132,7 +132,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量上架商品
      *
-     * @param specIds
+     * @param specIds 商品及商品规格的列表
      * @return void
      * @throws ServiceException
      */
@@ -145,7 +145,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量下架商品
      *
-     * @param specIds
+     * @param specIds 商品及商品规格的列表
      * @return void
      * @throws ServiceException
      */
@@ -158,7 +158,7 @@ public class ProductService extends BaseNopService {
     /**
      * 删除商品
      *
-     * @param itemId
+     * @param itemId 商品Id
      * @return OItem
      * @throws ServiceException
      */
@@ -171,7 +171,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量删除商品
      *
-     * @param itemIds
+     * @param itemIds 商品Id的列表
      * @return Map<Long,OItem>
      * @throws ServiceException
      */
@@ -184,7 +184,7 @@ public class ProductService extends BaseNopService {
     /**
      * 批量更新商品库存
      *
-     * @param specStocks
+     * @param specStocks 商品以及规格库存列表
      * @return void
      * @throws ServiceException
      */
@@ -197,8 +197,8 @@ public class ProductService extends BaseNopService {
     /**
      * 设置商品排序
      *
-     * @param categoryId
-     * @param itemIds
+     * @param categoryId 商品分类Id
+     * @param itemIds 商品Id列表
      * @return void
      * @throws ServiceException
      */
@@ -212,7 +212,7 @@ public class ProductService extends BaseNopService {
     /**
      * 查询店铺商品分类
      *
-     * @param shopId
+     * @param shopId 店铺Id
      * @return List<OCategory>
      * @throws ServiceException
      */
@@ -225,7 +225,7 @@ public class ProductService extends BaseNopService {
     /**
      * 查询商品分类详情
      *
-     * @param categoryId
+     * @param categoryId 商品分类Id
      * @return OCategory
      * @throws ServiceException
      */
@@ -238,9 +238,9 @@ public class ProductService extends BaseNopService {
     /**
      * 添加商品分类
      *
-     * @param shopId
-     * @param name
-     * @param description
+     * @param shopId 店铺Id
+     * @param name 商品分类名称，长度需在50字以内
+     * @param description 商品分类描述，长度需在50字以内
      * @return OCategory
      * @throws ServiceException
      */
@@ -255,9 +255,9 @@ public class ProductService extends BaseNopService {
     /**
      * 更新商品分类
      *
-     * @param categoryId
-     * @param name
-     * @param description
+     * @param categoryId 商品分类Id
+     * @param name 商品分类名称，长度需在50字以内
+     * @param description 商品分类描述，长度需在50字以内
      * @return OCategory
      * @throws ServiceException
      */
@@ -272,7 +272,7 @@ public class ProductService extends BaseNopService {
     /**
      * 删除商品分类
      *
-     * @param categoryId
+     * @param categoryId 商品分类Id
      * @return OCategory
      * @throws ServiceException
      */
@@ -285,8 +285,8 @@ public class ProductService extends BaseNopService {
     /**
      * 设置分类排序
      *
-     * @param shopId
-     * @param categoryIds
+     * @param shopId 饿了么店铺Id
+     * @param categoryIds 需要排序的分类Id
      * @return void
      * @throws ServiceException
      */
@@ -300,7 +300,7 @@ public class ProductService extends BaseNopService {
     /**
      * 上传图片，返回图片的hash值
      *
-     * @param image
+     * @param image 文件内容base64编码值
      * @return String
      * @throws ServiceException
      */
@@ -313,7 +313,7 @@ public class ProductService extends BaseNopService {
     /**
      * 通过远程URL上传图片，返回图片的hash值
      *
-     * @param url
+     * @param url 远程Url地址
      * @return String
      * @throws ServiceException
      */
@@ -326,7 +326,7 @@ public class ProductService extends BaseNopService {
     /**
      * 获取上传文件的访问URL，返回文件的Url地址
      *
-     * @param hash
+     * @param hash 图片hash值
      * @return String
      * @throws ServiceException
      */

@@ -20,7 +20,7 @@ public class MessageService extends BaseNopService {
     /**
      * 获取未到达的推送消息
      *
-     * @param appId
+     * @param appId 应用ID
      * @return List<String>
      * @throws ServiceException
      */
@@ -33,7 +33,7 @@ public class MessageService extends BaseNopService {
     /**
      * 获取未到达的推送消息实体
      *
-     * @param appId
+     * @param appId 应用ID
      * @return List<OMessage>
      * @throws ServiceException
      */

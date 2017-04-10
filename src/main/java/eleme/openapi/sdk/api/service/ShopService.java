@@ -20,7 +20,7 @@ public class ShopService extends BaseNopService {
     /**
      * 查询店铺信息
      *
-     * @param shopId
+     * @param shopId 店铺Id
      * @return OShop
      * @throws ServiceException
      */
@@ -33,8 +33,8 @@ public class ShopService extends BaseNopService {
     /**
      * 更新店铺基本信息
      *
-     * @param shopId
-     * @param properties
+     * @param shopId 店铺Id
+     * @param properties 店铺属性
      * @return OShop
      * @throws ServiceException
      */
@@ -48,7 +48,7 @@ public class ShopService extends BaseNopService {
     /**
      * 批量获取店铺简要
      *
-     * @param shopIds
+     * @param shopIds 店铺Id的列表
      * @return Map<Long,OSimpleShop>
      * @throws ServiceException
      */

@@ -20,7 +20,7 @@ public class OrderService extends BaseNopService {
     /**
      * 获取订单
      *
-     * @param orderId
+     * @param orderId 订单Id
      * @return OOrder
      * @throws ServiceException
      */
@@ -33,7 +33,7 @@ public class OrderService extends BaseNopService {
     /**
      * 批量获取订单
      *
-     * @param orderIds
+     * @param orderIds 订单Id的列表
      * @return Map<String,OOrder>
      * @throws ServiceException
      */
@@ -46,7 +46,7 @@ public class OrderService extends BaseNopService {
     /**
      * 确认订单
      *
-     * @param orderId
+     * @param orderId 订单Id
      * @return OOrder
      * @throws ServiceException
      */
@@ -59,9 +59,9 @@ public class OrderService extends BaseNopService {
     /**
      * 取消订单
      *
-     * @param orderId
-     * @param type
-     * @param remark
+     * @param orderId 订单Id
+     * @param type 取消原因
+     * @param remark 备注说明
      * @return OOrder
      * @throws ServiceException
      */
@@ -76,7 +76,7 @@ public class OrderService extends BaseNopService {
     /**
      * 同意退单/取消单
      *
-     * @param orderId
+     * @param orderId 订单Id
      * @return OOrder
      * @throws ServiceException
      */
@@ -89,8 +89,8 @@ public class OrderService extends BaseNopService {
     /**
      * 不同意退单/取消单
      *
-     * @param orderId
-     * @param reason
+     * @param orderId 订单Id
+     * @param reason 商家不同意退单原因
      * @return OOrder
      * @throws ServiceException
      */
@@ -104,7 +104,7 @@ public class OrderService extends BaseNopService {
     /**
      * 获取订单配送记录
      *
-     * @param orderId
+     * @param orderId 订单Id
      * @return List<ODeliveryRecord>
      * @throws ServiceException
      */
@@ -117,7 +117,7 @@ public class OrderService extends BaseNopService {
     /**
      * 批量获取订单最新配送记录
      *
-     * @param orderIds
+     * @param orderIds 订单Id列表
      * @return Map<String,ODeliveryRecord>
      * @throws ServiceException
      */
@@ -130,7 +130,7 @@ public class OrderService extends BaseNopService {
     /**
      * 配送异常或者物流拒单后选择自行配送
      *
-     * @param orderId
+     * @param orderId 订单Id
      * @return OOrder
      * @throws ServiceException
      */
@@ -143,7 +143,7 @@ public class OrderService extends BaseNopService {
     /**
      * 配送异常或者物流拒单后选择不再配送
      *
-     * @param orderId
+     * @param orderId 订单Id
      * @return OOrder
      * @throws ServiceException
      */
