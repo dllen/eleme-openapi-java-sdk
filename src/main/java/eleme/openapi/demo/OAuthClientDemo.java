@@ -33,7 +33,7 @@ public class OAuthClientDemo {
         OAuthClientDemo demo = new OAuthClientDemo();
 //        demo.clientTokenTest();
 //        demo.serverOAuthCodeTest();
-//        demo.serverTokenTest();
+        demo.serverTokenTest();
 //        demo.serverRefreshTokenTest();
     }
 
@@ -47,8 +47,8 @@ public class OAuthClientDemo {
             setTokenInfo(token);
             System.out.println(token);
         } else {
-            System.out.println("code: " + token.getError());
-            System.out.println("desc: " + token.getError_description());
+            System.out.println("error_code: " + token.getError());
+            System.out.println("error_desc: " + token.getError_description());
         }
     }
 
@@ -74,8 +74,8 @@ public class OAuthClientDemo {
             setTokenInfo(token);
             System.out.println(token);
         } else {
-            System.out.println("code: " + token.getError());
-            System.out.println("desc: " + token.getError_description());
+            System.out.println("error_code: " + token.getError());
+            System.out.println("error_desc: " + token.getError_description());
         }
     }
 
@@ -89,8 +89,8 @@ public class OAuthClientDemo {
             setTokenInfo(token);
             System.out.println(token);
         } else {
-            System.out.println("code: " + token.getError());
-            System.out.println("desc: " + token.getError_description());
+            System.out.println("error_code: " + token.getError());
+            System.out.println("error_desc: " + token.getError_description());
         }
     }
 
