@@ -24,8 +24,8 @@ public class OrderService extends BaseNopService {
      * 获取订单
      *
      * @param orderId 订单Id
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder getOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -37,8 +37,8 @@ public class OrderService extends BaseNopService {
      * 批量获取订单
      *
      * @param orderIds 订单Id的列表
-     * @return Map<String,OOrder>
-     * @throws ServiceException
+     * @return 订单列表
+     * @throws ServiceException 接口异常
      */
     public Map<String,OOrder> mgetOrders(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -50,8 +50,8 @@ public class OrderService extends BaseNopService {
      * 确认订单
      *
      * @param orderId 订单Id
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder confirmOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -65,8 +65,8 @@ public class OrderService extends BaseNopService {
      * @param orderId 订单Id
      * @param type 取消原因
      * @param remark 备注说明
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder cancelOrder(String orderId, OInvalidateType type, String remark) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -80,8 +80,8 @@ public class OrderService extends BaseNopService {
      * 同意退单/取消单
      *
      * @param orderId 订单Id
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder agreeRefund(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -94,8 +94,8 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @param reason 商家不同意退单原因
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder disagreeRefund(String orderId, String reason) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -108,8 +108,8 @@ public class OrderService extends BaseNopService {
      * 获取订单配送记录
      *
      * @param orderId 订单Id
-     * @return List<ODeliveryRecord>
-     * @throws ServiceException
+     * @return 配送记录列表
+     * @throws ServiceException 接口异常
      */
     public List<ODeliveryRecord> getDeliveryStateRecord(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -121,8 +121,8 @@ public class OrderService extends BaseNopService {
      * 批量获取订单最新配送记录
      *
      * @param orderIds 订单Id列表
-     * @return Map<String,ODeliveryRecord>
-     * @throws ServiceException
+     * @return 订单配送记录
+     * @throws ServiceException 接口异常
      */
     public Map<String,ODeliveryRecord> batchGetDeliveryStates(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -134,8 +134,8 @@ public class OrderService extends BaseNopService {
      * 配送异常或者物流拒单后选择自行配送
      *
      * @param orderId 订单Id
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder deliveryBySelf(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -147,8 +147,8 @@ public class OrderService extends BaseNopService {
      * 配送异常或者物流拒单后选择不再配送
      *
      * @param orderId 订单Id
-     * @return OOrder
-     * @throws ServiceException
+     * @return 订单
+     * @throws ServiceException 接口异常
      */
     public OOrder noMoreDelivery(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
