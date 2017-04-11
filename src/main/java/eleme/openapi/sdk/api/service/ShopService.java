@@ -25,7 +25,7 @@ public class ShopService extends BaseNopService {
      *
      * @param shopId 店铺Id
      * @return 店铺
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OShop getShop(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -39,7 +39,7 @@ public class ShopService extends BaseNopService {
      * @param shopId 店铺Id
      * @param properties 店铺属性
      * @return 店铺
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OShop updateShop(long shopId, Map<OShopProperty,Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -53,7 +53,7 @@ public class ShopService extends BaseNopService {
      *
      * @param shopIds 店铺Id的列表
      * @return 店铺简要列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<Long,OSimpleShop> mgetShopStatus(List<Long> shopIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();

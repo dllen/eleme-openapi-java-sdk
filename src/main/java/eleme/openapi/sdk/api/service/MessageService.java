@@ -2,11 +2,11 @@ package eleme.openapi.sdk.api.service;
 
 import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
+import eleme.openapi.sdk.api.entity.message.OMessage;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.config.Config;
-import eleme.openapi.sdk.api.entity.message.*;
-import eleme.openapi.sdk.api.enumeration.message.*;
+import eleme.openapi.sdk.oauth.response.Token;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class MessageService extends BaseNopService {
      *
      * @param appId 应用ID
      * @return 消息列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public List<String> getNonReachedMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -38,7 +38,7 @@ public class MessageService extends BaseNopService {
      *
      * @param appId 应用ID
      * @return 消息列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public List<OMessage> getNonReachedOMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();

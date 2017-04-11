@@ -24,7 +24,7 @@ public class UserService extends BaseNopService {
      * 获取商户账号信息
      *
      * @return 商户账号
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OUser getUser() throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();

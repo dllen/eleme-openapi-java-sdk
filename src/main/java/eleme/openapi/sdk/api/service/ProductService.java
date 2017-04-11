@@ -25,7 +25,7 @@ public class ProductService extends BaseNopService {
      *
      * @param categoryId 商品分类Id
      * @return 商品列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<Long,OItem> getItemsByCategoryId(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -38,7 +38,7 @@ public class ProductService extends BaseNopService {
      *
      * @param itemId 商品Id
      * @return 商品
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OItem getItem(long itemId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -51,7 +51,7 @@ public class ProductService extends BaseNopService {
      *
      * @param itemIds 商品Id的列表
      * @return 商品列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<Long,OItem> batchGetItems(List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -65,7 +65,7 @@ public class ProductService extends BaseNopService {
      * @param categoryId 商品分类Id
      * @param properties 商品属性
      * @return 商品
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OItem createItem(long categoryId, Map<OItemCreateProperty,Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -80,7 +80,7 @@ public class ProductService extends BaseNopService {
      * @param categoryId 商品分类Id
      * @param items 商品属性的列表
      * @return 商品列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<Long,OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty,Object>> items) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -96,7 +96,7 @@ public class ProductService extends BaseNopService {
      * @param categoryId 商品分类Id
      * @param properties 商品属性
      * @return 商品列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty,Object> properties) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -110,7 +110,7 @@ public class ProductService extends BaseNopService {
      * 批量置满库存
      *
      * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void batchFillStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -122,7 +122,7 @@ public class ProductService extends BaseNopService {
      * 批量沽清库存
      *
      * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void batchClearStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -134,7 +134,7 @@ public class ProductService extends BaseNopService {
      * 批量上架商品
      *
      * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void batchOnShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -146,7 +146,7 @@ public class ProductService extends BaseNopService {
      * 批量下架商品
      *
      * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void batchOffShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -159,7 +159,7 @@ public class ProductService extends BaseNopService {
      *
      * @param itemId 商品Id
      * @return 商品
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OItem removeItem(long itemId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -172,7 +172,7 @@ public class ProductService extends BaseNopService {
      *
      * @param itemIds 商品Id的列表
      * @return 被删除的商品列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<Long,OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -184,7 +184,7 @@ public class ProductService extends BaseNopService {
      * 批量更新商品库存
      *
      * @param specStocks 商品以及规格库存列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void batchUpdateSpecStocks(List<OItemIdWithSpecStock> specStocks) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -197,7 +197,7 @@ public class ProductService extends BaseNopService {
      *
      * @param categoryId 商品分类Id
      * @param itemIds 商品Id列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void setItemPositions(Long categoryId, List<Long> itemIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -211,7 +211,7 @@ public class ProductService extends BaseNopService {
      *
      * @param shopId 店铺Id
      * @return 商品分类列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public List<OCategory> getShopCategories(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -224,7 +224,7 @@ public class ProductService extends BaseNopService {
      *
      * @param categoryId 商品分类Id
      * @return 商品分类
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OCategory getCategory(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -239,7 +239,7 @@ public class ProductService extends BaseNopService {
      * @param name 商品分类名称，长度需在50字以内
      * @param description 商品分类描述，长度需在50字以内
      * @return 商品分类
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OCategory createCategory(long shopId, String name, String description) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -256,7 +256,7 @@ public class ProductService extends BaseNopService {
      * @param name 商品分类名称，长度需在50字以内
      * @param description 商品分类描述，长度需在50字以内
      * @return 商品分类
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OCategory updateCategory(long categoryId, String name, String description) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -271,7 +271,7 @@ public class ProductService extends BaseNopService {
      *
      * @param categoryId 商品分类Id
      * @return 商品分类
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OCategory removeCategory(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -284,7 +284,7 @@ public class ProductService extends BaseNopService {
      *
      * @param shopId 饿了么店铺Id
      * @param categoryIds 需要排序的分类Id
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public void setCategoryPositions(Long shopId, List<Long> categoryIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -298,7 +298,7 @@ public class ProductService extends BaseNopService {
      *
      * @param image 文件内容base64编码值
      * @return ${mStruct.methodResponse[0].fieldComments}
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public String uploadImage(String image) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -311,7 +311,7 @@ public class ProductService extends BaseNopService {
      *
      * @param url 远程Url地址
      * @return ${mStruct.methodResponse[0].fieldComments}
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public String uploadImageWithRemoteUrl(String url) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -324,7 +324,7 @@ public class ProductService extends BaseNopService {
      *
      * @param hash 图片hash值
      * @return 文件的Url地址
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public String getUploadedUrl(String hash) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();

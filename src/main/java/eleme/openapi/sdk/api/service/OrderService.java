@@ -25,7 +25,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder getOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -38,7 +38,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderIds 订单Id的列表
      * @return 订单列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<String,OOrder> mgetOrders(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -51,7 +51,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder confirmOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -66,7 +66,7 @@ public class OrderService extends BaseNopService {
      * @param type 取消原因
      * @param remark 备注说明
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder cancelOrder(String orderId, OInvalidateType type, String remark) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -81,7 +81,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder agreeRefund(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -95,7 +95,7 @@ public class OrderService extends BaseNopService {
      * @param orderId 订单Id
      * @param reason 商家不同意退单原因
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder disagreeRefund(String orderId, String reason) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -109,7 +109,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @return 配送记录列表
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public List<ODeliveryRecord> getDeliveryStateRecord(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -122,7 +122,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderIds 订单Id列表
      * @return 订单配送记录
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public Map<String,ODeliveryRecord> batchGetDeliveryStates(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -135,7 +135,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder deliveryBySelf(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -148,7 +148,7 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @return 订单
-     * @throws ServiceException 接口异常
+     * @throws ServiceException 服务异常
      */
     public OOrder noMoreDelivery(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
