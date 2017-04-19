@@ -3,8 +3,6 @@ package eleme.openapi.sdk.api.entity.shop;
 import eleme.openapi.sdk.api.enumeration.shop.*;
 import eleme.openapi.sdk.api.entity.shop.*;
 import java.util.*;
-import java.time.LocalDateTime;
-
 public class OShop{
 
     /**

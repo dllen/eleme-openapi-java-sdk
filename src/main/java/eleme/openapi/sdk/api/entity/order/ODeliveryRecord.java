@@ -3,8 +3,6 @@ package eleme.openapi.sdk.api.entity.order;
 import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
-import java.time.LocalDateTime;
-
 public class ODeliveryRecord{
 
     /**
@@ -65,11 +63,11 @@ public class ODeliveryRecord{
     /**
      * 记录创建时间
      */
-    private LocalDateTime createdAt;
-    public LocalDateTime getCreatedAt() {
+    private Date createdAt;
+    public Date getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
     

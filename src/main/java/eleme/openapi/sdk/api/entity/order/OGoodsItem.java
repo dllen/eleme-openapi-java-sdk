@@ -1,14 +1,10 @@
 package eleme.openapi.sdk.api.entity.order;
 
-import eleme.openapi.sdk.api.enumeration.order.*;
-import eleme.openapi.sdk.api.entity.order.*;
-import java.util.*;
-import java.time.LocalDateTime;
-
+import java.util.List;
 public class OGoodsItem{
 
     /**
-     * 篮子商品Id（根据篮子商品的类型取不同的值）
+     * 规格Id（根据篮子的类型取不同的值）
      */
     private long id;
     public long getId() {
@@ -19,7 +15,7 @@ public class OGoodsItem{
     }
     
     /**
-     * 商品规格Id(与规格中的specId相同)
+     * 
      */
     private Long skuId;
     public Long getSkuId() {

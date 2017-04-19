@@ -1,10 +1,10 @@
 package eleme.openapi.sdk.api.entity.order;
 
-import eleme.openapi.sdk.api.enumeration.order.*;
-import eleme.openapi.sdk.api.entity.order.*;
-import java.util.*;
-import java.time.LocalDateTime;
+import eleme.openapi.sdk.api.enumeration.order.OOrderRefundStatus;
+import eleme.openapi.sdk.api.enumeration.order.OOrderStatus;
 
+import java.util.Date;
+import java.util.List;
 public class OOrder{
 
     /**
@@ -21,22 +21,22 @@ public class OOrder{
     /**
      * 下单时间
      */
-    private LocalDateTime createdAt;
-    public LocalDateTime getCreatedAt() {
+    private Date createdAt;
+    public Date getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
     
     /**
      * 订单生效时间
      */
-    private LocalDateTime activeAt;
-    public LocalDateTime getActiveAt() {
+    private Date activeAt;
+    public Date getActiveAt() {
         return activeAt;
     }
-    public void setActiveAt(LocalDateTime activeAt) {
+    public void setActiveAt(Date activeAt) {
         this.activeAt = activeAt;
     }
     
@@ -54,11 +54,11 @@ public class OOrder{
     /**
      * 预计送达时间
      */
-    private LocalDateTime deliverTime;
-    public LocalDateTime getDeliverTime() {
+    private Date deliverTime;
+    public Date getDeliverTime() {
         return deliverTime;
     }
-    public void setDeliverTime(LocalDateTime deliverTime) {
+    public void setDeliverTime(Date deliverTime) {
         this.deliverTime = deliverTime;
     }
     

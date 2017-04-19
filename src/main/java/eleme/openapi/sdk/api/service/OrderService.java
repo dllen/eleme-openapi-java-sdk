@@ -155,4 +155,17 @@ public class OrderService extends BaseNopService {
         params.put("orderId", orderId);
         return call(params);
     }
+
+    /**
+     * 订单确认送达
+     *
+     * @param orderId 订单ID
+     * @return 订单
+     * @throws ServiceException 服务异常
+     */
+    public OOrder receivedOrder(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        return call(params);
+    }
 }

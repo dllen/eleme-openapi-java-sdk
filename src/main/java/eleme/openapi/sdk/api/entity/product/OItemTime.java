@@ -3,8 +3,6 @@ package eleme.openapi.sdk.api.entity.product;
 import eleme.openapi.sdk.api.enumeration.product.*;
 import eleme.openapi.sdk.api.entity.product.*;
 import java.util.*;
-import java.time.LocalDateTime;
-
 public class OItemTime{
 
     /**

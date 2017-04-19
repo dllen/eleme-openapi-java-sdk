@@ -3,8 +3,6 @@ package eleme.openapi.sdk.api.entity.order;
 import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
-import java.time.LocalDateTime;
-
 public class OGoodsGroup{
 
     /**
