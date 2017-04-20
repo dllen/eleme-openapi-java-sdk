@@ -103,8 +103,17 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+[v1.0.3]
+```
+  Release Date : Apr 19, 2017
+```
+- [Feature] 订单服务(OrderService)中新增"订单确认送达接口(receivedOrder)"
+- [bugfix] 修复SDK中使用JAVA 8提供的java.time.LocalDateTime 改为java.util.Date
+
+
 [v1.0.1]
 ```
-  Release Date : Apr, 2017
+  Release Date : Apr 10, 2017
 ```
 - [Feature] SDK完整实现
