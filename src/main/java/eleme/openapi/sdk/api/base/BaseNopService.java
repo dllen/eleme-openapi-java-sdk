@@ -26,13 +26,12 @@ public class BaseNopService {
         }
     }
 
-    public <T> T call(Map<String, Object> parameters) throws ServiceException {
+    public <T> T call(String action,Map<String, Object> parameters) throws ServiceException {
         String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
         Method method = getMethod(methodName);
         Service annotation = (Service) service.getAnnotation(Service.class);
         if (annotation == null)
             throw new RuntimeException("服务未找到Service注解");
-        String action = String.format("%s.%s", annotation.value(), methodName);
         return WebUtils.call(config, action, parameters, token, method.getGenericReturnType());
     }
 

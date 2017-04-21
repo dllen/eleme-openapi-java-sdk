@@ -21,192 +21,6 @@ public class ProductService extends BaseNopService {
     }
 
     /**
-     * 获取一个分类下的所有商品
-     *
-     * @param categoryId 商品分类Id
-     * @return 商品列表
-     * @throws ServiceException 服务异常
-     */
-    public Map<Long,OItem> getItemsByCategoryId(long categoryId) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("categoryId", categoryId);
-        return call(params);
-    }
-
-    /**
-     * 查询商品详情
-     *
-     * @param itemId 商品Id
-     * @return 商品
-     * @throws ServiceException 服务异常
-     */
-    public OItem getItem(long itemId) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("itemId", itemId);
-        return call(params);
-    }
-
-    /**
-     * 批量查询商品详情
-     *
-     * @param itemIds 商品Id的列表
-     * @return 商品列表
-     * @throws ServiceException 服务异常
-     */
-    public Map<Long,OItem> batchGetItems(List<Long> itemIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("itemIds", itemIds);
-        return call(params);
-    }
-
-    /**
-     * 添加商品
-     *
-     * @param categoryId 商品分类Id
-     * @param properties 商品属性
-     * @return 商品
-     * @throws ServiceException 服务异常
-     */
-    public OItem createItem(long categoryId, Map<OItemCreateProperty,Object> properties) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("categoryId", categoryId);
-        params.put("properties", properties);
-        return call(params);
-    }
-
-    /**
-     * 批量添加商品
-     *
-     * @param categoryId 商品分类Id
-     * @param items 商品属性的列表
-     * @return 商品列表
-     * @throws ServiceException 服务异常
-     */
-    public Map<Long,OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty,Object>> items) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("categoryId", categoryId);
-        params.put("items", items);
-        return call(params);
-    }
-
-    /**
-     * 更新商品
-     *
-     * @param itemId 商品Id
-     * @param categoryId 商品分类Id
-     * @param properties 商品属性
-     * @return 商品列表
-     * @throws ServiceException 服务异常
-     */
-    public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty,Object> properties) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("itemId", itemId);
-        params.put("categoryId", categoryId);
-        params.put("properties", properties);
-        return call(params);
-    }
-
-    /**
-     * 批量置满库存
-     *
-     * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 服务异常
-     */
-    public void batchFillStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("specIds", specIds);
-        call(params);
-    }
-
-    /**
-     * 批量沽清库存
-     *
-     * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 服务异常
-     */
-    public void batchClearStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("specIds", specIds);
-        call(params);
-    }
-
-    /**
-     * 批量上架商品
-     *
-     * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 服务异常
-     */
-    public void batchOnShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("specIds", specIds);
-        call(params);
-    }
-
-    /**
-     * 批量下架商品
-     *
-     * @param specIds 商品及商品规格的列表
-     * @throws ServiceException 服务异常
-     */
-    public void batchOffShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("specIds", specIds);
-        call(params);
-    }
-
-    /**
-     * 删除商品
-     *
-     * @param itemId 商品Id
-     * @return 商品
-     * @throws ServiceException 服务异常
-     */
-    public OItem removeItem(long itemId) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("itemId", itemId);
-        return call(params);
-    }
-
-    /**
-     * 批量删除商品
-     *
-     * @param itemIds 商品Id的列表
-     * @return 被删除的商品列表
-     * @throws ServiceException 服务异常
-     */
-    public Map<Long,OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("itemIds", itemIds);
-        return call(params);
-    }
-
-    /**
-     * 批量更新商品库存
-     *
-     * @param specStocks 商品以及规格库存列表
-     * @throws ServiceException 服务异常
-     */
-    public void batchUpdateSpecStocks(List<OItemIdWithSpecStock> specStocks) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("specStocks", specStocks);
-        call(params);
-    }
-
-    /**
-     * 设置商品排序
-     *
-     * @param categoryId 商品分类Id
-     * @param itemIds 商品Id列表
-     * @throws ServiceException 服务异常
-     */
-    public void setItemPositions(Long categoryId, List<Long> itemIds) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("categoryId", categoryId);
-        params.put("itemIds", itemIds);
-        call(params);
-    }
-
-    /**
      * 查询店铺商品分类
      *
      * @param shopId 店铺Id
@@ -216,7 +30,7 @@ public class ProductService extends BaseNopService {
     public List<OCategory> getShopCategories(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
-        return call(params);
+        return call("eleme.product.category.getShopCategories", params);
     }
 
     /**
@@ -229,7 +43,7 @@ public class ProductService extends BaseNopService {
     public OCategory getCategory(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
-        return call(params);
+        return call("eleme.product.category.getCategory", params);
     }
 
     /**
@@ -246,7 +60,7 @@ public class ProductService extends BaseNopService {
         params.put("shopId", shopId);
         params.put("name", name);
         params.put("description", description);
-        return call(params);
+        return call("eleme.product.category.createCategory", params);
     }
 
     /**
@@ -263,7 +77,7 @@ public class ProductService extends BaseNopService {
         params.put("categoryId", categoryId);
         params.put("name", name);
         params.put("description", description);
-        return call(params);
+        return call("eleme.product.category.updateCategory", params);
     }
 
     /**
@@ -276,7 +90,7 @@ public class ProductService extends BaseNopService {
     public OCategory removeCategory(long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
-        return call(params);
+        return call("eleme.product.category.removeCategory", params);
     }
 
     /**
@@ -290,7 +104,7 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("categoryIds", categoryIds);
-        call(params);
+        call("eleme.product.category.setCategoryPositions", params);
     }
 
     /**
@@ -303,7 +117,7 @@ public class ProductService extends BaseNopService {
     public String uploadImage(String image) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("image", image);
-        return call(params);
+        return call("eleme.file.uploadImage", params);
     }
 
     /**
@@ -316,7 +130,7 @@ public class ProductService extends BaseNopService {
     public String uploadImageWithRemoteUrl(String url) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("url", url);
-        return call(params);
+        return call("eleme.file.uploadImageWithRemoteUrl", params);
     }
 
     /**
@@ -329,6 +143,204 @@ public class ProductService extends BaseNopService {
     public String getUploadedUrl(String hash) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("hash", hash);
-        return call(params);
+        return call("eleme.file.getUploadedUrl", params);
+    }
+
+    /**
+     * 获取一个分类下的所有商品
+     *
+     * @param categoryId 商品分类Id
+     * @return 商品列表
+     * @throws ServiceException 服务异常
+     */
+    public Map<Long,OItem> getItemsByCategoryId(long categoryId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("categoryId", categoryId);
+        return call("eleme.product.item.getItemsByCategoryId", params);
+    }
+
+    /**
+     * 查询商品详情
+     *
+     * @param itemId 商品Id
+     * @return 商品
+     * @throws ServiceException 服务异常
+     */
+    public OItem getItem(long itemId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemId", itemId);
+        return call("eleme.product.item.getItem", params);
+    }
+
+    /**
+     * 批量查询商品详情
+     *
+     * @param itemIds 商品Id的列表
+     * @return 商品列表
+     * @throws ServiceException 服务异常
+     */
+    public Map<Long,OItem> batchGetItems(List<Long> itemIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemIds", itemIds);
+        return call("eleme.product.item.batchGetItems", params);
+    }
+
+    /**
+     * 添加商品
+     *
+     * @param categoryId 商品分类Id
+     * @param properties 商品属性
+     * @return 商品
+     * @throws ServiceException 服务异常
+     */
+    public OItem createItem(long categoryId, Map<OItemCreateProperty,Object> properties) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("categoryId", categoryId);
+        params.put("properties", properties);
+        return call("eleme.product.item.createItem", params);
+    }
+
+    /**
+     * 批量添加商品
+     *
+     * @param categoryId 商品分类Id
+     * @param items 商品属性的列表
+     * @return 商品列表
+     * @throws ServiceException 服务异常
+     */
+    public Map<Long,OItem> batchCreateItems(long categoryId, List<Map<OItemCreateProperty,Object>> items) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("categoryId", categoryId);
+        params.put("items", items);
+        return call("eleme.product.item.batchCreateItems", params);
+    }
+
+    /**
+     * 更新商品
+     *
+     * @param itemId 商品Id
+     * @param categoryId 商品分类Id
+     * @param properties 商品属性
+     * @return 商品列表
+     * @throws ServiceException 服务异常
+     */
+    public OItem updateItem(long itemId, long categoryId, Map<OItemUpdateProperty,Object> properties) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemId", itemId);
+        params.put("categoryId", categoryId);
+        params.put("properties", properties);
+        return call("eleme.product.item.updateItem", params);
+    }
+
+    /**
+     * 批量置满库存
+     *
+     * @param specIds 商品及商品规格的列表
+     * @throws ServiceException 服务异常
+     */
+    public void batchFillStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("specIds", specIds);
+        call("eleme.product.item.batchFillStock", params);
+    }
+
+    /**
+     * 批量沽清库存
+     *
+     * @param specIds 商品及商品规格的列表
+     * @throws ServiceException 服务异常
+     */
+    public void batchClearStock(List<OItemIdWithSpecIds> specIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("specIds", specIds);
+        call("eleme.product.item.batchClearStock", params);
+    }
+
+    /**
+     * 批量上架商品
+     *
+     * @param specIds 商品及商品规格的列表
+     * @throws ServiceException 服务异常
+     */
+    public void batchOnShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("specIds", specIds);
+        call("eleme.product.item.batchOnShelf", params);
+    }
+
+    /**
+     * 批量下架商品
+     *
+     * @param specIds 商品及商品规格的列表
+     * @throws ServiceException 服务异常
+     */
+    public void batchOffShelf(List<OItemIdWithSpecIds> specIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("specIds", specIds);
+        call("eleme.product.item.batchOffShelf", params);
+    }
+
+    /**
+     * 删除商品
+     *
+     * @param itemId 商品Id
+     * @return 商品
+     * @throws ServiceException 服务异常
+     */
+    public OItem removeItem(long itemId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemId", itemId);
+        return call("eleme.product.item.removeItem", params);
+    }
+
+    /**
+     * 批量删除商品
+     *
+     * @param itemIds 商品Id的列表
+     * @return 被删除的商品列表
+     * @throws ServiceException 服务异常
+     */
+    public Map<Long,OItem> batchRemoveItems(List<Long> itemIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemIds", itemIds);
+        return call("eleme.product.item.batchRemoveItems", params);
+    }
+
+    /**
+     * 批量更新商品库存
+     *
+     * @param specStocks 商品以及规格库存列表
+     * @throws ServiceException 服务异常
+     */
+    public void batchUpdateSpecStocks(List<OItemIdWithSpecStock> specStocks) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("specStocks", specStocks);
+        call("eleme.product.item.batchUpdateSpecStocks", params);
+    }
+
+    /**
+     * 设置商品排序
+     *
+     * @param categoryId 商品分类Id
+     * @param itemIds 商品Id列表
+     * @throws ServiceException 服务异常
+     */
+    public void setItemPositions(Long categoryId, List<Long> itemIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("categoryId", categoryId);
+        params.put("itemIds", itemIds);
+        call("eleme.product.item.setItemPositions", params);
+    }
+
+    /**
+     * 批量沽清库存并在次日2:00开始置满
+     *
+     * @param clearStocks 店铺Id及商品Id的列表
+     * @throws ServiceException 服务异常
+     */
+    public void clearAndTimingMaxStock(List<ClearStock> clearStocks) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("clearStocks", clearStocks);
+        call("eleme.product.item.clearAndTimingMaxStock", params);
     }
 }

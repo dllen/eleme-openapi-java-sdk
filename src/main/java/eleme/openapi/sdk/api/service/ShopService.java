@@ -30,7 +30,7 @@ public class ShopService extends BaseNopService {
     public OShop getShop(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
-        return call(params);
+        return call("eleme.shop.getShop", params);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ShopService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("properties", properties);
-        return call(params);
+        return call("eleme.shop.updateShop", params);
     }
 
     /**
@@ -58,6 +58,6 @@ public class ShopService extends BaseNopService {
     public Map<Long,OSimpleShop> mgetShopStatus(List<Long> shopIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopIds", shopIds);
-        return call(params);
+        return call("eleme.shop.mgetShopStatus", params);
     }
 }

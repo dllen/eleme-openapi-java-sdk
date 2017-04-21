@@ -30,7 +30,7 @@ public class OrderService extends BaseNopService {
     public OOrder getOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.getOrder", params);
     }
 
     /**
@@ -43,7 +43,7 @@ public class OrderService extends BaseNopService {
     public Map<String,OOrder> mgetOrders(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderIds", orderIds);
-        return call(params);
+        return call("eleme.order.mgetOrders", params);
     }
 
     /**
@@ -56,7 +56,7 @@ public class OrderService extends BaseNopService {
     public OOrder confirmOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.confirmOrder", params);
     }
 
     /**
@@ -73,7 +73,7 @@ public class OrderService extends BaseNopService {
         params.put("orderId", orderId);
         params.put("type", type);
         params.put("remark", remark);
-        return call(params);
+        return call("eleme.order.cancelOrder", params);
     }
 
     /**
@@ -86,7 +86,7 @@ public class OrderService extends BaseNopService {
     public OOrder agreeRefund(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.agreeRefund", params);
     }
 
     /**
@@ -101,7 +101,7 @@ public class OrderService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
         params.put("reason", reason);
-        return call(params);
+        return call("eleme.order.disagreeRefund", params);
     }
 
     /**
@@ -114,7 +114,7 @@ public class OrderService extends BaseNopService {
     public List<ODeliveryRecord> getDeliveryStateRecord(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.getDeliveryStateRecord", params);
     }
 
     /**
@@ -127,7 +127,7 @@ public class OrderService extends BaseNopService {
     public Map<String,ODeliveryRecord> batchGetDeliveryStates(List<String> orderIds) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderIds", orderIds);
-        return call(params);
+        return call("eleme.order.batchGetDeliveryStates", params);
     }
 
     /**
@@ -140,7 +140,7 @@ public class OrderService extends BaseNopService {
     public OOrder deliveryBySelf(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.deliveryBySelf", params);
     }
 
     /**
@@ -153,7 +153,7 @@ public class OrderService extends BaseNopService {
     public OOrder noMoreDelivery(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.noMoreDelivery", params);
     }
 
     /**
@@ -166,6 +166,6 @@ public class OrderService extends BaseNopService {
     public OOrder receivedOrder(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call(params);
+        return call("eleme.order.receivedOrder", params);
     }
 }

@@ -1,8 +1,6 @@
 package eleme.openapi.sdk.api.entity.product;
 
-import eleme.openapi.sdk.api.enumeration.product.*;
-import eleme.openapi.sdk.api.entity.product.*;
-import java.util.*;
+import java.util.List;
 public class OItem{
 
     /**
@@ -147,5 +145,23 @@ public class OItem{
     public void setAttributes(List<OItemAttribute> attributes) {
         this.attributes = attributes;
     }
-    
+
+    @Override
+    public String toString() {
+        return "OItem{" +
+                "description='" + description + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", isValid=" + isValid +
+                ", recentPopularity=" + recentPopularity +
+                ", categoryId=" + categoryId +
+                ", shopId=" + shopId +
+                ", shopName='" + shopName + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", labels=" + labels +
+                ", specs=" + specs +
+                ", sellingTime=" + sellingTime +
+                ", attributes=" + attributes +
+                '}';
+    }
 }

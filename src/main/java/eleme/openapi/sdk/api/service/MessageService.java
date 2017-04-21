@@ -30,7 +30,7 @@ public class MessageService extends BaseNopService {
     public List<String> getNonReachedMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("appId", appId);
-        return call(params);
+        return call("eleme.message.getNonReachedMessages", params);
     }
 
     /**
@@ -43,6 +43,6 @@ public class MessageService extends BaseNopService {
     public List<OMessage> getNonReachedOMessages(int appId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("appId", appId);
-        return call(params);
+        return call("eleme.message.getNonReachedOMessages", params);
     }
 }

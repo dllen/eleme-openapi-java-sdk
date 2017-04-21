@@ -432,6 +432,7 @@ public abstract class WebUtils {
         String accessToken = token.getAccessToken();
         String requestId = UUID.randomUUID().toString().toLowerCase();
 
+        System.out.println("requestId: "+ requestId);
         Map<String, Object> requestPayload = new HashMap<String, Object>();
         requestPayload.put("nop", "1.0.0");
         requestPayload.put("id", requestId);
