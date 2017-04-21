@@ -104,6 +104,13 @@
 
 ## CHANGELOG:
 
+[v1.0.4]
+```
+  Release Date : Apr 21, 2017
+```
+- [Feature] 新增UGC(订单评论服务)接口
+- [bugfix] 修复接口签名
+
 [v1.0.3]
 ```
   Release Date : Apr 19, 2017
