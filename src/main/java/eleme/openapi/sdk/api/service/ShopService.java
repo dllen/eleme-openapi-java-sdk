@@ -60,4 +60,20 @@ public class ShopService extends BaseNopService {
         params.put("shopIds", shopIds);
         return call("eleme.shop.mgetShopStatus", params);
     }
+
+    /**
+     * 设置送达时间
+     *
+     * @param shopId 店铺Id
+     * @param deliveryBasicMins 配送基准时间(单位分钟)
+     * @param deliveryAdjustMins 配送调整时间(单位分钟)
+     * @throws ServiceException 服务异常
+     */
+    public void setDeliveryTime(long shopId, int deliveryBasicMins, int deliveryAdjustMins) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("deliveryBasicMins", deliveryBasicMins);
+        params.put("deliveryAdjustMins", deliveryAdjustMins);
+        call("eleme.shop.setDeliveryTime", params);
+    }
 }

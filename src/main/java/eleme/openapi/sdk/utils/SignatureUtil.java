@@ -3,7 +3,6 @@ package eleme.openapi.sdk.utils;
 import eleme.openapi.sdk.api.deserializer.DateDeserializer;
 import eleme.openapi.sdk.api.json.gson.Gson;
 import eleme.openapi.sdk.api.json.gson.GsonBuilder;
-import eleme.openapi.sdk.utils.json.JSONWriter;
 
 import java.security.MessageDigest;
 import java.util.Date;
@@ -15,8 +14,6 @@ public class SignatureUtil {
 
     public static String generateSignature(String appKey, String secret, long timestamp, String action, String token, Map<String, Object> parameters) {
         final Map<String, Object> sorted = new TreeMap();
-        JSONWriter jsonWriter = new JSONWriter();
-
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
             sorted.put(entry.getKey(), entry.getValue());
         }
@@ -26,10 +23,7 @@ public class SignatureUtil {
         for (Map.Entry<String, Object> entry : sorted.entrySet()) {
             string.append(entry.getKey()).append("=").append(gson.toJson(entry.getValue()));
         }
-
         String splice = String.format("%s%s%s%s", action, token, string, secret);
-
-//        System.out.println("splice: " + splice);
         System.out.println("\n\n\n"+ string.toString());
         String calculatedSignature = md5(splice);
         return calculatedSignature.toUpperCase();

@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.0.4</version>
+      <version>1.0.5</version>
   </dependency>
 ```
 ## 基本用法
@@ -103,6 +103,12 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+[v1.0.5]
+```
+  Release Date : Apr 21, 2017
+```
+- [Feature] ShopService新增setDeliveryTime(设置送达时间)接口
 
 [v1.0.4]
 ```

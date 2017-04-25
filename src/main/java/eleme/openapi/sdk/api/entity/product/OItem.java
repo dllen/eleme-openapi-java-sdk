@@ -146,22 +146,4 @@ public class OItem{
         this.attributes = attributes;
     }
 
-    @Override
-    public String toString() {
-        return "OItem{" +
-                "description='" + description + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", isValid=" + isValid +
-                ", recentPopularity=" + recentPopularity +
-                ", categoryId=" + categoryId +
-                ", shopId=" + shopId +
-                ", shopName='" + shopName + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", labels=" + labels +
-                ", specs=" + specs +
-                ", sellingTime=" + sellingTime +
-                ", attributes=" + attributes +
-                '}';
-    }
 }
