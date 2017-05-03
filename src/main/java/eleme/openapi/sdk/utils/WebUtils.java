@@ -215,6 +215,7 @@ public abstract class WebUtils {
         conn.setRequestProperty("Accept", "text/xml,text/javascript,text/html");
         conn.setRequestProperty("Content-Type", ctype);
         conn.setRequestProperty("Accept-Encoding", "gzip");
+        conn.setRequestProperty("User-Agent","eleme-openapi-java-sdk");
         if (headerMap != null) {
             for (Map.Entry<String, String> entry : headerMap.entrySet()) {
                 conn.setRequestProperty(entry.getKey(), entry.getValue());
