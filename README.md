@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.6</version>
   </dependency>
 ```
 ## 基本用法
@@ -104,6 +104,12 @@
 
 ## CHANGELOG:
 
+[v1.0.6]
+```
+  Release Date : May 3, 2017
+```
+- [Bugfix] 修复消息推送验签失败
+
 [v1.0.5]
 ```
   Release Date : Apr 21, 2017
@@ -122,7 +128,7 @@
   Release Date : Apr 19, 2017
 ```
 - [Feature] 订单服务(OrderService)中新增"订单确认送达接口(receivedOrder)"
-- [bugfix] 修复SDK中使用JAVA 8提供的java.time.LocalDateTime 改为java.util.Date
+- [Bugfix] 修复SDK中使用JAVA 8提供的java.time.LocalDateTime 改为java.util.Date
 
 
 [v1.0.1]
