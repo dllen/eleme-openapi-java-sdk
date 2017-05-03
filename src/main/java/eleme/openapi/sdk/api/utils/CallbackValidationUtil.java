@@ -11,8 +11,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class CallbackValidationUtil {
-    static Gson gson = new Gson();
-
     /**
      * 通过哈希一个摘要，校验消息是否合法或者被篡改
      *
@@ -52,7 +50,7 @@ public class CallbackValidationUtil {
         // 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
         StringBuilder basestring = new StringBuilder();
         for (Map.Entry<String, Object> param : entrys) {
-            basestring.append(param.getKey()).append("=").append(gson.toJson(param.getValue()));
+            basestring.append(param.getKey()).append("=").append(param.getValue());
         }
         basestring.append(secret);
 
