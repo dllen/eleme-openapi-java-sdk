@@ -1,6 +1,8 @@
 package eleme.openapi.sdk.api.entity.product;
 
-import java.util.List;
+import eleme.openapi.sdk.api.enumeration.product.*;
+import eleme.openapi.sdk.api.entity.product.*;
+import java.util.*;
 public class OItem{
 
     /**
@@ -145,5 +147,16 @@ public class OItem{
     public void setAttributes(List<OItemAttribute> attributes) {
         this.attributes = attributes;
     }
-
+    
+    /**
+     * 后台类目ID
+     */
+    private long backCategoryId;
+    public long getBackCategoryId() {
+        return backCategoryId;
+    }
+    public void setBackCategoryId(long backCategoryId) {
+        this.backCategoryId = backCategoryId;
+    }
+    
 }

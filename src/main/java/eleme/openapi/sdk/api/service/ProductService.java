@@ -108,6 +108,19 @@ public class ProductService extends BaseNopService {
     }
 
     /**
+     * 查询商品后台分类
+     *
+     * @param shopId 店铺Id
+     * @return 商品后台分类列表
+     * @throws ServiceException 服务异常
+     */
+    public List<OBackCategory> getBackCategory(Long shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.product.category.getBackCategory", params);
+    }
+
+    /**
      * 上传图片，返回图片的hash值
      *
      * @param image 文件内容base64编码值

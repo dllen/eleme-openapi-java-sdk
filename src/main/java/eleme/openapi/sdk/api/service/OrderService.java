@@ -168,4 +168,98 @@ public class OrderService extends BaseNopService {
         params.put("orderId", orderId);
         return call("eleme.order.receivedOrder", params);
     }
+
+    /**
+     * 回复催单
+     *
+     * @param remindId 催单Id
+     * @param type 回复类别
+     * @param content 回复内容
+     * @throws ServiceException 服务异常
+     */
+    public void replyReminder(String remindId, ReplyReminderType type, String content) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("remindId", remindId);
+        params.put("type", type);
+        params.put("content", content);
+        call("eleme.order.replyReminder", params);
+    }
+
+    /**
+     * 获取指定订单菜品活动价格.
+     *
+     * @param orderId 订单Id
+     * @return 菜品价格信息
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,OCommodity> getCommodities(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        return call("eleme.order.getCommodities", params);
+    }
+
+    /**
+     * 批量获取订单菜品活动价格
+     *
+     * @param orderIds 订单Id列表
+     * @return 每个订单菜品价格信息
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,Map<String,OCommodity>> mgetCommodities(List<String> orderIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        return call("eleme.order.mgetCommodities", params);
+    }
+
+    /**
+     * 获取订单退款信息
+     *
+     * @param orderId 订单Id
+     * @return 订单退款信息
+     * @throws ServiceException 服务异常
+     */
+    public ORefundOrder getRefundOrder(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        return call("eleme.order.getRefundOrder", params);
+    }
+
+    /**
+     * 批量获取订单退款信息
+     *
+     * @param orderIds 订单Id列表
+     * @return 每个订单的退款信息
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,ORefundOrder> mgetRefundOrders(List<String> orderIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        return call("eleme.order.mgetRefundOrders", params);
+    }
+
+    /**
+     * 取消呼叫配送
+     *
+     * @param orderId 订单Id
+     * @throws ServiceException 服务异常
+     */
+    public void cancelDelivery(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        call("eleme.order.cancelDelivery", params);
+    }
+
+    /**
+     * 呼叫配送
+     *
+     * @param orderId 订单Id
+     * @param fee 消费
+     * @throws ServiceException 服务异常
+     */
+    public void callDelivery(String orderId, int fee) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        params.put("fee", fee);
+        call("eleme.order.callDelivery", params);
+    }
 }

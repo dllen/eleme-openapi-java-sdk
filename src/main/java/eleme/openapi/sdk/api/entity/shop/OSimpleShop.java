@@ -1,10 +1,8 @@
 package eleme.openapi.sdk.api.entity.shop;
 
 import eleme.openapi.sdk.api.enumeration.shop.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import eleme.openapi.sdk.api.entity.shop.*;
+import java.util.*;
 public class OSimpleShop{
 
     /**
@@ -17,7 +15,6 @@ public class OSimpleShop{
     public void setId(long id) {
         this.id = id;
     }
-
     
     /**
      * 是否开店
@@ -29,7 +26,6 @@ public class OSimpleShop{
     public void setIsOpen(int isOpen) {
         this.isOpen = isOpen;
     }
-
     
     /**
      * 是否有效
@@ -41,6 +37,5 @@ public class OSimpleShop{
     public void setIsValid(int isValid) {
         this.isValid = isValid;
     }
-
     
 }

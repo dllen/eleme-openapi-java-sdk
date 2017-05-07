@@ -1,10 +1,8 @@
 package eleme.openapi.sdk.api.entity.order;
 
-import eleme.openapi.sdk.api.enumeration.order.OOrderRefundStatus;
-import eleme.openapi.sdk.api.enumeration.order.OOrderStatus;
-
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.enumeration.order.*;
+import eleme.openapi.sdk.api.entity.order.*;
+import java.util.*;
 public class OOrder{
 
     /**
@@ -379,6 +377,17 @@ public class OOrder{
     }
     public void setDowngraded(boolean downgraded) {
         this.downgraded = downgraded;
+    }
+    
+    /**
+     * 保护小号失效时间
+     */
+    private Date secretPhoneExpireTime;
+    public Date getSecretPhoneExpireTime() {
+        return secretPhoneExpireTime;
+    }
+    public void setSecretPhoneExpireTime(Date secretPhoneExpireTime) {
+        this.secretPhoneExpireTime = secretPhoneExpireTime;
     }
     
 }

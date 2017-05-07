@@ -34,7 +34,12 @@ public enum OItemUpdateProperty {
     /**
      * 属性
      */
-    attributes("attributes");
+    attributes("attributes"), 
+    
+    /**
+     * 后台类目ID
+     */
+    backCategoryId("backCategoryId");
     
 
     private String productDesc;

@@ -1,6 +1,8 @@
 package eleme.openapi.sdk.api.entity.order;
 
-import java.util.List;
+import eleme.openapi.sdk.api.enumeration.order.*;
+import eleme.openapi.sdk.api.entity.order.*;
+import java.util.*;
 public class OGoodsItem{
 
     /**
