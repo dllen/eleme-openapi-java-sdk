@@ -2,12 +2,13 @@ package eleme.openapi.sdk.api.service;
 
 import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
-import eleme.openapi.sdk.api.entity.user.OUser;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.response.Token;
-
+import eleme.openapi.sdk.config.Config;
+import eleme.openapi.sdk.api.entity.user.*;
+import eleme.openapi.sdk.api.enumeration.user.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**

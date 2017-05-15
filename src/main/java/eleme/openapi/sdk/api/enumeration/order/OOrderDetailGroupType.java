@@ -12,7 +12,7 @@ public enum OOrderDetailGroupType {
     extra("extra"), 
     
     /**
-     * 折扣,如红包,满减等
+     * 赠品
      */
     discount("discount");
     

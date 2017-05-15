@@ -174,7 +174,7 @@ public class OrderService extends BaseNopService {
      *
      * @param remindId 催单Id
      * @param type 回复类别
-     * @param content 回复内容
+     * @param content 回复内容,如果type为custom,content必填,回复内容不能超过30个字符
      * @throws ServiceException 服务异常
      */
     public void replyReminder(String remindId, ReplyReminderType type, String content) throws ServiceException {
@@ -253,10 +253,10 @@ public class OrderService extends BaseNopService {
      * 呼叫配送
      *
      * @param orderId 订单Id
-     * @param fee 消费
+     * @param fee 小费,1-8之间的整数
      * @throws ServiceException 服务异常
      */
-    public void callDelivery(String orderId, int fee) throws ServiceException {
+    public void callDelivery(String orderId, Integer fee) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
         params.put("fee", fee);

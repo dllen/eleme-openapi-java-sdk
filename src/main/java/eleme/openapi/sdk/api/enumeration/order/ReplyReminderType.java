@@ -12,7 +12,7 @@ public enum ReplyReminderType {
     hasOut("hasOut"), 
     
     /**
-     * 正在烹饪"
+     * 正在烹饪
      */
     inCooking("inCooking"), 
     

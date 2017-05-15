@@ -1,8 +1,10 @@
 package eleme.openapi.sdk.api.entity.order;
 
-import eleme.openapi.sdk.api.enumeration.order.*;
-import eleme.openapi.sdk.api.entity.order.*;
-import java.util.*;
+import eleme.openapi.sdk.api.enumeration.order.OOrderRefundStatus;
+import eleme.openapi.sdk.api.enumeration.order.OOrderStatus;
+
+import java.util.Date;
+import java.util.List;
 public class OOrder{
 
     /**
@@ -388,6 +390,17 @@ public class OOrder{
     }
     public void setSecretPhoneExpireTime(Date secretPhoneExpireTime) {
         this.secretPhoneExpireTime = secretPhoneExpireTime;
+    }
+    
+    /**
+     * 订单参加活动信息
+     */
+    private List<OActivity> orderActivities;
+    public List<OActivity> getOrderActivities() {
+        return orderActivities;
+    }
+    public void setOrderActivities(List<OActivity> orderActivities) {
+        this.orderActivities = orderActivities;
     }
     
 }

@@ -34,6 +34,19 @@ public class ProductService extends BaseNopService {
     }
 
     /**
+     * 查询店铺商品分类，包含二级分类
+     *
+     * @param shopId 店铺Id
+     * @return 商品分类列表
+     * @throws ServiceException 服务异常
+     */
+    public List<OCategory> getShopCategoriesWithChildren(long shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.product.category.getShopCategoriesWithChildren", params);
+    }
+
+    /**
      * 查询商品分类详情
      *
      * @param categoryId 商品分类Id
@@ -44,6 +57,19 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         return call("eleme.product.category.getCategory", params);
+    }
+
+    /**
+     * 查询商品分类详情，包含二级分类
+     *
+     * @param categoryId 商品分类Id
+     * @return 商品分类
+     * @throws ServiceException 服务异常
+     */
+    public OCategory getCategoryWithChildren(long categoryId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("categoryId", categoryId);
+        return call("eleme.product.category.getCategoryWithChildren", params);
     }
 
     /**
@@ -64,6 +90,25 @@ public class ProductService extends BaseNopService {
     }
 
     /**
+     * 添加商品分类，支持二级分类
+     *
+     * @param shopId 店铺Id
+     * @param name 商品分类名称，长度需在50字以内
+     * @param parentId 父分类ID，如果没有可以填0
+     * @param description 商品分类描述，长度需在50字以内
+     * @return 商品分类
+     * @throws ServiceException 服务异常
+     */
+    public OCategory createCategoryWithChildren(long shopId, String name, long parentId, String description) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("name", name);
+        params.put("parentId", parentId);
+        params.put("description", description);
+        return call("eleme.product.category.createCategoryWithChildren", params);
+    }
+
+    /**
      * 更新商品分类
      *
      * @param categoryId 商品分类Id
@@ -78,6 +123,25 @@ public class ProductService extends BaseNopService {
         params.put("name", name);
         params.put("description", description);
         return call("eleme.product.category.updateCategory", params);
+    }
+
+    /**
+     * 更新商品分类，包含二级分类
+     *
+     * @param categoryId 商品分类Id
+     * @param name 商品分类名称，长度需在50字以内
+     * @param parentId 父分类ID，如果没有可以填0
+     * @param description 商品分类描述，长度需在50字以内
+     * @return 商品分类
+     * @throws ServiceException 服务异常
+     */
+    public OCategory updateCategoryWithChildren(long categoryId, String name, long parentId, String description) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("categoryId", categoryId);
+        params.put("name", name);
+        params.put("parentId", parentId);
+        params.put("description", description);
+        return call("eleme.product.category.updateCategoryWithChildren", params);
     }
 
     /**
@@ -108,6 +172,20 @@ public class ProductService extends BaseNopService {
     }
 
     /**
+     * 设置二级分类排序
+     *
+     * @param shopId 饿了么店铺Id
+     * @param categoryWithChildrenIds 需要排序的父分类Id，及其下属的二级分类ID
+     * @throws ServiceException 服务异常
+     */
+    public void setCategoryPositionsWithChildren(Long shopId, List<CategoryWithChildrenIds> categoryWithChildrenIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("categoryWithChildrenIds", categoryWithChildrenIds);
+        call("eleme.product.category.setCategoryPositionsWithChildren", params);
+    }
+
+    /**
      * 查询商品后台分类
      *
      * @param shopId 店铺Id
@@ -124,7 +202,7 @@ public class ProductService extends BaseNopService {
      * 上传图片，返回图片的hash值
      *
      * @param image 文件内容base64编码值
-     * @return ${mStruct.methodResponse[0].fieldComments}
+     * @return 图片的 hash 值
      * @throws ServiceException 服务异常
      */
     public String uploadImage(String image) throws ServiceException {
@@ -137,7 +215,7 @@ public class ProductService extends BaseNopService {
      * 通过远程URL上传图片，返回图片的hash值
      *
      * @param url 远程Url地址
-     * @return ${mStruct.methodResponse[0].fieldComments}
+     * @return 图片的 hash 值
      * @throws ServiceException 服务异常
      */
     public String uploadImageWithRemoteUrl(String url) throws ServiceException {
@@ -355,5 +433,19 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("clearStocks", clearStocks);
         call("eleme.product.item.clearAndTimingMaxStock", params);
+    }
+
+    /**
+     * 批量修改商品价格
+     *
+     * @param shopId 店铺Id
+     * @param specPrices 商品Id及其下SkuId和价格对应Map
+     * @throws ServiceException 服务异常
+     */
+    public void batchUpdatePrices(Long shopId, List<OItemIdWithSpecPrice> specPrices) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("specPrices", specPrices);
+        call("eleme.product.item.batchUpdatePrices", params);
     }
 }

@@ -49,4 +49,26 @@ public class OCategory{
         this.isValid = isValid;
     }
     
+    /**
+     * 商品二级分类ID
+     */
+    private long parentId;
+    public long getParentId() {
+        return parentId;
+    }
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
+    
+    /**
+     * 下级分类信息
+     */
+    private List<OCategory> children;
+    public List<OCategory> getChildren() {
+        return children;
+    }
+    public void setChildren(List<OCategory> children) {
+        this.children = children;
+    }
+    
 }
