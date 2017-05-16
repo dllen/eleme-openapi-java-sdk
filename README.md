@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.0.7</version>
+      <version>1.0.8</version>
   </dependency>
 ```
 ## 基本用法
@@ -103,6 +103,17 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+[1.0.8]
+```
+  Release Date : May 15, 2017
+```
+- [Feature] 
+  - 在商品服务中增加了 eleme.product.item.batchUpdatePrices 批量修改商品价格的接口
+  - 在订单服务中增加了 eleme.order.cancelDelivery 取消呼叫配送和 eleme.order.callDelivery 呼叫配送这两个接口
+  - 在订单服务中修改了 `OOrder` 类的定义，增加了一个`List<OActivity>`的属性。
+  - 在商品服务中增加了 eleme.product.category.getShopCategoriesWithChildren 查询店铺商品分类，包含二级分类；eleme.product.category.getCategoryWithChildren 查询商品分类详情，包含二级分类；eleme.product.category.createCategoryWithChildren 添加商品分类，支持二级分类；eleme.product.category.updateCategoryWithChildren 更新商品分类，包含二级分类；eleme.product.category.setCategoryPositionsWithChildren 设置二级分类排序这五个接口。
+
 
 [v1.0.7]
 ```
