@@ -104,6 +104,15 @@
 
 ## CHANGELOG:
 
+[1.0.9]
+```
+  Release Date : May 18, 2017
+```
+- [Feature]
+  - 在商品服务中增加了eleme.product.item.getItemByShopIdAndExtendCode 根据商品扩展码获取商品和eleme.product.item.getItemsByShopIdAndBarCode 根据商品条形码获取商品这两个新接口
+  - 在订单服务中增加了 eleme.order.getUnreplyReminders 获取店铺未回复的催单；eleme.order.getUnprocessOrders 查询店铺未处理订单；eleme.order.getCancelOrders 查询店铺未处理的取消单；eleme.order.getRefundOrders 查询店铺未处理的退单；eleme.order.getAllOrders 查询全部订单这五个新接口
+
+
 [1.0.8]
 ```
   Release Date : May 15, 2017
