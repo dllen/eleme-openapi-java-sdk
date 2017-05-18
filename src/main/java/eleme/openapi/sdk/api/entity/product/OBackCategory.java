@@ -1,12 +1,10 @@
 package eleme.openapi.sdk.api.entity.product;
 
-import eleme.openapi.sdk.api.enumeration.product.*;
-import eleme.openapi.sdk.api.entity.product.*;
-import java.util.*;
+import java.util.List;
 public class OBackCategory{
 
     /**
-     * 分类Id
+     * 类目Id
      */
     private long id;
     public long getId() {
@@ -17,7 +15,7 @@ public class OBackCategory{
     }
     
     /**
-     * 分类名称
+     * 类目名称
      */
     private String name;
     public String getName() {
@@ -39,7 +37,7 @@ public class OBackCategory{
     }
     
     /**
-     * 分类级别
+     * 类目级别
      */
     private int lev;
     public int getLev() {

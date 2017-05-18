@@ -186,10 +186,10 @@ public class ProductService extends BaseNopService {
     }
 
     /**
-     * 查询商品后台分类
+     * 查询商品后台类目
      *
      * @param shopId 店铺Id
-     * @return 商品后台分类列表
+     * @return 商品后台类目列表
      * @throws ServiceException 服务异常
      */
     public List<OBackCategory> getBackCategory(Long shopId) throws ServiceException {
@@ -433,6 +433,36 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("clearStocks", clearStocks);
         call("eleme.product.item.clearAndTimingMaxStock", params);
+    }
+
+    /**
+     * 根据商品扩展码获取商品
+     *
+     * @param shopId 店铺Id
+     * @param extendCode 商品扩展码
+     * @return 商品
+     * @throws ServiceException 服务异常
+     */
+    public OItem getItemByShopIdAndExtendCode(Long shopId, String extendCode) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("extendCode", extendCode);
+        return call("eleme.product.item.getItemByShopIdAndExtendCode", params);
+    }
+
+    /**
+     * 根据商品条形码获取商品
+     *
+     * @param shopId 店铺Id
+     * @param barCode 商品条形码
+     * @return 商品
+     * @throws ServiceException 服务异常
+     */
+    public OItem getItemsByShopIdAndBarCode(Long shopId, String barCode) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("barCode", barCode);
+        return call("eleme.product.item.getItemsByShopIdAndBarCode", params);
     }
 
     /**

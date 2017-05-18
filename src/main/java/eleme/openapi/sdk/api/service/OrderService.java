@@ -262,4 +262,75 @@ public class OrderService extends BaseNopService {
         params.put("fee", fee);
         call("eleme.order.callDelivery", params);
     }
+
+    /**
+     * 获取店铺未回复的催单
+     *
+     * @param shopId 店铺id
+     * @return 催单集合
+     * @throws ServiceException 服务异常
+     */
+    public List<OReminder> getUnreplyReminders(int shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.order.getUnreplyReminders", params);
+    }
+
+    /**
+     * 查询店铺未处理订单
+     *
+     * @param shopId 店铺id
+     * @return 订单Id集合
+     * @throws ServiceException 服务异常
+     */
+    public List<String> getUnprocessOrders(int shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.order.getUnprocessOrders", params);
+    }
+
+    /**
+     * 查询店铺未处理的取消单
+     *
+     * @param shopId 店铺id
+     * @return 订单Id集合
+     * @throws ServiceException 服务异常
+     */
+    public List<String> getCancelOrders(int shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.order.getCancelOrders", params);
+    }
+
+    /**
+     * 查询店铺未处理的退单
+     *
+     * @param shopId 店铺id
+     * @return 订单Id集合
+     * @throws ServiceException 服务异常
+     */
+    public List<String> getRefundOrders(int shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.order.getRefundOrders", params);
+    }
+
+    /**
+     * 查询全部订单
+     *
+     * @param shopId 店铺id
+     * @param pageNo 页码。取值范围:大于零的整数最大限制为100; 默认值:1
+     * @param pageSize 每页获取条数。默认值20，最小值1，最大值50。
+     * @param date 日期,默认当天,格式:yyyy-MM-dd
+     * @return 订单分页数据
+     * @throws ServiceException 服务异常
+     */
+    public OrderList getAllOrders(int shopId, int pageNo, int pageSize, String date) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        params.put("date", date);
+        return call("eleme.order.getAllOrders", params);
+    }
 }
