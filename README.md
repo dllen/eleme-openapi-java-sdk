@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.0.9</version>
+      <version>1.0.10</version>
   </dependency>
 ```
 ## 基本用法
@@ -103,6 +103,14 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+[1.0.10]
+```
+  Release Date : May 23, 2017
+```
+- [Feature]
+  - 在商品服务中增加了eleme.user.getPhoneNumber 获取当前授权帐号的手机号,特权接口仅部分帐号可以调用
+
 
 [1.0.9]
 ```
