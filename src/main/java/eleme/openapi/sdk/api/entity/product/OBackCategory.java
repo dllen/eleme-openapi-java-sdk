@@ -1,6 +1,8 @@
 package eleme.openapi.sdk.api.entity.product;
 
-import java.util.List;
+import eleme.openapi.sdk.api.enumeration.product.*;
+import eleme.openapi.sdk.api.entity.product.*;
+import java.util.*;
 public class OBackCategory{
 
     /**

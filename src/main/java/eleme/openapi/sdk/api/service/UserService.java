@@ -33,7 +33,7 @@ public class UserService extends BaseNopService {
     /**
      * 获取当前授权帐号的手机号,特权接口仅部分帐号可以调用
      *
-     * @return 手机号
+     * @return ${mStruct.methodResponse[0].fieldComments}
      * @throws ServiceException 服务异常
      */
     public String getPhoneNumber() throws ServiceException {

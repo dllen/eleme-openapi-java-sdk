@@ -47,6 +47,18 @@ public class OrderService extends BaseNopService {
     }
 
     /**
+     * 确认订单(推荐)
+     *
+     * @param orderId 订单Id
+     * @throws ServiceException 服务异常
+     */
+    public void confirmOrderLite(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        call("eleme.order.confirmOrderLite", params);
+    }
+
+    /**
      * 确认订单
      *
      * @param orderId 订单Id
@@ -57,6 +69,22 @@ public class OrderService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
         return call("eleme.order.confirmOrder", params);
+    }
+
+    /**
+     * 取消订单(推荐)
+     *
+     * @param orderId 订单Id
+     * @param type 取消原因
+     * @param remark 备注说明
+     * @throws ServiceException 服务异常
+     */
+    public void cancelOrderLite(String orderId, OInvalidateType type, String remark) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        params.put("type", type);
+        params.put("remark", remark);
+        call("eleme.order.cancelOrderLite", params);
     }
 
     /**
@@ -77,7 +105,20 @@ public class OrderService extends BaseNopService {
     }
 
     /**
-     * 同意退单/取消单
+     * 同意退单/同意取消单(推荐)
+     *
+     * @param orderId 订单Id
+     * @return 订单
+     * @throws ServiceException 服务异常
+     */
+    public OOrder agreeRefundLite(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        return call("eleme.order.agreeRefundLite", params);
+    }
+
+    /**
+     * 同意退单/同意取消单
      *
      * @param orderId 订单Id
      * @return 订单
@@ -90,7 +131,22 @@ public class OrderService extends BaseNopService {
     }
 
     /**
-     * 不同意退单/取消单
+     * 不同意退单/不同意取消单(推荐)
+     *
+     * @param orderId 订单Id
+     * @param reason 商家不同意退单原因
+     * @return 订单
+     * @throws ServiceException 服务异常
+     */
+    public OOrder disagreeRefundLite(String orderId, String reason) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        params.put("reason", reason);
+        return call("eleme.order.disagreeRefundLite", params);
+    }
+
+    /**
+     * 不同意退单/不同意取消单
      *
      * @param orderId 订单Id
      * @param reason 商家不同意退单原因
@@ -131,6 +187,18 @@ public class OrderService extends BaseNopService {
     }
 
     /**
+     * 配送异常或者物流拒单后选择自行配送(推荐)
+     *
+     * @param orderId 订单Id
+     * @throws ServiceException 服务异常
+     */
+    public void deliveryBySelfLite(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        call("eleme.order.deliveryBySelfLite", params);
+    }
+
+    /**
      * 配送异常或者物流拒单后选择自行配送
      *
      * @param orderId 订单Id
@@ -141,6 +209,18 @@ public class OrderService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
         return call("eleme.order.deliveryBySelf", params);
+    }
+
+    /**
+     * 配送异常或者物流拒单后选择不再配送(推荐)
+     *
+     * @param orderId 订单Id
+     * @throws ServiceException 服务异常
+     */
+    public void noMoreDeliveryLite(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        call("eleme.order.noMoreDeliveryLite", params);
     }
 
     /**
@@ -157,7 +237,21 @@ public class OrderService extends BaseNopService {
     }
 
     /**
+     * 订单确认送达(推荐)
+     *
+     * @param orderId 订单ID
+     * @throws ServiceException 服务异常
+     */
+    public void receivedOrderLite(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        call("eleme.order.receivedOrderLite", params);
+    }
+
+    /**
      * 订单确认送达
+     *
+     * 为保证核心操作的稳定,减少不必要的信息回传,此接口不建议使用,后期逐步下线,推荐使用 receivedOrderLite
      *
      * @param orderId 订单ID
      * @return 订单

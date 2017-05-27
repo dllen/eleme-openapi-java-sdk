@@ -76,4 +76,18 @@ public class ShopService extends BaseNopService {
         params.put("deliveryAdjustMins", deliveryAdjustMins);
         call("eleme.shop.setDeliveryTime", params);
     }
+
+    /**
+     * 设置是否支持在线退单
+     *
+     * @param shopId 店铺Id
+     * @param enable 是否支持
+     * @throws ServiceException 服务异常
+     */
+    public void setOnlineRefund(long shopId, boolean enable) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("enable", enable);
+        call("eleme.shop.setOnlineRefund", params);
+    }
 }

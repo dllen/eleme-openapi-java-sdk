@@ -1,10 +1,8 @@
 package eleme.openapi.sdk.api.entity.order;
 
-import eleme.openapi.sdk.api.enumeration.order.OOrderRefundStatus;
-import eleme.openapi.sdk.api.enumeration.order.OOrderStatus;
-
-import java.util.Date;
-import java.util.List;
+import eleme.openapi.sdk.api.enumeration.order.*;
+import eleme.openapi.sdk.api.entity.order.*;
+import java.util.*;
 public class OOrder{
 
     /**

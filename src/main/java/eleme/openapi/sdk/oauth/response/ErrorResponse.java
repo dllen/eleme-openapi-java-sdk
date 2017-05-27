@@ -1,6 +1,7 @@
 package eleme.openapi.sdk.oauth.response;
 
 import eleme.openapi.sdk.oauth.mapping.TokenField;
+import eleme.openapi.sdk.utils.StringUtils;
 
 import java.io.Serializable;
 
@@ -29,7 +30,7 @@ public class ErrorResponse implements Serializable {
     }
 
     public boolean isSuccess() {
-        return error == null;
+        return StringUtils.isEmpty(error);
     }
 
 
