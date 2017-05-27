@@ -110,7 +110,6 @@
 ```
 - [Feature] 
 - 在订单服务中增加了若干订单操作的轻量接口 
-- 在用户服务中增加了 eleme.user.getPhoneNumber 获取当前授权帐号的手机号的接口 
 - 在店铺服务中增加了 eleme.shop.setOnlineRefund 设置是否支持在线退单
 
 
