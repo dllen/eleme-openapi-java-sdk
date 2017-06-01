@@ -104,96 +104,84 @@
 
 ## CHANGELOG:
 
-[1.1.10]
+### [1.1.10]
 ```
   Release Date : 2017-05-27
-```
-- [Feature] 
-- 在订单服务中增加了若干订单操作的轻量接口 
-- 在店铺服务中增加了 eleme.shop.setOnlineRefund 设置是否支持在线退单
+``` 
+- [Feature]在订单服务中增加了若干订单操作的轻量接口 
+- [Feature]在店铺服务中增加了 eleme.shop.setOnlineRefund 设置是否支持在线退单
 
 
-[1.0.10]
+### [1.0.10]
 ```
   Release Date : 2017-05-23
 ```
-- [Feature]
-- 在商品服务中增加了eleme.user.getPhoneNumber 获取当前授权帐号的手机号,特权接口仅部分帐号可以调用
+- [Feature] 在商品服务中增加了eleme.user.getPhoneNumber 获取当前授权帐号的手机号,特权接口仅部分帐号可以调用
 
 
-[1.0.9]
+### [1.0.9]
 ```
   Release Date : 2017-05-18
 ```
-- [Feature]
-- 在商品服务中增加了eleme.product.item.getItemByShopIdAndExtendCode 根据商品扩展码获取商品和eleme.product.item.getItemsByShopIdAndBarCode 根据商品条形码获取商品这两个新接口
-- 在订单服务中增加了 eleme.order.getUnreplyReminders 获取店铺未回复的催单；eleme.order.getUnprocessOrders 查询店铺未处理订单；eleme.order.getCancelOrders 查询店铺未处理的取消单；eleme.order.getRefundOrders 查询店铺未处理的退单；eleme.order.getAllOrders 查询全部订单这五个新接口
+- [Feature] 在商品服务中增加了eleme.product.item.getItemByShopIdAndExtendCode 根据商品扩展码获取商品和eleme.product.item.getItemsByShopIdAndBarCode 根据商品条形码获取商品这两个新接口
+- [Feature] 在订单服务中增加了 eleme.order.getUnreplyReminders 获取店铺未回复的催单；eleme.order.getUnprocessOrders 查询店铺未处理订单；eleme.order.getCancelOrders 查询店铺未处理的取消单；eleme.order.getRefundOrders 查询店铺未处理的退单；eleme.order.getAllOrders 查询全部订单这五个新接口
 
 
-[1.0.8]
+### [1.0.8]
 ```
   Release Date : 2017-05-15
 ```
-- [Feature] 
-- 在商品服务中增加了 eleme.product.item.batchUpdatePrices 批量修改商品价格的接口
-- 在订单服务中增加了 eleme.order.cancelDelivery 取消呼叫配送和 eleme.order.callDelivery 呼叫配送这两个接口
-- 在订单服务中修改了 `OOrder` 类的定义，增加了一个`List<OActivity>`的属性。
-- 在商品服务中增加了 eleme.product.category.getShopCategoriesWithChildren 查询店铺商品分类，包含二级分类；eleme.product.category.getCategoryWithChildren 查询商品分类详情，包含二级分类；eleme.product.category.createCategoryWithChildren 添加商品分类，支持二级分类；eleme.product.category.updateCategoryWithChildren 更新商品分类，包含二级分类；eleme.product.category.setCategoryPositionsWithChildren 设置二级分类排序这五个接口。
+- [Feature] 在商品服务中增加了 eleme.product.item.batchUpdatePrices 批量修改商品价格的接口
+- [Feature] 在订单服务中增加了 eleme.order.cancelDelivery 取消呼叫配送和 eleme.order.callDelivery 呼叫配送这两个接口
+- [Feature] 在订单服务中修改了 `OOrder` 类的定义，增加了一个`List<OActivity>`的属性。
+- [Feature] 在商品服务中增加了 eleme.product.category.getShopCategoriesWithChildren 查询店铺商品分类，包含二级分类；eleme.product.category.getCategoryWithChildren 查询商品分类详情，包含二级分类；eleme.product.category.createCategoryWithChildren 添加商品分类，支持二级分类；eleme.product.category.updateCategoryWithChildren 更新商品分类，包含二级分类；eleme.product.category.setCategoryPositionsWithChildren 设置二级分类排序这五个接口。
 
 
-[v1.0.7]
+### [v1.0.7]
 ```
   Release Date : 2017-05-08
 ```
-- [Feature] 
-- 增加签约服务; 
-- 订单服务中新增了 
+- [Feature] 增加签约服务; 
+- [Feature] 订单服务中新增了 
    - eleme.order.replyReminder 
    - eleme.order.getCommodities 
    - eleme.order.mgetCommodities 
    - eleme.order.getRefundOrder 
    - eleme.order.mgetRefundOrders 
-- 增加接口查询商品后台分类 
+- [Feature] 增加接口查询商品后台分类 
    - eleme.product.category.getBackCategory
 
-[v1.0.6]
+### [v1.0.6]
 ```
   Release Date : 2017-05-03
 ```
-- [Bugfix] 
-- 修复消息推送验签失败
+- [Bugfix] 修复消息推送验签失败
 
 
-[v1.0.5]
+### [v1.0.5]
 ```
   Release Date : 2017-04-21
 ```
-- [Feature] 
-- ShopService新增setDeliveryTime(设置送达时间)接口
+- [Feature] ShopService新增setDeliveryTime(设置送达时间)接口
 
-[v1.0.4]
+### [v1.0.4]
 ```
   Release Date : 2017-04-21
 ```
-- [Feature] 
-- 新增UGC(订单评论服务)接口
-- [bugfix] 
-- 修复接口签名
+- [Feature] 新增UGC(订单评论服务)接口
+- [bugfix] 修复接口签名
 
 
-[v1.0.3]
+### [v1.0.3]
 ```
   Release Date : 2017-04-19
-```
-- [Feature] 
-- 订单服务(OrderService)中新增"订单确认送达接口(receivedOrder)"
-- [Bugfix] 
-- 修复SDK中使用JAVA 8提供的java.time.LocalDateTime 改为java.util.Date
+``` 
+- [Feature] 订单服务(OrderService)中新增"订单确认送达接口(receivedOrder)"
+- [Bugfix] 修复SDK中使用JAVA 8提供的java.time.LocalDateTime 改为java.util.Date
 
 
-[v1.0.1]
+### [v1.0.1]
 ```
   Release Date : 2017-04-10
 ```
-- [Feature] 
-- SDK完整实现
+- [Feature] SDK完整实现
