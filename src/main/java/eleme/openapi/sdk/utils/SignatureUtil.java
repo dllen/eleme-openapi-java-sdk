@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SignatureUtil {
-    private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).disableHtmlEscaping().create();
 
     public static String generateSignature(String appKey, String secret, long timestamp, String action, String token, Map<String, Object> parameters) {
         final Map<String, Object> sorted = new TreeMap();
