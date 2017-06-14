@@ -17,9 +17,7 @@ import java.util.regex.Pattern;
  * 常用工具类
  */
 public abstract class StringUtils {
-    /**
-     * An empty immutable <code>String</code> array.
-     */
+
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
     private static final TimeZone TZ_GMT8 = TimeZone.getTimeZone(Constants.DATE_TIMEZONE);
     private static final Pattern PATTERN_CIDR = Pattern.compile("^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})/(\\d{1,2})$");
@@ -29,18 +27,7 @@ public abstract class StringUtils {
     private static final String GT = "&gt;";
     private static final String LT = "&lt;";
 
-    /**
-     * 检查指定的字符串是否为空。
-     * <ul>
-     * <li>SysUtils.isEmpty(null) = true</li>
-     * <li>SysUtils.isEmpty("") = true</li>
-     * <li>SysUtils.isEmpty("   ") = true</li>
-     * <li>SysUtils.isEmpty("abc") = false</li>
-     * </ul>
-     *
-     * @param value 待检查的字符串
-     * @return true/false
-     */
+
     public static boolean isEmpty(String value) {
         int strLen;
         if (value == null || (strLen = value.length()) == 0) {
@@ -54,9 +41,7 @@ public abstract class StringUtils {
         return true;
     }
 
-    /**
-     * 检查对象是否为数字型字符串,包含负数开头的。
-     */
+
     public static boolean isNumeric(Object obj) {
         if (obj == null) {
             return false;
@@ -78,9 +63,7 @@ public abstract class StringUtils {
         return true;
     }
 
-    /**
-     * 检查指定的字符串列表是否不为空。
-     */
+
     public static boolean areNotEmpty(String... values) {
         boolean result = true;
         if (values == null || values.length == 0) {
@@ -93,9 +76,7 @@ public abstract class StringUtils {
         return result;
     }
 
-    /**
-     * 把通用字符编码的字符串转化为汉字编码。
-     */
+
     public static String unicodeToChinese(String unicode) {
         StringBuilder out = new StringBuilder();
         if (!isEmpty(unicode)) {
@@ -106,9 +87,7 @@ public abstract class StringUtils {
         return out.toString();
     }
 
-    /**
-     * 把名称转换为小写加下划线的形式。
-     */
+
     public static String toUnderlineStyle(String name) {
         StringBuilder newName = new StringBuilder();
         int len = name.length();
@@ -126,9 +105,7 @@ public abstract class StringUtils {
         return newName.toString();
     }
 
-    /**
-     * 把名称转换为首字母小写的驼峰形式。
-     */
+
     public static String toCamelStyle(String name) {
         StringBuilder newName = new StringBuilder();
         int len = name.length();
@@ -143,9 +120,7 @@ public abstract class StringUtils {
         return newName.toString();
     }
 
-    /**
-     * 把字符串解释为日期对象，采用yyyy-MM-dd HH:mm:ss的格式。
-     */
+
     public static Date parseDateTime(String str) {
         DateFormat format = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
         format.setTimeZone(TZ_GMT8);
@@ -156,29 +131,21 @@ public abstract class StringUtils {
         }
     }
 
-    /**
-     * 对日期进行字符串格式化，采用yyyy-MM-dd HH:mm:ss的格式。
-     */
+
     public static String formatDateTime(Date date) {
         DateFormat format = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
         format.setTimeZone(TZ_GMT8);
         return format.format(date);
     }
 
-    /**
-     * 对日期进行字符串格式化，采用指定的格式。
-     */
+
     public static String formatDateTime(Date date, String pattern) {
         DateFormat format = new SimpleDateFormat(pattern);
         format.setTimeZone(TZ_GMT8);
         return format.format(date);
     }
 
-    /**
-     *
-     * @param value 所需转义的字符串
-     * @return 转义后的字符串 @
-     */
+
     public static String escapeXml(String value) {
         StringBuilder writer = new StringBuilder();
         char[] chars = value.trim().toCharArray();
@@ -209,13 +176,7 @@ public abstract class StringUtils {
         return writer.toString();
     }
 
-    /**
-     * 获取类的get/set属性名称集合。
-     *
-     * @param clazz 类
-     * @param isGet 是否获取读方法，true为读方法，false为写方法
-     * @return 属性名称集合
-     */
+
     public static Set<String> getClassProperties(Class<?> clazz, boolean isGet) {
         Set<String> propNames = new HashSet<String>();
         try {
@@ -241,16 +202,7 @@ public abstract class StringUtils {
 
     //-----------------------------------------------------------------------
 
-    /**
-     * <p>Checks whether the <code>String</code> contains only
-     * digit characters.</p>
-     * <p>
-     * <p><code>Null</code> and empty String will return
-     * <code>false</code>.</p>
-     *
-     * @param str the <code>String</code> to check
-     * @return <code>true</code> if str contains only unicode numeric
-     */
+
     public static boolean isDigits(String str) {
         if (StringUtils.isEmpty(str)) {
             return false;
@@ -263,46 +215,12 @@ public abstract class StringUtils {
         return true;
     }
 
-    /**
-     * <p>Splits the provided text into an array, separator specified.
-     * This is an alternative to using StringTokenizer.</p>
-     * <p>
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.
-     * For more control over the split use the StrTokenizer class.</p>
-     * <p>
-     * <p>A <code>null</code> input String returns <code>null</code>.</p>
-     * <p>
-     * <pre>
-     * StringUtils.split(null, *)         = null
-     * StringUtils.split("", *)           = []
-     * StringUtils.split("a.b.c", '.')    = ["a", "b", "c"]
-     * StringUtils.split("a..b.c", '.')   = ["a", "b", "c"]
-     * StringUtils.split("a:b:c", '.')    = ["a:b:c"]
-     * StringUtils.split("a b c", ' ')    = ["a", "b", "c"]
-     * </pre>
-     *
-     * @param str           the String to parse, may be null
-     * @param separatorChar the character used as the delimiter
-     * @return an array of parsed Strings, <code>null</code> if null String input
-     * @since 2.0
-     */
+
     public static String[] split(String str, char separatorChar) {
         return splitWorker(str, separatorChar, false);
     }
 
-    /**
-     * Performs the logic for the <code>split</code> and
-     * <code>splitPreserveAllTokens</code> methods that do not return a
-     * maximum array length.
-     *
-     * @param str               the String to parse, may be <code>null</code>
-     * @param separatorChar     the separate character
-     * @param preserveAllTokens if <code>true</code>, adjacent separators are
-     *                          treated as empty token separators; if <code>false</code>, adjacent
-     *                          separators are treated as one separator.
-     * @return an array of parsed Strings, <code>null</code> if null String input
-     */
+
     private static String[] splitWorker(String str, char separatorChar, boolean preserveAllTokens) {
         // Performance tuned for 2.0 (JDK1.4)
 
@@ -337,20 +255,7 @@ public abstract class StringUtils {
         return (String[]) list.toArray(new String[list.size()]);
     }
 
-    /**
-     * Performs the logic for the <code>split</code> and
-     * <code>splitPreserveAllTokens</code> methods that return a maximum array
-     * length.
-     *
-     * @param str               the String to parse, may be <code>null</code>
-     * @param separatorChars    the separate character
-     * @param max               the maximum number of elements to include in the
-     *                          array. A zero or negative value implies no limit.
-     * @param preserveAllTokens if <code>true</code>, adjacent separators are
-     *                          treated as empty token separators; if <code>false</code>, adjacent
-     *                          separators are treated as one separator.
-     * @return an array of parsed Strings, <code>null</code> if null String input
-     */
+
     private static String[] splitWorker(String str, String separatorChars, int max, boolean preserveAllTokens) {
         // Performance tuned for 2.0 (JDK1.4)
         // Direct code is quicker than StringTokenizer.
@@ -436,42 +341,12 @@ public abstract class StringUtils {
         return (String[]) list.toArray(new String[list.size()]);
     }
 
-    /**
-     * <p>Splits the provided text into an array, separators specified.
-     * This is an alternative to using StringTokenizer.</p>
-     * <p>
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.
-     * For more control over the split use the StrTokenizer class.</p>
-     * <p>
-     * <p>A <code>null</code> input String returns <code>null</code>.
-     * A <code>null</code> separatorChars splits on whitespace.</p>
-     * <p>
-     * <pre>
-     * StringUtils.split(null, *)         = null
-     * StringUtils.split("", *)           = []
-     * StringUtils.split("abc def", null) = ["abc", "def"]
-     * StringUtils.split("abc def", " ")  = ["abc", "def"]
-     * StringUtils.split("abc  def", " ") = ["abc", "def"]
-     * StringUtils.split("ab:cd:ef", ":") = ["ab", "cd", "ef"]
-     * </pre>
-     *
-     * @param str            the String to parse, may be null
-     * @param separatorChars the characters used as the delimiters,
-     *                       <code>null</code> splits on whitespace
-     * @return an array of parsed Strings, <code>null</code> if null String input
-     */
+
     public static String[] split(String str, String separatorChars) {
         return splitWorker(str, separatorChars, -1, false);
     }
 
-    /**
-     * 判断指定的IP地址是否在IP段里面。
-     *
-     * @param ipAddr   IP地址
-     * @param cidrAddr 用CIDR表示法的IP段信息
-     * @return true/false
-     */
+
     public static boolean isIpInRange(String ipAddr, String cidrAddr) {
         Matcher matcher = PATTERN_CIDR.matcher(cidrAddr);
         if (!matcher.matches()) {

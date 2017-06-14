@@ -10,10 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ObjectToJson {
-    /**
-     * @param obj 任意对象
-     * @return
-     */
+
     public static String objectToJson(Object obj) {
         StringBuilder json = new StringBuilder();
         if (obj == null) {
@@ -36,10 +33,7 @@ public class ObjectToJson {
         return json.toString();
     }
 
-    /**
-     * @param str 字符串对象
-     * @return
-     */
+
     public static String stringToJson(String str) {
         if (str == null) {
             return "";
@@ -88,10 +82,7 @@ public class ObjectToJson {
         return sb.toString();
     }
 
-    /**
-     * @param array 对象数组
-     * @return
-     */
+
     public static String arrayToJson(Object[] array) {
         StringBuilder json = new StringBuilder();
         json.append("[");
@@ -107,10 +98,7 @@ public class ObjectToJson {
         return json.toString();
     }
 
-    /**
-     * @param list List对象
-     * @return
-     */
+
     public static String listToJson(List<?> list) {
         StringBuilder json = new StringBuilder();
         json.append("[");
@@ -126,10 +114,7 @@ public class ObjectToJson {
         return json.toString();
     }
 
-    /**
-     * @param map Map对象
-     * @return
-     */
+
     public static String mapToJson(Map<?, ?> map) {
         StringBuilder json = new StringBuilder();
         json.append("{");
@@ -147,10 +132,7 @@ public class ObjectToJson {
         return json.toString();
     }
 
-    /**
-     * @param set Set对象
-     * @return
-     */
+
     public static String setToJson(Set<?> set) {
         StringBuilder json = new StringBuilder();
         json.append("[");
@@ -166,10 +148,7 @@ public class ObjectToJson {
         return json.toString();
     }
 
-    /**
-     * @param bean Bean对象
-     * @return
-     */
+
     public static String beanToJson(Object bean) {
         StringBuilder json = new StringBuilder();
         json.append("{");

@@ -12,9 +12,6 @@ public interface OAuthParser<T extends ErrorResponse> {
      */
     public T parse(String rsp) ;
 
-    /**
-     * 获取响应类类型。
-     */
     public Class<T> getResponseClass() ;
 
 }

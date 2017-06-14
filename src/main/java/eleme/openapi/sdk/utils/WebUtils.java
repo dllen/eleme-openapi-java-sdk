@@ -42,29 +42,11 @@ public abstract class WebUtils {
         }
     }
 
-
-    /**
-     * 执行HTTP POST请求。
-     *
-     * @param url    请求地址
-     * @param params 请求参数
-     * @return 响应字符串
-     * @throws IOException
-     */
     public static String doPost(Config context, String url, Map<String, String> params, int connectTimeout, int readTimeout)
             throws IOException {
         return doPost(context, url, params, DEFAULT_CHARSET, connectTimeout, readTimeout);
     }
 
-    /**
-     * 执行HTTP POST请求。
-     *
-     * @param url     请求地址
-     * @param params  请求参数
-     * @param charset 字符集，如UTF-8, GBK, GB2312
-     * @return 响应字符串
-     * @throws IOException
-     */
     public static String doPost(Config context, String url, Map<String, String> params, String charset, int connectTimeout,
                                 int readTimeout) throws IOException {
         return doPost(context, url, params, charset, connectTimeout, readTimeout, null);
@@ -87,15 +69,6 @@ public abstract class WebUtils {
         return _doPost(context, url, ctype, content, connectTimeout, readTimeout, headerMap);
     }
 
-    /**
-     * 执行HTTP POST请求。
-     *
-     * @param url     请求地址
-     * @param ctype   请求类型
-     * @param content 请求字节数组
-     * @return 响应字符串
-     * @throws IOException
-     */
     @Deprecated
     public static String doPost(Config context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout)
             throws IOException {
@@ -149,26 +122,10 @@ public abstract class WebUtils {
         return entry.toString().getBytes(charset);
     }
 
-    /**
-     * 执行HTTP GET请求。
-     *
-     * @param url    请求地址
-     * @param params 请求参数
-     * @return 响应字符串
-     * @throws IOException
-     */
     public static String doGet(String url, Map<String, String> params) throws IOException {
         return doGet(url, params, DEFAULT_CHARSET);
     }
 
-    /**
-     * 执行HTTP GET请求。
-     *
-     * @param url     请求地址
-     * @param params  请求参数
-     * @param charset 字符集，如UTF-8, GBK, GB2312
-     * @return 响应字符串
-     */
     public static String doGet(String url, Map<String, String> params, String charset) throws IOException {
         HttpURLConnection conn = null;
         String rsp = null;
@@ -335,33 +292,17 @@ public abstract class WebUtils {
         return charset;
     }
 
-    /**
-     * 使用默认的UTF-8字符集反编码请求参数值。
-     *
-     * @param value 参数值
-     * @return 反编码后的参数值
-     */
+
     public static String decode(String value) {
         return decode(value, DEFAULT_CHARSET);
     }
 
-    /**
-     * 使用默认的UTF-8字符集编码请求参数值。
-     *
-     * @param value 参数值
-     * @return 编码后的参数值
-     */
+
     public static String encode(String value) {
         return encode(value, DEFAULT_CHARSET);
     }
 
-    /**
-     * 使用指定的字符集反编码请求参数值。
-     *
-     * @param value   参数值
-     * @param charset 字符集
-     * @return 反编码后的参数值
-     */
+
     public static String decode(String value, String charset) {
         String result = null;
         if (!StringUtils.isEmpty(value)) {
@@ -374,13 +315,7 @@ public abstract class WebUtils {
         return result;
     }
 
-    /**
-     * 使用指定的字符集编码请求参数值。
-     *
-     * @param value   参数值
-     * @param charset 字符集
-     * @return 编码后的参数值
-     */
+
     public static String encode(String value, String charset) {
         String result = null;
         if (!StringUtils.isEmpty(value)) {
@@ -393,12 +328,7 @@ public abstract class WebUtils {
         return result;
     }
 
-    /**
-     * 从URL中提取所有的参数。
-     *
-     * @param query URL地址
-     * @return 参数映射
-     */
+
     public static Map<String, String> splitUrlQuery(String query) {
         Map<String, String> result = new HashMap<String, String>();
 
@@ -415,13 +345,6 @@ public abstract class WebUtils {
         return result;
     }
 
-    /**
-     * @param action     API接口名称
-     * @param parameters API访问需要携带的参数
-     * @param token      商户授权信息
-     * @param type       返回类型
-     * @throws ServiceException
-     */
     public static <T> T call(Config context, String action,
                              Map<String, Object> parameters,
                              Token token,

@@ -11,12 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class CallbackValidationUtil {
-    /**
-     * 通过哈希一个摘要，校验消息是否合法或者被篡改
-     *
-     * @param message
-     * @return
-     */
+
     public static boolean isValidMessage(OMessage message,String secret) {
         if (message == null) {
             return false;

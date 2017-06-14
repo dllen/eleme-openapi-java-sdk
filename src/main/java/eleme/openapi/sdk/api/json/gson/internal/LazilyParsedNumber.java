@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 public final class LazilyParsedNumber extends Number {
   private final String value;
 
-  /** @param value must not be null */
+
   public LazilyParsedNumber(String value) {
     this.value = value;
   }
@@ -68,11 +68,7 @@ public final class LazilyParsedNumber extends Number {
     return value;
   }
 
-  /**
-   * If somebody is unlucky enough to have to serialize one of these, serialize
-   * it as a BigDecimal so that they won't need Gson on the other side to
-   * deserialize it.
-   */
+
   private Object writeReplace() throws ObjectStreamException {
     return new BigDecimal(value);
   }

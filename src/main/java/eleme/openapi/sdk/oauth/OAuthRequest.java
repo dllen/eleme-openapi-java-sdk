@@ -9,9 +9,6 @@ import java.util.Map;
  */
 public interface OAuthRequest<T extends ErrorResponse> {
 
-    /**
-     * 获取具体响应实现类的定义。
-     */
     public Class<T> getResponseClass() ;
 
     public Map<String, String> getHeaderMap();

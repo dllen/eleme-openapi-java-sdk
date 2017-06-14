@@ -52,22 +52,11 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
   int modCount = 0;
   int threshold;
 
-  /**
-   * Create a natural order, empty tree map whose keys must be mutually
-   * comparable and non-null.
-   */
   @SuppressWarnings("unchecked") // unsafe! this assumes K is comparable
   public LinkedHashTreeMap() {
     this((Comparator<? super K>) NATURAL_ORDER);
   }
 
-  /**
-   * Create a tree map ordered by {@code comparator}. This map's keys may only
-   * be null if {@code comparator} permits.
-   *
-   * @param comparator the comparator to order elements with, or {@code null} to
-   *     use the natural ordering.
-   */
   @SuppressWarnings({ "unchecked", "rawtypes" }) // unsafe! if comparator is null, this assumes K is comparable
   public LinkedHashTreeMap(Comparator<? super K> comparator) {
     this.comparator = comparator != null
@@ -122,12 +111,6 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
     return node != null ? node.value : null;
   }
 
-  /**
-   * Returns the node at or adjacent to the given key, creating it if requested.
-   *
-   * @throws ClassCastException if {@code key} and the tree's keys aren't
-   *     mutually comparable.
-   */
   Node<K, V> find(K key, boolean create) {
     Comparator<? super K> comparator = this.comparator;
     Node<K, V>[] table = this.table;
@@ -205,15 +188,6 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
     }
   }
 
-  /**
-   * Returns this map's entry that has the same key and value as {@code
-   * entry}, or null if this map has no such entry.
-   *
-   * <p>This method uses the comparator for key equality rather than {@code
-   * equals}. If this map's comparator isn't consistent with equals (such as
-   * {@code String.CASE_INSENSITIVE_ORDER}), then {@code remove()} and {@code
-   * contains()} will violate the collections API.
-   */
   Node<K, V> findByEntry(Entry<?, ?> entry) {
     Node<K, V> mine = findByObject(entry.getKey());
     boolean valuesEqual = mine != null && equal(mine.value, entry.getValue());
@@ -224,24 +198,13 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
     return a == b || (a != null && a.equals(b));
   }
 
-  /**
-   * Applies a supplemental hash function to a given hashCode, which defends
-   * against poor quality hash functions. This is critical because HashMap
-   * uses power-of-two length hash tables, that otherwise encounter collisions
-   * for hashCodes that do not differ in lower or upper bits.
-   */
   private static int secondaryHash(int h) {
     // Doug Lea's supplemental hash function
     h ^= (h >>> 20) ^ (h >>> 12);
     return h ^ (h >>> 7) ^ (h >>> 4);
   }
 
-  /**
-   * Removes {@code node} from this tree, rearranging the tree's structure as
-   * necessary.
-   *
-   * @param unlink true to also unlink this node from the iteration linked list.
-   */
+
   void removeInternal(Node<K, V> node, boolean unlink) {
     if (unlink) {
       node.prev.next = node.next;
@@ -328,13 +291,7 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
     }
   }
 
-  /**
-   * Rebalances the tree by making any AVL rotations necessary between the
-   * newly-unbalanced node and the tree's root.
-   *
-   * @param insert true if the node was unbalanced by an insert; false if it
-   *     was by a removal.
-   */
+
   private void rebalance(Node<K, V> unbalanced, boolean insert) {
     for (Node<K, V> node = unbalanced; node != null; node = node.parent) {
       Node<K, V> left = node.left;
@@ -395,9 +352,7 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
     }
   }
 
-  /**
-   * Rotates the subtree so that its root's right child is the new root.
-   */
+
   private void rotateLeft(Node<K, V> root) {
     Node<K, V> left = root.left;
     Node<K, V> pivot = root.right;
@@ -852,12 +807,6 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
     }
   }
 
-  /**
-   * If somebody is unlucky enough to have to serialize one of these, serialize
-   * it as a LinkedHashMap so that they won't need Gson on the other side to
-   * deserialize it. Using serialization defeats our DoS defence, so most apps
-   * shouldn't use it.
-   */
   private Object writeReplace() throws ObjectStreamException {
     return new LinkedHashMap<K, V>(this);
   }

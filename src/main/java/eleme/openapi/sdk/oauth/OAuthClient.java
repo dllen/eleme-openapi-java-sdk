@@ -63,7 +63,7 @@ public class OAuthClient {
     /**
      * 刷新Token
      *
-     * @param refreshToken
+     * @param refreshToken refreshToken
      * @return Token信息
      */
     public Token getTokenByRefreshToken(String refreshToken) {
