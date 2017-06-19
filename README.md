@@ -1,5 +1,10 @@
 # JAVA SDK 接入指南 & CHANGELOG
 
+饿了么2.0接口开发Java版SDK，当前版本为开发者维护版本。
+
+饿了么开放平台：https://open.shop.ele.me  
+饿了么官方SDK Git: https://git.coding.net/napos_openapi/eleme-openapi-java-sdk.git 
+
 ## API接入指南
   1. JAVA version >= 1.6
   2. 创建Config配置类，填入key，secret和isSandbox 参数
