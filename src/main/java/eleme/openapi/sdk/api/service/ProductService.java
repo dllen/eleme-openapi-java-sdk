@@ -469,7 +469,7 @@ public class ProductService extends BaseNopService {
      * 批量修改商品价格
      *
      * @param shopId 店铺Id
-     * @param specPrices 商品Id及其下SkuId和价格对应Map
+     * @param specPrices 商品Id及其下SkuId和价格对应Map(限制最多50个)
      * @throws ServiceException 服务异常
      */
     public void batchUpdatePrices(Long shopId, List<OItemIdWithSpecPrice> specPrices) throws ServiceException {

@@ -401,4 +401,26 @@ public class OOrder{
         this.orderActivities = orderActivities;
     }
     
+    /**
+     * 发票类型
+     */
+    private InvoiceType invoiceType;
+    public InvoiceType getInvoiceType() {
+        return invoiceType;
+    }
+    public void setInvoiceType(InvoiceType invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+    
+    /**
+     * 纳税人识别号
+     */
+    private String taxpayerId;
+    public String getTaxpayerId() {
+        return taxpayerId;
+    }
+    public void setTaxpayerId(String taxpayerId) {
+        this.taxpayerId = taxpayerId;
+    }
+    
 }

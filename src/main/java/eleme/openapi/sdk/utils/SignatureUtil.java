@@ -24,7 +24,7 @@ public class SignatureUtil {
             string.append(entry.getKey()).append("=").append(gson.toJson(entry.getValue()));
         }
         String splice = String.format("%s%s%s%s", action, token, string, secret);
-        System.out.println("\n\n\n"+ string.toString());
+        System.out.println("\n\n\n"+ splice);
         String calculatedSignature = md5(splice);
         return calculatedSignature.toUpperCase();
     }

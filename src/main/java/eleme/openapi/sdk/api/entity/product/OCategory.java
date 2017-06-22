@@ -50,7 +50,7 @@ public class OCategory{
     }
     
     /**
-     * 商品二级分类ID
+     * 一级分类父分类ID为0，二级分类父分类ID为一级分类ID
      */
     private long parentId;
     public long getParentId() {
