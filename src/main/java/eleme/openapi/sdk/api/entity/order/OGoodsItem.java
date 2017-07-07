@@ -3,10 +3,12 @@ package eleme.openapi.sdk.api.entity.order;
 import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OGoodsItem{
 
     /**
-     * 规格Id（根据篮子的类型取不同的值）
+     * 食物id
      */
     private long id;
     public long getId() {
@@ -17,7 +19,7 @@ public class OGoodsItem{
     }
     
     /**
-     * 
+     * 规格Id（根据篮子的类型取不同的值）
      */
     private Long skuId;
     public Long getSkuId() {

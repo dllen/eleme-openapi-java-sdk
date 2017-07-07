@@ -1,17 +1,15 @@
 package eleme.openapi.sdk.utils;
 
-import eleme.openapi.sdk.api.deserializer.DateDeserializer;
-import eleme.openapi.sdk.api.json.gson.Gson;
-import eleme.openapi.sdk.api.json.gson.GsonBuilder;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import java.security.MessageDigest;
-import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class SignatureUtil {
-    private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).disableHtmlEscaping().create();
-
+    static {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    }
     public static String generateSignature(String appKey, String secret, long timestamp, String action, String token, Map<String, Object> parameters) {
         final Map<String, Object> sorted = new TreeMap();
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
@@ -21,7 +19,7 @@ public class SignatureUtil {
         sorted.put("timestamp", timestamp);
         StringBuffer string = new StringBuffer();
         for (Map.Entry<String, Object> entry : sorted.entrySet()) {
-            string.append(entry.getKey()).append("=").append(gson.toJson(entry.getValue()));
+            string.append(entry.getKey()).append("=").append(JSON.toJSONString(entry.getValue(),SerializerFeature.WriteDateUseDateFormat));
         }
         String splice = String.format("%s%s%s%s", action, token, string, secret);
         System.out.println("\n\n\n"+ splice);

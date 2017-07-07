@@ -3,6 +3,8 @@ package eleme.openapi.sdk.api.entity.message;
 import eleme.openapi.sdk.api.enumeration.message.*;
 import eleme.openapi.sdk.api.entity.message.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OMessage{
 
     /**

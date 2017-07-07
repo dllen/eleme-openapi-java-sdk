@@ -3,6 +3,8 @@ package eleme.openapi.sdk.api.entity.user;
 import eleme.openapi.sdk.api.enumeration.user.*;
 import eleme.openapi.sdk.api.entity.user.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OAuthorizedShop{
 
     /**

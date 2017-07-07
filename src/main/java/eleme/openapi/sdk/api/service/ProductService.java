@@ -478,4 +478,17 @@ public class ProductService extends BaseNopService {
         params.put("specPrices", specPrices);
         call("eleme.product.item.batchUpdatePrices", params);
     }
+
+    /**
+     * 查询活动商品
+     *
+     * @param shopId 店铺Id
+     * @return 商品ID集合
+     * @throws ServiceException 服务异常
+     */
+    public List<Long> getItemIdsHasActivityByShopId(Long shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.product.item.getItemIdsHasActivityByShopId", params);
+    }
 }

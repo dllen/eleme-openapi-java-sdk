@@ -1,23 +1,26 @@
 package eleme.openapi.demo;
 
+import eleme.openapi.sdk.api.entity.product.OCategory;
 import eleme.openapi.sdk.api.exception.ServiceException;
 import eleme.openapi.sdk.api.service.ProductService;
+import eleme.openapi.sdk.api.service.UserService;
 import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
 import eleme.openapi.sdk.utils.PropertiesUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OAuthClientDemo {
 
     // 设置是否沙箱环境
-    private static final boolean isSandbox = false;
+    private static final boolean isSandbox = true;
     // 设置APPKEY
-    private static final String key = "your app key";
+    private static final String key = "RX71HZywPK";
     // 设置APPSECRET
-    private static final String secret = "your app secret";
+    private static final String secret = "0a8af6a138e4ce43112f3441de28f33f";
     // 初始化OAuthClient
     private static OAuthClient client = null;
     private static Map<String, String> tokenMap = new HashMap<String, String>();
@@ -29,14 +32,14 @@ public class OAuthClientDemo {
         client = new OAuthClient(config);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ServiceException {
         OAuthClientDemo demo = new OAuthClientDemo();
-//        demo.clientTokenTest();
+        //demo.clientTokenTest();
 //        demo.serverOAuthCodeTest();
-        demo.serverTokenTest();
+//        demo.serverTokenTest();
 //        demo.serverRefreshTokenTest();
+        demo.testService();
     }
-
 
     /**
      * 客户端(个人)获取Token
@@ -95,8 +98,14 @@ public class OAuthClientDemo {
     }
 
     private void testService() throws ServiceException {
-        ProductService product = new ProductService(config, getToken());
+        //UserService userService = new UserService(config, getToken());
+        //long userId = userService.getUser().getUserId();
+        //System.out.println("userId: " + userId);
 
+        ProductService productService = new ProductService(config, getToken());
+        OCategory category = productService.createCategory(987771L, "蛋炒饭", "一道美味的炒饭");
+
+        System.out.println(category.getId());
 
     }
 

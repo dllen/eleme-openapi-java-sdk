@@ -1,7 +1,6 @@
 package eleme.openapi.sdk.api.utils;
 
 import eleme.openapi.sdk.api.entity.other.OMessage;
-import eleme.openapi.sdk.api.json.gson.Gson;
 import eleme.openapi.sdk.utils.SignatureUtil;
 
 import java.io.IOException;

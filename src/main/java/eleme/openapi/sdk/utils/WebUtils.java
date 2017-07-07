@@ -1,9 +1,8 @@
 package eleme.openapi.sdk.utils;
 
-import eleme.openapi.sdk.api.deserializer.DateDeserializer;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import eleme.openapi.sdk.api.exception.*;
-import eleme.openapi.sdk.api.json.gson.Gson;
-import eleme.openapi.sdk.api.json.gson.GsonBuilder;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
 import eleme.openapi.sdk.api.protocol.ResponsePayload;
 import eleme.openapi.sdk.config.Constants;
@@ -28,8 +27,9 @@ public abstract class WebUtils {
     private static final String DEFAULT_CHARSET = Constants.CHARSET_UTF8;
     private static final String METHOD_POST = "POST";
     private static final String METHOD_GET = "GET";
-    private static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
-
+    static {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    }
     private static class DefaultTrustManager implements X509TrustManager {
         public X509Certificate[] getAcceptedIssuers() {
             return null;
@@ -372,7 +372,7 @@ public abstract class WebUtils {
         String signature = SignatureUtil.generateSignature(appKey, secret, timestamp, action, accessToken, parameters);
         requestPayload.put("signature", signature);
 
-        String requestJson = gson.toJson(requestPayload);
+        String requestJson = JSON.toJSONString(requestPayload, SerializerFeature.WriteDateUseDateFormat);
         ResponsePayload responsePayload = doRequest(context, requestJson);
 
         setLogInfo(context, "request: " + requestJson);
@@ -386,15 +386,15 @@ public abstract class WebUtils {
         }
         if (type == void.class)
             return null;
-        String s2 = gson.toJson(responsePayload.getResult());
-        return gson.fromJson(s2, type);
+        String s2 = JSON.toJSONString(responsePayload.getResult(),SerializerFeature.WriteDateUseDateFormat);
+        return JSON.parseObject(s2, type);
     }
 
     private static ResponsePayload doRequest(Config context, String requestJson) {
         try {
             String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
             setLogInfo(context, "response: " + response);
-            return gson.fromJson(response, ResponsePayload.class);
+            return JSON.parseObject(response, ResponsePayload.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

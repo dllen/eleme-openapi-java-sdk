@@ -3,6 +3,8 @@ package eleme.openapi.sdk.api.entity.product;
 import eleme.openapi.sdk.api.enumeration.product.*;
 import eleme.openapi.sdk.api.entity.product.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OCategory{
 
     /**

@@ -30,4 +30,15 @@ public class UserService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         return call("eleme.user.getUser", params);
     }
+
+    /**
+     * 获取当前授权账号的手机号,特权接口仅部分帐号可以调用
+     *
+     * @return 手机号
+     * @throws ServiceException 服务异常
+     */
+    public String getPhoneNumber() throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        return call("eleme.user.getPhoneNumber", params);
+    }
 }

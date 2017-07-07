@@ -108,13 +108,12 @@ public class OrderService extends BaseNopService {
      * 同意退单/同意取消单(推荐)
      *
      * @param orderId 订单Id
-     * @return 订单
      * @throws ServiceException 服务异常
      */
-    public OOrder agreeRefundLite(String orderId) throws ServiceException {
+    public void agreeRefundLite(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call("eleme.order.agreeRefundLite", params);
+        call("eleme.order.agreeRefundLite", params);
     }
 
     /**
