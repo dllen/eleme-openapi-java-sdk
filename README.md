@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.2.11</version>
+      <version>1.3.11</version>
   </dependency>
 ```
 ## 基本用法
@@ -103,6 +103,17 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+### [1.3.11]
+```
+  Release Date : 2017-07-07
+``` 
+- [Feature] 新增了两个金融服务的特权接口 eleme.finance.queryBalance 和 eleme.finance.queryBalanceLog
+- [Feature] 在商品服务中添加了查看活动商品的接口 eleme.product.item.getItemIdsHasActivityByShopId
+- [Feature] 在商品服务中 OItem 实体类中 specs 里新增了一个 activityLevel 的属性
+- [Feature] 订单服务中 shopId 由原来的 int 变为 long
+- [BugFix] 替换JSON工具包为FASTJSON，修复UserID反序列化丢失精度问题
+
 
 ### [1.2.10]
 ```
