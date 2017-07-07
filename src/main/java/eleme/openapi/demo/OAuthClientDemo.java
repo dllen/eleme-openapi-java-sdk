@@ -18,9 +18,9 @@ public class OAuthClientDemo {
     // 设置是否沙箱环境
     private static final boolean isSandbox = true;
     // 设置APPKEY
-    private static final String key = "RX71HZywPK";
+    private static final String key = "app key";
     // 设置APPSECRET
-    private static final String secret = "0a8af6a138e4ce43112f3441de28f33f";
+    private static final String secret = "app secret";
     // 初始化OAuthClient
     private static OAuthClient client = null;
     private static Map<String, String> tokenMap = new HashMap<String, String>();
