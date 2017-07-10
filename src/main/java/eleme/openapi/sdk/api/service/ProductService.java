@@ -469,7 +469,7 @@ public class ProductService extends BaseNopService {
      * 批量修改商品价格
      *
      * @param shopId 店铺Id
-     * @param specPrices 商品Id及其下SkuId和价格对应Map
+     * @param specPrices 商品Id及其下SkuId和价格对应Map(限制最多50个)
      * @throws ServiceException 服务异常
      */
     public void batchUpdatePrices(Long shopId, List<OItemIdWithSpecPrice> specPrices) throws ServiceException {
@@ -477,5 +477,18 @@ public class ProductService extends BaseNopService {
         params.put("shopId", shopId);
         params.put("specPrices", specPrices);
         call("eleme.product.item.batchUpdatePrices", params);
+    }
+
+    /**
+     * 查询活动商品
+     *
+     * @param shopId 店铺Id
+     * @return 商品ID集合
+     * @throws ServiceException 服务异常
+     */
+    public List<Long> getItemIdsHasActivityByShopId(Long shopId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        return call("eleme.product.item.getItemIdsHasActivityByShopId", params);
     }
 }

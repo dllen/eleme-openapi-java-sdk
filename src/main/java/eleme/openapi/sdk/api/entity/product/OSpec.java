@@ -3,6 +3,8 @@ package eleme.openapi.sdk.api.entity.product;
 import eleme.openapi.sdk.api.enumeration.product.*;
 import eleme.openapi.sdk.api.entity.product.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OSpec{
 
     /**
@@ -113,6 +115,17 @@ public class OSpec{
     }
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+    
+    /**
+     * 商品活动信息，1:有活动，0:无活动，活动商品不支持修改，如需修改请先取消活动，activityLevel字段只能查询，不能更新
+     */
+    private int activityLevel;
+    public int getActivityLevel() {
+        return activityLevel;
+    }
+    public void setActivityLevel(int activityLevel) {
+        this.activityLevel = activityLevel;
     }
     
 }

@@ -3,6 +3,8 @@ package eleme.openapi.sdk.api.entity.order;
 import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OOrder{
 
     /**
@@ -399,6 +401,28 @@ public class OOrder{
     }
     public void setOrderActivities(List<OActivity> orderActivities) {
         this.orderActivities = orderActivities;
+    }
+    
+    /**
+     * 发票类型
+     */
+    private InvoiceType invoiceType;
+    public InvoiceType getInvoiceType() {
+        return invoiceType;
+    }
+    public void setInvoiceType(InvoiceType invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+    
+    /**
+     * 纳税人识别号
+     */
+    private String taxpayerId;
+    public String getTaxpayerId() {
+        return taxpayerId;
+    }
+    public void setTaxpayerId(String taxpayerId) {
+        this.taxpayerId = taxpayerId;
     }
     
 }

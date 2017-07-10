@@ -3,6 +3,8 @@ package eleme.openapi.sdk.api.entity.product;
 import eleme.openapi.sdk.api.enumeration.product.*;
 import eleme.openapi.sdk.api.entity.product.*;
 import java.util.*;
+import java.math.BigDecimal;
+
 public class OCategory{
 
     /**
@@ -50,7 +52,7 @@ public class OCategory{
     }
     
     /**
-     * 商品二级分类ID
+     * 一级分类父分类ID为0，二级分类父分类ID为一级分类ID
      */
     private long parentId;
     public long getParentId() {

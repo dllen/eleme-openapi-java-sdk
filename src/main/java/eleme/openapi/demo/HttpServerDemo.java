@@ -1,5 +1,6 @@
 package eleme.openapi.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -7,7 +8,6 @@ import eleme.openapi.sdk.api.entity.order.OOrder;
 import eleme.openapi.sdk.api.entity.other.OMessage;
 import eleme.openapi.sdk.api.entity.shop.OShop;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.api.json.gson.Gson;
 import eleme.openapi.sdk.api.service.OrderService;
 import eleme.openapi.sdk.api.service.ShopService;
 import eleme.openapi.sdk.api.service.UserService;
@@ -24,8 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpServerDemo {
-
-    private static Gson gson = new Gson();
 
     private static Config config = null;
 
@@ -85,7 +83,7 @@ public class HttpServerDemo {
                 while ((line = in.readLine()) != null) {
                     body.append(line);
                 }
-                GetInfoRequest request = gson.fromJson(body.toString(), GetInfoRequest.class);
+                GetInfoRequest request = JSON.parseObject(body.toString(), GetInfoRequest.class);
                 String shopId = request.getShopId();
                 ResponseResult result = new ResponseResult();
                 ResponseResult.Result rResult = new ResponseResult.Result();
@@ -93,7 +91,7 @@ public class HttpServerDemo {
                     if (token == null || !token.isSuccess()) {
                         rResult.setOAuthUrl(client.getAuthUrl(callbackUrl, scope, state));
                         result.setResult(rResult);
-                        String resultJson = gson.toJson(result);
+                        String resultJson = JSON.toJSONString(result);
                         response(t, resultJson);
                         return;
                     }
@@ -101,7 +99,7 @@ public class HttpServerDemo {
                     OShop shop = shopService.getShop(Long.valueOf(shopId));
                     rResult.setShopName(shop.getName());
                     result.setResult(rResult);
-                    String resultJson = gson.toJson(result);
+                    String resultJson = JSON.toJSONString(result);
                     response(t, resultJson);
                 } catch (ServiceException e) {
                     e.printStackTrace();
@@ -174,7 +172,7 @@ public class HttpServerDemo {
                 while ((line = in.readLine()) != null) {
                     body.append(line);
                 }
-                oMessage = gson.fromJson(body.toString(), OMessage.class);
+                oMessage = JSON.parseObject(body.toString(), OMessage.class);
                 if (!CallbackValidationUtil.isValidMessage(oMessage, secret)) {
                     throw new Exception("invalid post data : " + body);
                 }
@@ -186,7 +184,7 @@ public class HttpServerDemo {
             } finally {
                 Map<String, String> responseMap = new HashMap<String, String>();
                 responseMap.put("message", response);
-                String message = gson.toJson(responseMap);
+                String message = JSON.toJSONString(responseMap);
                 t.sendResponseHeaders(code, message.length());
                 OutputStream os = t.getResponseBody();
                 os.write(message.getBytes());
@@ -195,7 +193,7 @@ public class HttpServerDemo {
                 //type=10的消息，调用确认订单接口完成接单流程
                 if (null != oMessage && oMessage.getType() == 10) {
                     OrderService orderService = new OrderService(config, token);
-                    OMessage.Message msg = gson.fromJson(oMessage.getMessage(), OMessage.Message.class);
+                    OMessage.Message msg = JSON.parseObject(oMessage.getMessage(), OMessage.Message.class);
                     try {
                         OOrder oOrder = orderService.confirmOrder(msg.getOrder_id());
                     } catch (ServiceException e) {

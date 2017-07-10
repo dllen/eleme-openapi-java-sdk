@@ -2,12 +2,13 @@ package eleme.openapi.sdk.api.service;
 
 import eleme.openapi.sdk.api.annotation.Service;
 import eleme.openapi.sdk.api.base.BaseNopService;
-import eleme.openapi.sdk.api.entity.user.OUser;
 import eleme.openapi.sdk.api.exception.ServiceException;
-import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.response.Token;
-
+import eleme.openapi.sdk.config.Config;
+import eleme.openapi.sdk.api.entity.user.*;
+import eleme.openapi.sdk.api.enumeration.user.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,9 +32,9 @@ public class UserService extends BaseNopService {
     }
 
     /**
-     * 获取当前授权帐号的手机号,特权接口仅部分帐号可以调用
+     * 获取当前授权账号的手机号,特权接口仅部分帐号可以调用
      *
-     * @return ${mStruct.methodResponse[0].fieldComments}
+     * @return 手机号
      * @throws ServiceException 服务异常
      */
     public String getPhoneNumber() throws ServiceException {

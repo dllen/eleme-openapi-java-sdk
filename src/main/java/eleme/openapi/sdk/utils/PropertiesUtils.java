@@ -32,7 +32,7 @@ public class PropertiesUtils {
                 props.load(new FileReader(f));
                 //Ch2ange your values here
                 for (Map.Entry<String, String> entry : map.entrySet()) {
-                    props.setProperty(entry.getKey(), entry.getValue());
+                    props.setProperty(entry.getKey(), entry.getValue()==null ?"": entry.getValue());
                 }
             } else {
                 //Set default values?

@@ -108,13 +108,12 @@ public class OrderService extends BaseNopService {
      * 同意退单/同意取消单(推荐)
      *
      * @param orderId 订单Id
-     * @return 订单
      * @throws ServiceException 服务异常
      */
-    public OOrder agreeRefundLite(String orderId) throws ServiceException {
+    public void agreeRefundLite(String orderId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
-        return call("eleme.order.agreeRefundLite", params);
+        call("eleme.order.agreeRefundLite", params);
     }
 
     /**
@@ -135,14 +134,13 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单Id
      * @param reason 商家不同意退单原因
-     * @return 订单
      * @throws ServiceException 服务异常
      */
-    public OOrder disagreeRefundLite(String orderId, String reason) throws ServiceException {
+    public void disagreeRefundLite(String orderId, String reason) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderId", orderId);
         params.put("reason", reason);
-        return call("eleme.order.disagreeRefundLite", params);
+        call("eleme.order.disagreeRefundLite", params);
     }
 
     /**
@@ -251,10 +249,9 @@ public class OrderService extends BaseNopService {
     /**
      * 订单确认送达
      *
-     * 为保证核心操作的稳定,减少不必要的信息回传,此接口不建议使用,后期逐步下线,推荐使用 receivedOrderLite
-     *
      * @param orderId 订单ID
      * @return 订单
+ 为保证核心操作的稳定,减少不必要的信息回传,此接口不建议使用,后期逐步下线,推荐使用 receivedOrderLite
      * @throws ServiceException 服务异常
      */
     public OOrder receivedOrder(String orderId) throws ServiceException {
@@ -364,7 +361,7 @@ public class OrderService extends BaseNopService {
      * @return 催单集合
      * @throws ServiceException 服务异常
      */
-    public List<OReminder> getUnreplyReminders(int shopId) throws ServiceException {
+    public List<OReminder> getUnreplyReminders(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.order.getUnreplyReminders", params);
@@ -377,7 +374,7 @@ public class OrderService extends BaseNopService {
      * @return 订单Id集合
      * @throws ServiceException 服务异常
      */
-    public List<String> getUnprocessOrders(int shopId) throws ServiceException {
+    public List<String> getUnprocessOrders(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.order.getUnprocessOrders", params);
@@ -390,7 +387,7 @@ public class OrderService extends BaseNopService {
      * @return 订单Id集合
      * @throws ServiceException 服务异常
      */
-    public List<String> getCancelOrders(int shopId) throws ServiceException {
+    public List<String> getCancelOrders(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.order.getCancelOrders", params);
@@ -403,7 +400,7 @@ public class OrderService extends BaseNopService {
      * @return 订单Id集合
      * @throws ServiceException 服务异常
      */
-    public List<String> getRefundOrders(int shopId) throws ServiceException {
+    public List<String> getRefundOrders(long shopId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.order.getRefundOrders", params);
@@ -413,13 +410,13 @@ public class OrderService extends BaseNopService {
      * 查询全部订单
      *
      * @param shopId 店铺id
-     * @param pageNo 页码。取值范围:大于零的整数最大限制为100; 默认值:1
-     * @param pageSize 每页获取条数。默认值20，最小值1，最大值50。
+     * @param pageNo 页码。取值范围:大于零的整数最大限制为100
+     * @param pageSize 每页获取条数。最小值1，最大值50。
      * @param date 日期,默认当天,格式:yyyy-MM-dd
      * @return 订单分页数据
      * @throws ServiceException 服务异常
      */
-    public OrderList getAllOrders(int shopId, int pageNo, int pageSize, String date) throws ServiceException {
+    public OrderList getAllOrders(long shopId, int pageNo, int pageSize, String date) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("pageNo", pageNo);
