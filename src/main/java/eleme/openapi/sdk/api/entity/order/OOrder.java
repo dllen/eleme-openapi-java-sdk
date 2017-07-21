@@ -52,6 +52,17 @@ public class OOrder{
     }
     
     /**
+     * 会员减配送费
+     */
+    private double vipDeliveryFeeDiscount;
+    public double getVipDeliveryFeeDiscount() {
+        return vipDeliveryFeeDiscount;
+    }
+    public void setVipDeliveryFeeDiscount(double vipDeliveryFeeDiscount) {
+        this.vipDeliveryFeeDiscount = vipDeliveryFeeDiscount;
+    }
+    
+    /**
      * 预计送达时间
      */
     private Date deliverTime;
@@ -250,7 +261,7 @@ public class OOrder{
     }
     
     /**
-     * 订单收货地址经纬度
+     * 订单收货地址经纬度(高德地图坐标系)
      */
     private String deliveryGeo;
     public String getDeliveryGeo() {
