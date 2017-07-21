@@ -104,6 +104,13 @@
 
 ## CHANGELOG:
 
+### [1.3.13]
+```
+  Release Date : 2017-07-21
+``` 
+- [Feature] OOrder新增字段vipDeliveryFeeDiscount(会员减配送费)
+
+
 ### [1.3.12]
 ```
   Release Date : 2017-07-17
