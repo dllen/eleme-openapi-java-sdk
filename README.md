@@ -129,6 +129,14 @@
 
 ## CHANGELOG:
 
+### [1.4.13]
+```
+  Release Date : 2017-08-07
+```
+- [Feature] 在金融服务中增加了五个用来查询账单的特权接口
+- [Bugfix] 修复Map<Long,Integer>泛型Long Key转换json出错
+
+
 ### [1.3.13]
 ```
   Release Date : 2017-07-21
