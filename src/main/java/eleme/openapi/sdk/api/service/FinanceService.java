@@ -23,7 +23,7 @@ public class FinanceService extends BaseNopService {
     /**
      * 查询商户余额,返回可用余额和总余额
      *
-     * @param shopId 饿了么店铺Id
+     * @param shopId 饿了么店铺id
      * @return 商户余额
      * @throws ServiceException 服务异常
      */
@@ -44,5 +44,80 @@ public class FinanceService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("request", request);
         return call("eleme.finance.queryBalanceLog", params);
+    }
+
+    /**
+     * 查询总店账单
+     *
+     * @param shopId 饿了么店总店店铺id
+     * @param query 查询条件
+     * @return 总店账单
+     * @throws ServiceException 服务异常
+     */
+    public Bills queryHeadBills(Long shopId, HeadQuery query) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("query", query);
+        return call("eleme.finance.queryHeadBills", params);
+    }
+
+    /**
+     * 查询总店订单
+     *
+     * @param shopId 饿了么店总店店铺id
+     * @param query 查询条件
+     * @return 总店金融订单
+     * @throws ServiceException 服务异常
+     */
+    public FinanceOrders queryHeadOrders(Long shopId, HeadQuery query) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("query", query);
+        return call("eleme.finance.queryHeadOrders", params);
+    }
+
+    /**
+     * 查询分店账单
+     *
+     * @param shopId 饿了么店总店店铺id
+     * @param query 查询条件
+     * @return 分店账单
+     * @throws ServiceException 服务异常
+     */
+    public Bills queryBranchBills(Long shopId, BranchQuery query) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("query", query);
+        return call("eleme.finance.queryBranchBills", params);
+    }
+
+    /**
+     * 查询分店订单
+     *
+     * @param shopId 饿了么店总店店铺id
+     * @param query 查询条件
+     * @return 分店金融订单
+     * @throws ServiceException 服务异常
+     */
+    public FinanceOrders queryBranchOrders(Long shopId, BranchQuery query) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("query", query);
+        return call("eleme.finance.queryBranchOrders", params);
+    }
+
+    /**
+     * 查询订单
+     *
+     * @param shopId 饿了么店总店店铺id
+     * @param orderId 订单id
+     * @return 金融订单
+     * @throws ServiceException 服务异常
+     */
+    public FinanceOrders getOrder(Long shopId, String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("orderId", orderId);
+        return call("eleme.finance.getOrder", params);
     }
 }
