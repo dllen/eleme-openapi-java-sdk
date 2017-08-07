@@ -235,7 +235,8 @@ public abstract class WebUtils {
         String signature = SignatureUtil.generateSignature(appKey, secret, timestamp, action, accessToken, parameters);
         requestPayload.put("signature", signature);
 
-        String requestJson = JSON.toJSONString(requestPayload, SerializerFeature.WriteDateUseDateFormat);
+        SerializerFeature [] serializerFeatures = {SerializerFeature.WriteDateUseDateFormat,SerializerFeature.WriteNonStringKeyAsString};
+        String requestJson = JSON.toJSONString(requestPayload, serializerFeatures);
         ResponsePayload responsePayload = null;
         try {
             responsePayload = doRequest(context, requestJson);

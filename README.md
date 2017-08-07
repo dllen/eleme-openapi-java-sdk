@@ -19,13 +19,21 @@
   import eleme.openapi.sdk.config.Config;
   import eleme.openapi.sdk.api.service.ShopService;
 
-  //实例化一个配置类
-  Config config = new Config(true, "app_key", "app_secret");
+  // 变量为true: 沙箱环境 false: 生产环境
+  boolean isSandbox = true;
+  // 当前环境key
+  String appKey = "请填写您的key";
+  
+  // 当前环境secret
+  String appSecret = "请填写您的secret";
+  
+  // 实例化一个配置类
+  Config config = new Config(isSandbox, appKey, appSecret);
 
-  //使用config和token对象，实例化一个服务对象
+  // 使用config和token对象，实例化一个服务对象
   ShopService shopService = new ShopService(config,token);
 
-  //调用服务方法，获取资源
+  // 调用服务方法，获取资源
   OShop shop = shopService.getShop(12345L);
 
 ```
@@ -38,23 +46,32 @@
 > 企业应用
 
 ```java
-  import eleme.openapi.sdk.config.Config;
-  import eleme.openapi.sdk.oauth.OAuthClient;
-
-  //实例化一个配置类
-  Config config = new Config(true, "app_key", "app_secret");
-
-  //使用config对象，实例化一个授权类
-  OAuthClient client = new OAuthClient(config);
-
-  //根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
-  String authUrl = client.getAuthUrl(callback_url, scope, state);
+    import eleme.openapi.sdk.config.Config;
+    import eleme.openapi.sdk.oauth.OAuthClient;
+    
+    // 变量为true: 沙箱环境 false: 生产环境
+    boolean isSandbox = true;
+    
+    // 当前环境key
+    String appKey = "请填写您的key";
+    
+    // 当前环境secret
+    String appSecret = "请填写您的secret";
+    
+    // 实例化一个配置类
+    Config config = new Config(isSandbox, appKey, appSecret);
+    
+    // 使用config对象，实例化一个授权类
+    OAuthClient client = new OAuthClient(config);
+    
+    // 根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
+    String authUrl = client.getAuthUrl(callback_url, scope, state);
 
   ```
   商家打开授权URL，同意授权后，跳转到您的回调页面，并返回code
 
   ```java
-  //通过授权得到的code，以及正确的callback_url，获取token
+  // 通过授权得到的code，以及正确的callback_url，获取token
   Token token = client.getTokenByCode(autoCode, callback_url);
 ```
 > 个人应用
@@ -63,13 +80,21 @@
   import eleme.openapi.sdk.config.Config;
   import eleme.openapi.sdk.oauth.OAuthClient;
 
-  //实例化一个配置类
-  Config config = new Config(true, "app_key", "app_secret");
-
-  //使用config对象，实例化一个授权类
+  // 变量为true: 沙箱环境 false: 生产环境
+  boolean isSandbox = true;
+  // 当前环境key
+  String appKey = "请填写您的key";
+  
+  // 当前环境secret
+  String appSecret = "请填写您的secret";
+  
+  // 实例化一个配置类
+  Config config = new Config(isSandbox, appKey, appSecret);
+  
+  // 使用config对象，实例化一个授权类
   OAuthClient client = new OAuthClient(config);
 
-  //使用授权类获取token
+  // 使用授权类获取token
   Token token = client.getTokenInClientCredentials();
 
 ```

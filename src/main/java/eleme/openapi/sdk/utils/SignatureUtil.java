@@ -18,8 +18,9 @@ public class SignatureUtil {
         sorted.put("app_key", appKey);
         sorted.put("timestamp", timestamp);
         StringBuffer string = new StringBuffer();
+        SerializerFeature [] serializerFeatures = {SerializerFeature.WriteDateUseDateFormat,SerializerFeature.WriteNonStringKeyAsString};
         for (Map.Entry<String, Object> entry : sorted.entrySet()) {
-            string.append(entry.getKey()).append("=").append(JSON.toJSONString(entry.getValue(),SerializerFeature.WriteDateUseDateFormat));
+            string.append(entry.getKey()).append("=").append(JSON.toJSONString(entry.getValue(),serializerFeatures));
         }
         String splice = String.format("%s%s%s%s", action, token, string, secret);
         System.out.println("\n\n\n"+ splice);
