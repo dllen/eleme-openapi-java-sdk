@@ -22,7 +22,6 @@ public class SignatureUtil {
             string.append(entry.getKey()).append("=").append(JSON.toJSONString(entry.getValue(),SerializerFeature.WriteDateUseDateFormat));
         }
         String splice = String.format("%s%s%s%s", action, token, string, secret);
-        System.out.println("\n\n\n"+ splice);
         String calculatedSignature = md5(splice);
         return calculatedSignature.toUpperCase();
     }

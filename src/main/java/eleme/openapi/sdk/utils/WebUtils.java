@@ -219,7 +219,7 @@ public abstract class WebUtils {
         String accessToken = token.getAccessToken();
         String requestId = UUID.randomUUID().toString().toLowerCase();
 
-        System.out.println("requestId: " + requestId);
+        setLogInfo(context,"requestId: " + requestId);
         Map<String, Object> requestPayload = new HashMap<String, Object>();
         requestPayload.put("nop", "1.0.0");
         requestPayload.put("id", requestId);
@@ -268,7 +268,7 @@ public abstract class WebUtils {
     private static ResponsePayload doRequest(Config context, String requestJson,String action) throws SocketTimeoutException, IOException {
         String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 15000);
         setLogInfo(context,"ELEBEG******************************************************************************************");
-        setLogInfo(context,"ELE* 饿了么外卖接口调用 "+context.getApiUrl() + "Action:"+action);
+        setLogInfo(context,"ELE* 饿了么外卖接口调用 "+context.getApiUrl() + "   Action:"+action);
         setLogInfo(context,"ELE* 接口请求:"+requestJson);
         setLogInfo(context,"ELE* 接口响应:"+response);
         setLogInfo(context,"ELEEND******************************************************************************************");
