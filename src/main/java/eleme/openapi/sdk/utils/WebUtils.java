@@ -373,7 +373,7 @@ public abstract class WebUtils {
         requestPayload.put("signature", signature);
 
         String requestJson = JSON.toJSONString(requestPayload, SerializerFeature.WriteDateUseDateFormat);
-        ResponsePayload responsePayload = doRequest(context, requestJson);
+        ResponsePayload responsePayload = doRequest(context, requestJson,action);
 
         setLogInfo(context, "request: " + requestJson);
         if (responsePayload != null && null != responsePayload.getError()) {
@@ -394,6 +394,21 @@ public abstract class WebUtils {
         try {
             String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
             setLogInfo(context, "response: " + response);
+            return JSON.parseObject(response, ResponsePayload.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static ResponsePayload doRequest(Config context, String requestJson,String action) {
+        try {
+            String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 30000);
+            setLogInfo(context,"ELEBEG******************************************************************************************");
+            setLogInfo(context,"ELE* 饿了么外卖接口调用 "+context.getApiUrl() + "Action:"+action);
+            setLogInfo(context,"ELE* 接口请求:"+requestJson);
+            setLogInfo(context,"ELE* 接口响应:"+response);
+            setLogInfo(context,"ELEEND******************************************************************************************");
             return JSON.parseObject(response, ResponsePayload.class);
         } catch (IOException e) {
             e.printStackTrace();
