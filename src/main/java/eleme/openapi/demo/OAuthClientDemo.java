@@ -15,21 +15,23 @@ import java.util.Map;
 
 public class OAuthClientDemo {
 
-    // 设置是否沙箱环境
-    private static final boolean isSandbox = true;
+    private static final boolean isSandbox = false;
     // 设置APPKEY
-    private static final String key = "app key";
+    private static final String key = "fYafpIbomp";
     // 设置APPSECRET
-    private static final String secret = "app secret";
+    private static final String secret = "f588ec018ead0ff1a42bb07fb85e53a8777f9296";
     // 初始化OAuthClient
     private static OAuthClient client = null;
     private static Map<String, String> tokenMap = new HashMap<String, String>();
     private static Config config = null;
+    private static Token t = new Token();
 
     static {
         // 初始化全局配置工具
         config = new Config(isSandbox, key, secret);
         client = new OAuthClient(config);
+        t.setAccessToken("d68d024967f37587489698d632dc3d3a");
+        setTokenInfo(t);
     }
 
     public static void main(String[] args) throws ServiceException {
@@ -103,9 +105,7 @@ public class OAuthClientDemo {
         //System.out.println("userId: " + userId);
 
         ProductService productService = new ProductService(config, getToken());
-        OCategory category = productService.createCategory(987771L, "蛋炒饭", "一道美味的炒饭");
 
-        System.out.println(category.getId());
 
     }
 
