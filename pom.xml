@@ -6,7 +6,7 @@
 
     <groupId>me.ele.openapi</groupId>
     <artifactId>eleme-openapi-sdk</artifactId>
-    <version>1.4.14</version>
+    <version>1.5.14</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -35,9 +35,9 @@
     </developers>
     <dependencies>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.34</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.0</version>
         </dependency>
     </dependencies>
 </project>
