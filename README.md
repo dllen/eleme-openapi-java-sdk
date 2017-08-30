@@ -129,6 +129,13 @@
 
 ## CHANGELOG:
 
+### [1.5.14]
+```
+  Release Date : 2017-08-30
+```
+[bugfix] 替换JSON解析工具包为jackson,解决和平台工具包不一致导致验签失败
+
+
 ### [1.4.14]
 ```
   Release Date : 2017-08-21
