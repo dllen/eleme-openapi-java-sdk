@@ -39,7 +39,17 @@ public enum OItemCreateProperty {
     /**
      * 后台类目ID
      */
-    backCategoryId("backCategoryId");
+    backCategoryId("backCategoryId"), 
+    
+    /**
+     * 商品最小起购量
+     */
+    minPurchaseQuantity("minPurchaseQuantity"), 
+    
+    /**
+     * 商品单位
+     */
+    unit("unit");
     
 
     private String productDesc;

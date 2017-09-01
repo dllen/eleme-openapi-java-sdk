@@ -10,6 +10,7 @@ import eleme.openapi.sdk.api.enumeration.product.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 /**
  * 商品服务
@@ -18,6 +19,45 @@ import java.util.Map;
 public class ProductService extends BaseNopService {
     public ProductService(Config config,Token token) {
         super(config, token, ProductService.class);
+    }
+
+    /**
+     * 上传图片，返回图片的hash值
+     *
+     * @param image 文件内容base64编码值
+     * @return 图片的 hash 值
+     * @throws ServiceException 服务异常
+     */
+    public String uploadImage(String image) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("image", image);
+        return call("eleme.file.uploadImage", params);
+    }
+
+    /**
+     * 通过远程URL上传图片，返回图片的hash值
+     *
+     * @param url 远程Url地址
+     * @return 图片的 hash 值
+     * @throws ServiceException 服务异常
+     */
+    public String uploadImageWithRemoteUrl(String url) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("url", url);
+        return call("eleme.file.uploadImageWithRemoteUrl", params);
+    }
+
+    /**
+     * 获取上传文件的访问URL，返回文件的Url地址
+     *
+     * @param hash 图片hash值
+     * @return 文件的Url地址
+     * @throws ServiceException 服务异常
+     */
+    public String getUploadedUrl(String hash) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("hash", hash);
+        return call("eleme.file.getUploadedUrl", params);
     }
 
     /**
@@ -196,45 +236,6 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.product.category.getBackCategory", params);
-    }
-
-    /**
-     * 上传图片，返回图片的hash值
-     *
-     * @param image 文件内容base64编码值
-     * @return 图片的 hash 值
-     * @throws ServiceException 服务异常
-     */
-    public String uploadImage(String image) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("image", image);
-        return call("eleme.file.uploadImage", params);
-    }
-
-    /**
-     * 通过远程URL上传图片，返回图片的hash值
-     *
-     * @param url 远程Url地址
-     * @return 图片的 hash 值
-     * @throws ServiceException 服务异常
-     */
-    public String uploadImageWithRemoteUrl(String url) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("url", url);
-        return call("eleme.file.uploadImageWithRemoteUrl", params);
-    }
-
-    /**
-     * 获取上传文件的访问URL，返回文件的Url地址
-     *
-     * @param hash 图片hash值
-     * @return 文件的Url地址
-     * @throws ServiceException 服务异常
-     */
-    public String getUploadedUrl(String hash) throws ServiceException {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("hash", hash);
-        return call("eleme.file.getUploadedUrl", params);
     }
 
     /**

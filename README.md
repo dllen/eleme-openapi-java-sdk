@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.5.14</version>
+      <version>1.5.15</version>
   </dependency>
 ```
 ## 基本用法
@@ -128,6 +128,14 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+### [1.5.15]
+```
+  Release Date : 2017-09-01
+```
+[Feature] 新增了限时抢购活动服务的接口
+[Feature] 新增了订单评论服务的接口
+
 
 ### [1.5.14]
 ```

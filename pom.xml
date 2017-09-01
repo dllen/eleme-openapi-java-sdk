@@ -6,7 +6,7 @@
 
     <groupId>me.ele.openapi</groupId>
     <artifactId>eleme-openapi-sdk</artifactId>
-    <version>1.5.14</version>
+    <version>1.5.15</version>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>

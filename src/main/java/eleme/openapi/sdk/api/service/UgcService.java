@@ -10,6 +10,7 @@ import eleme.openapi.sdk.api.enumeration.ugc.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 /**
  * 订单评论服务
@@ -21,50 +22,284 @@ public class UgcService extends BaseNopService {
     }
 
     /**
-     * openAPI 查询近2周的评论
+     * 获取指定订单的评论
      *
-     * @param shopId 店铺Id
-     * @param offset 分页偏移
-     * @param limit 单页数据
-     * @return 评论列表
+     * @param orderId 订单id
+     * @return 评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OComment> queryOrderComments(Integer shopId, Integer offset, Integer limit) throws ServiceException {
+    public OpenapiOrderRate getOrderRateByOrderId(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        return call("eleme.ugc.getOrderRateByOrderId", params);
+    }
+
+    /**
+     * 获取指定订单的评论
+     *
+     * @param orderIds 订单id
+     * @return  评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiOrderRate> getOrderRatesByOrderIds(List<String> orderIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        return call("eleme.ugc.getOrderRatesByOrderIds", params);
+    }
+
+    /**
+     * 获取未回复的评论
+     *
+     * @param orderIds 订单id
+     * @return 未回复的评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiOrderRate> getUnreplyOrderRatesByOrderIds(List<String> orderIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        return call("eleme.ugc.getUnreplyOrderRatesByOrderIds", params);
+    }
+
+    /**
+     * 获取指定店铺的评论
+     *
+     * @param shopId  餐厅id
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @param pageSize 页面大小
+     * @return 评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiOrderRate> getOrderRatesByShopId(String shopId, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
         params.put("offset", offset);
-        params.put("limit", limit);
-        return call("eleme.ugc.queryOrderComments", params);
+        params.put("pageSize", pageSize);
+        return call("eleme.ugc.getOrderRatesByShopId", params);
     }
 
     /**
-     * openAPI 查询近2周的评论数量
+     * 获取指定店铺的评论
      *
-     * @param shopId 店铺Id
-     * @return 评论数量
+     * @param shopIds 店铺id
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @param pageSize 页面大小
+     * @return  评论信息
      * @throws ServiceException 服务异常
      */
-    public Long countOrderComments(Integer shopId) throws ServiceException {
+    public List<OpenapiOrderRate> getOrderRatesByShopIds(List<String> shopIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("shopId", shopId);
-        return call("eleme.ugc.countOrderComments", params);
+        params.put("shopIds", shopIds);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return call("eleme.ugc.getOrderRatesByShopIds", params);
     }
 
     /**
-     * openAPI 回复评论接口
+     * 获取未回复的评论
      *
-     * @param shopId 店铺Id
-     * @param commentId 评论id
-     * @param content 回复内容
-     * @param replierName 回复人
+     * @param shopIds 店铺id
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @param pageSize 页面大小
+     * @return   未回复的评论信息
      * @throws ServiceException 服务异常
      */
-    public void replyOrderComment(Integer shopId, Long commentId, String content, String replierName) throws ServiceException {
+    public List<OpenapiOrderRate> getUnreplyOrderRatesByShopIds(List<String> shopIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopIds", shopIds);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return call("eleme.ugc.getUnreplyOrderRatesByShopIds", params);
+    }
+
+    /**
+     * 获取店铺的满意度评价信息
+     *
+     * @param shopId  餐厅id
+     * @param score 满意度,取值范围为1~5，1为最不满意，5为非常满意
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @param pageSize 页面大小
+     * @return  评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiOrderRate> getOrderRatesByShopAndRating(String shopId, int score, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
-        params.put("commentId", commentId);
-        params.put("content", content);
-        params.put("replierName", replierName);
-        call("eleme.ugc.replyOrderComment", params);
+        params.put("score", score);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return call("eleme.ugc.getOrderRatesByShopAndRating", params);
+    }
+
+    /**
+     * 获取单个商品的评论
+     *
+     * @param itemId  商品id
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @return  评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiItemRate> getItemRatesByItemId(String itemId, Date startTime, Date endTime, int offset) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemId", itemId);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("offset", offset);
+        return call("eleme.ugc.getItemRatesByItemId", params);
+    }
+
+    /**
+     * 获取多个商品的评论
+     *
+     * @param itemIds 商品id
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @param pageSize 页面大小
+     * @return  评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiItemRate> getItemRatesByItemIds(List<String> itemIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemIds", itemIds);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return call("eleme.ugc.getItemRatesByItemIds", params);
+    }
+
+    /**
+     * 获取多个商品未回复的评论
+     *
+     * @param itemIds 店铺id
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @param offset 页面偏移量
+     * @param pageSize 页面大小
+     * @return 未回复的评论信息
+     * @throws ServiceException 服务异常
+     */
+    public List<OpenapiItemRate> getUnreplyItemRatesByItemIds(List<String> itemIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemIds", itemIds);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return call("eleme.ugc.getUnreplyItemRatesByItemIds", params);
+    }
+
+    /**
+     * 回复指定类型的评论
+     *
+     * @param rateId 评论编号
+     * @param replyType 评论类型
+     * @param reply 回复的内容
+     * @throws ServiceException 服务异常
+     */
+    public void replyRateByRateId(String rateId, ReplyType replyType, String reply) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("rateId", rateId);
+        params.put("replyType", replyType);
+        params.put("reply", reply);
+        call("eleme.ugc.replyRateByRateId", params);
+    }
+
+    /**
+     * 回复指定类型的评论
+     *
+     * @param rateIds  评论编号
+     * @param replyType 评论类型
+     * @param reply 回复的内容
+     * @throws ServiceException 服务异常
+     */
+    public void replyRateByRateIds(List<String> rateIds, ReplyType replyType, String reply) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("rateIds", rateIds);
+        params.put("replyType", replyType);
+        params.put("reply", reply);
+        call("eleme.ugc.replyRateByRateIds", params);
+    }
+
+    /**
+     * 回复订单未回复的评论
+     *
+     * @param orderId 订单id
+     * @param reply 回复内容
+     * @throws ServiceException 服务异常
+     */
+    public void replyRateByOrderId(String orderId, String reply) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        params.put("reply", reply);
+        call("eleme.ugc.replyRateByOrderId", params);
+    }
+
+    /**
+     * 批量回复订单未回复的评论
+     *
+     * @param orderIds 订单id
+     * @param reply 回复信息
+     * @throws ServiceException 服务异常
+     */
+    public void replyCommentByOrderIds(List<String> orderIds, String reply) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        params.put("reply", reply);
+        call("eleme.ugc.replyCommentByOrderIds", params);
+    }
+
+    /**
+     * 回复商品回复的评论
+     *
+     * @param itemId 商品id
+     * @param reply 回复内容
+     * @param startTime   开始时间,只能查询最近90天的数据
+     * @param endTime   结束时间
+     * @throws ServiceException 服务异常
+     */
+    public void replyRatesByItemId(String itemId, String reply, Date startTime, Date endTime) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemId", itemId);
+        params.put("reply", reply);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        call("eleme.ugc.replyRatesByItemId", params);
+    }
+
+    /**
+     * 回复多个商品评论
+     *
+     * @param itemIds 商品d
+     * @param reply 回复信息
+     * @param startTime 开始时间,只能查询最近90天的数据
+     * @param endTime 结束时间
+     * @throws ServiceException 服务异常
+     */
+    public void replyRatesByItemIds(List<String> itemIds, String reply, Date startTime, Date endTime) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("itemIds", itemIds);
+        params.put("reply", reply);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        call("eleme.ugc.replyRatesByItemIds", params);
     }
 }
