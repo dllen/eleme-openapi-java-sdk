@@ -31,9 +31,6 @@ public class JacksonUtils {
     }
 
 
-    /**
-     * javaBean,list,array convert to json string
-     */
     public static String obj2json(Object obj) {
 
         try {
@@ -43,9 +40,6 @@ public class JacksonUtils {
         }
     }
 
-    /**
-     * json string convert to javaBean
-     */
     public static <T> T json2pojo(String jsonStr, Class<T> clazz){
         try {
             return objectMapper.readValue(jsonStr, clazz);
@@ -54,9 +48,6 @@ public class JacksonUtils {
         }
     }
 
-    /**
-     * json string convert to javaBean
-     */
     public static <T> T json2pojo(String jsonStr, JavaType javaType){
         try {
             return objectMapper.readValue(jsonStr, javaType);
@@ -65,9 +56,6 @@ public class JacksonUtils {
         }
     }
 
-    /**
-     * json string convert to map
-     */
     public static <T> Map<String, Object> json2map(String jsonStr) {
         try {
             return objectMapper.readValue(jsonStr, Map.class);
@@ -76,9 +64,6 @@ public class JacksonUtils {
         }
     }
 
-    /**
-     * json string convert to map with javaBean
-     */
     public static <T> Map<String, T> json2map(String jsonStr, Class<T> clazz) {
         Map<String, Map<String, Object>> map;
         try {
@@ -95,9 +80,6 @@ public class JacksonUtils {
         return result;
     }
 
-    /**
-     * json array string convert to list with javaBean
-     */
     public static <T> List<T> json2list(String jsonArrayStr, Class<T> clazz){
         List<Map<String, Object>> list = null;
         try {
@@ -114,9 +96,6 @@ public class JacksonUtils {
         return result;
     }
 
-    /**
-     * map convert to javaBean
-     */
     public static <T> T map2pojo(Map map, Class<T> clazz) {
         return objectMapper.convertValue(map, clazz);
     }
