@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.5.15</version>
+      <version>1.5.16</version>
   </dependency>
 ```
 ## 基本用法
