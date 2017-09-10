@@ -4,32 +4,23 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import eleme.openapi.sdk.api.exception.JsonParseException;
+import eleme.openapi.sdk.convert.JsonDateDeserializer;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JacksonUtils {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
-    static{
-        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        objectMapper.setDateFormat(df);
+    private JacksonUtils() {
     }
 
-
-    private JacksonUtils(){}
-
-    public static final ObjectMapper getInstance(){
+    public static final ObjectMapper getInstance() {
         return objectMapper;
     }
-
 
     public static String obj2json(Object obj) {
 
@@ -40,7 +31,7 @@ public class JacksonUtils {
         }
     }
 
-    public static <T> T json2pojo(String jsonStr, Class<T> clazz){
+    public static <T> T json2pojo(String jsonStr, Class<T> clazz) {
         try {
             return objectMapper.readValue(jsonStr, clazz);
         } catch (IOException e) {
@@ -48,7 +39,7 @@ public class JacksonUtils {
         }
     }
 
-    public static <T> T json2pojo(String jsonStr, JavaType javaType){
+    public static <T> T json2pojo(String jsonStr, JavaType javaType) {
         try {
             return objectMapper.readValue(jsonStr, javaType);
         } catch (IOException e) {
@@ -80,7 +71,7 @@ public class JacksonUtils {
         return result;
     }
 
-    public static <T> List<T> json2list(String jsonArrayStr, Class<T> clazz){
+    public static <T> List<T> json2list(String jsonArrayStr, Class<T> clazz) {
         List<Map<String, Object>> list = null;
         try {
             list = objectMapper.readValue(jsonArrayStr,
