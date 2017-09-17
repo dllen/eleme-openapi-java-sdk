@@ -269,20 +269,8 @@ public abstract class WebUtils {
         setLogInfo(context,"ELE* 接口响应:"+response);
         setLogInfo(context,"ELEEND******************************************************************************************");
         setLogInfo(context, "response: " + response);
-        return JSON.parseObject(response, ResponsePayload.class);
+        return JacksonUtils.json2pojo(response, ResponsePayload.class);
     }
-
-    private static ResponsePayload doRequest(Config context, String requestJson,String action) throws SocketTimeoutException, IOException {
-        String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 15000);
-        setLogInfo(context,"ELEBEG******************************************************************************************");
-        setLogInfo(context,"ELE* 饿了么外卖接口调用 "+context.getApiUrl() + "Action:"+action);
-        setLogInfo(context,"ELE* 接口请求:"+requestJson);
-        setLogInfo(context,"ELE* 接口响应:"+response);
-        setLogInfo(context,"ELEEND******************************************************************************************");
-        setLogInfo(context, "response: " + response);
-        return JSON.parseObject(response, ResponsePayload.class);
-    }
-
 
     private static ServiceException toException(ErrorPayload error) throws ServiceException {
         String code = error.getCode();
