@@ -1,6 +1,5 @@
 package eleme.openapi.demo;
 
-import com.alibaba.fastjson.JSON;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -15,6 +14,7 @@ import eleme.openapi.sdk.api.utils.CallbackValidationUtil;
 import eleme.openapi.sdk.config.Config;
 import eleme.openapi.sdk.oauth.OAuthClient;
 import eleme.openapi.sdk.oauth.response.Token;
+import eleme.openapi.sdk.utils.JacksonUtils;
 import eleme.openapi.sdk.utils.StringUtils;
 
 import java.io.*;
@@ -83,7 +83,7 @@ public class HttpServerDemo {
                 while ((line = in.readLine()) != null) {
                     body.append(line);
                 }
-                GetInfoRequest request = JSON.parseObject(body.toString(), GetInfoRequest.class);
+                GetInfoRequest request = JacksonUtils.json2pojo(body.toString(), GetInfoRequest.class);
                 String shopId = request.getShopId();
                 ResponseResult result = new ResponseResult();
                 ResponseResult.Result rResult = new ResponseResult.Result();
@@ -91,7 +91,7 @@ public class HttpServerDemo {
                     if (token == null || !token.isSuccess()) {
                         rResult.setOAuthUrl(client.getAuthUrl(callbackUrl, scope, state));
                         result.setResult(rResult);
-                        String resultJson = JSON.toJSONString(result);
+                        String resultJson = JacksonUtils.obj2json(result);
                         response(t, resultJson);
                         return;
                     }
@@ -99,7 +99,7 @@ public class HttpServerDemo {
                     OShop shop = shopService.getShop(Long.valueOf(shopId));
                     rResult.setShopName(shop.getName());
                     result.setResult(rResult);
-                    String resultJson = JSON.toJSONString(result);
+                    String resultJson = JacksonUtils.obj2json(result);
                     response(t, resultJson);
                 } catch (ServiceException e) {
                     e.printStackTrace();
@@ -172,7 +172,7 @@ public class HttpServerDemo {
                 while ((line = in.readLine()) != null) {
                     body.append(line);
                 }
-                oMessage = JSON.parseObject(body.toString(), OMessage.class);
+                oMessage = JacksonUtils.json2pojo(body.toString(), OMessage.class);
                 if (!CallbackValidationUtil.isValidMessage(oMessage, secret)) {
                     throw new Exception("invalid post data : " + body);
                 }
@@ -184,7 +184,7 @@ public class HttpServerDemo {
             } finally {
                 Map<String, String> responseMap = new HashMap<String, String>();
                 responseMap.put("message", response);
-                String message = JSON.toJSONString(responseMap);
+                String message = JacksonUtils.obj2json(responseMap);
                 t.sendResponseHeaders(code, message.length());
                 OutputStream os = t.getResponseBody();
                 os.write(message.getBytes());
@@ -193,7 +193,7 @@ public class HttpServerDemo {
                 //type=10的消息，调用确认订单接口完成接单流程
                 if (null != oMessage && oMessage.getType() == 10) {
                     OrderService orderService = new OrderService(config, token);
-                    OMessage.Message msg = JSON.parseObject(oMessage.getMessage(), OMessage.Message.class);
+                    OMessage.Message msg = JacksonUtils.json2pojo(oMessage.getMessage(), OMessage.Message.class);
                     try {
                         OOrder oOrder = orderService.confirmOrder(msg.getOrder_id());
                     } catch (ServiceException e) {

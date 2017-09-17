@@ -161,4 +161,26 @@ public class OItem{
         this.backCategoryId = backCategoryId;
     }
     
+    /**
+     * 商品最小购买量
+     */
+    private int minPurchaseQuantity;
+    public int getMinPurchaseQuantity() {
+        return minPurchaseQuantity;
+    }
+    public void setMinPurchaseQuantity(int minPurchaseQuantity) {
+        this.minPurchaseQuantity = minPurchaseQuantity;
+    }
+    
+    /**
+     * 商品单位
+     */
+    private String unit;
+    public String getUnit() {
+        return unit;
+    }
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+    
 }

@@ -10,6 +10,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 /**
  * 订单服务
@@ -423,5 +424,44 @@ public class OrderService extends BaseNopService {
         params.put("pageSize", pageSize);
         params.put("date", date);
         return call("eleme.order.getAllOrders", params);
+    }
+
+    /**
+     * 批量查询订单是否支持索赔
+     *
+     * @param orderIds 索赔订单Id的列表
+     * @return 订单索赔详情
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,CompensationOrder> querySupportedCompensationOrders(List<String> orderIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        return call("eleme.order.querySupportedCompensationOrders", params);
+    }
+
+    /**
+     * 批量申请索赔
+     *
+     * @param requests 索赔请求的列表
+     * @return 申请索赔结果
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,Boolean> batchApplyCompensations(List<CompensationRequest> requests) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("requests", requests);
+        return call("eleme.order.batchApplyCompensations", params);
+    }
+
+    /**
+     * 批量查询索赔结果
+     *
+     * @param orderIds 索赔订单Id的列表
+     * @return 索赔信息
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,CompensationInfo> queryCompensationOrders(List<String> orderIds) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderIds", orderIds);
+        return call("eleme.order.queryCompensationOrders", params);
     }
 }
