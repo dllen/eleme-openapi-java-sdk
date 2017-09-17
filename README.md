@@ -11,7 +11,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.3.13</version>
+      <version>1.5.17</version>
   </dependency>
 ```
 ## 基本用法
@@ -19,13 +19,21 @@
   import eleme.openapi.sdk.config.Config;
   import eleme.openapi.sdk.api.service.ShopService;
 
-  //实例化一个配置类
-  Config config = new Config(true, "app_key", "app_secret");
+  // 变量为true: 沙箱环境 false: 生产环境
+  boolean isSandbox = true;
+  // 当前环境key
+  String appKey = "请填写您的key";
+  
+  // 当前环境secret
+  String appSecret = "请填写您的secret";
+  
+  // 实例化一个配置类
+  Config config = new Config(isSandbox, appKey, appSecret);
 
-  //使用config和token对象，实例化一个服务对象
+  // 使用config和token对象，实例化一个服务对象
   ShopService shopService = new ShopService(config,token);
 
-  //调用服务方法，获取资源
+  // 调用服务方法，获取资源
   OShop shop = shopService.getShop(12345L);
 
 ```
@@ -38,23 +46,32 @@
 > 企业应用
 
 ```java
-  import eleme.openapi.sdk.config.Config;
-  import eleme.openapi.sdk.oauth.OAuthClient;
-
-  //实例化一个配置类
-  Config config = new Config(true, "app_key", "app_secret");
-
-  //使用config对象，实例化一个授权类
-  OAuthClient client = new OAuthClient(config);
-
-  //根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
-  String authUrl = client.getAuthUrl(callback_url, scope, state);
+    import eleme.openapi.sdk.config.Config;
+    import eleme.openapi.sdk.oauth.OAuthClient;
+    
+    // 变量为true: 沙箱环境 false: 生产环境
+    boolean isSandbox = true;
+    
+    // 当前环境key
+    String appKey = "请填写您的key";
+    
+    // 当前环境secret
+    String appSecret = "请填写您的secret";
+    
+    // 实例化一个配置类
+    Config config = new Config(isSandbox, appKey, appSecret);
+    
+    // 使用config对象，实例化一个授权类
+    OAuthClient client = new OAuthClient(config);
+    
+    // 根据OAuth2.0中的对应state，scope和callback_url，获取授权URL
+    String authUrl = client.getAuthUrl(callback_url, scope, state);
 
   ```
   商家打开授权URL，同意授权后，跳转到您的回调页面，并返回code
 
   ```java
-  //通过授权得到的code，以及正确的callback_url，获取token
+  // 通过授权得到的code，以及正确的callback_url，获取token
   Token token = client.getTokenByCode(autoCode, callback_url);
 ```
 > 个人应用
@@ -63,13 +80,21 @@
   import eleme.openapi.sdk.config.Config;
   import eleme.openapi.sdk.oauth.OAuthClient;
 
-  //实例化一个配置类
-  Config config = new Config(true, "app_key", "app_secret");
-
-  //使用config对象，实例化一个授权类
+  // 变量为true: 沙箱环境 false: 生产环境
+  boolean isSandbox = true;
+  // 当前环境key
+  String appKey = "请填写您的key";
+  
+  // 当前环境secret
+  String appSecret = "请填写您的secret";
+  
+  // 实例化一个配置类
+  Config config = new Config(isSandbox, appKey, appSecret);
+  
+  // 使用config对象，实例化一个授权类
   OAuthClient client = new OAuthClient(config);
 
-  //使用授权类获取token
+  // 使用授权类获取token
   Token token = client.getTokenInClientCredentials();
 
 ```
@@ -103,6 +128,51 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+### [1.5.17]
+```
+  Release Date : 2017-09-11
+```
+- [Bugfix] 忽略对象反序列化不匹配字段解析出错
+
+
+### [1.5.16]
+```
+  Release Date : 2017-09-10
+```
+- [Bugfix]  修复日期反序列化格式问题
+- [Feature] 增加订单评论服务
+
+
+### [1.5.15]
+```
+  Release Date : 2017-09-01
+```
+- [Feature] 新增了限时抢购活动服务的接口
+- [Feature] 新增了订单评论服务的接口
+
+
+### [1.5.14]
+```
+  Release Date : 2017-08-30
+```
+[bugfix] 替换JSON解析工具包为jackson,解决和平台工具包不一致导致验签失败
+
+
+### [1.4.14]
+```
+  Release Date : 2017-08-21
+```
+[Feature] 在订单服务中增加了三个关于索赔的接口
+
+
+### [1.4.13]
+```
+  Release Date : 2017-08-07
+```
+- [Feature] 在金融服务中增加了五个用来查询账单的特权接口
+- [Bugfix] 修复Map<Long,Integer>泛型Long Key转换json出错
+
 
 ### [1.3.13]
 ```

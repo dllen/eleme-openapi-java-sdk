@@ -1,7 +1,6 @@
 package eleme.openapi.sdk.utils;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import eleme.openapi.sdk.api.exception.*;
 import eleme.openapi.sdk.api.protocol.ErrorPayload;
 import eleme.openapi.sdk.api.protocol.ResponsePayload;
@@ -22,10 +21,6 @@ import java.util.zip.GZIPInputStream;
 public abstract class WebUtils {
     private static final String DEFAULT_CHARSET = Constants.CHARSET_UTF8;
     private static final String METHOD_POST = "POST";
-
-    static {
-        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    }
 
     private static class DefaultTrustManager implements X509TrustManager {
         public X509Certificate[] getAcceptedIssuers() {
@@ -235,8 +230,8 @@ public abstract class WebUtils {
         String signature = SignatureUtil.generateSignature(appKey, secret, timestamp, action, accessToken, parameters);
         requestPayload.put("signature", signature);
 
-        String requestJson = JSON.toJSONString(requestPayload, SerializerFeature.WriteDateUseDateFormat);
-        ResponsePayload responsePayload = null;
+        String requestJson = JacksonUtils.obj2json(requestPayload);
+        ResponsePayload responsePayload;
         try {
             responsePayload = doRequest(context, requestJson,action);
         } catch (SocketTimeoutException ex) {
@@ -255,14 +250,15 @@ public abstract class WebUtils {
         }
         if (type == void.class)
             return null;
-        String s2 = JSON.toJSONString(responsePayload.getResult(), SerializerFeature.WriteDateUseDateFormat);
-        return JSON.parseObject(s2, type);
+        String s2 = JacksonUtils.obj2json(responsePayload.getResult());
+        JavaType javaType = JacksonUtils.getInstance().getTypeFactory().constructType(type);
+        return JacksonUtils.json2pojo(s2,javaType);
     }
 
     private static ResponsePayload doRequest(Config context, String requestJson) throws SocketTimeoutException, IOException {
         String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 15000);
         setLogInfo(context, "response: " + response);
-        return JSON.parseObject(response, ResponsePayload.class);
+        return JacksonUtils.json2pojo(response, ResponsePayload.class);
     }
 
     private static ResponsePayload doRequest(Config context, String requestJson,String action) throws SocketTimeoutException, IOException {

@@ -128,4 +128,15 @@ public class OSpec{
         this.activityLevel = activityLevel;
     }
     
+    /**
+     * 配送链路配置
+     */
+    private OSupplyLink supplyLink;
+    public OSupplyLink getSupplyLink() {
+        return supplyLink;
+    }
+    public void setSupplyLink(OSupplyLink supplyLink) {
+        this.supplyLink = supplyLink;
+    }
+    
 }
