@@ -10,6 +10,7 @@ import eleme.openapi.sdk.api.exception.JsonParseException;
 import eleme.openapi.sdk.convert.JsonDateDeserializer;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class JacksonUtils {
@@ -18,6 +19,7 @@ public class JacksonUtils {
 
     static {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"));
     }
 
     private JacksonUtils() {
