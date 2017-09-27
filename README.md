@@ -131,7 +131,7 @@
 
 ### [1.6.17]
 ```
-  Release Date : 2017-09-11
+  Release Date : 2017-09-28
 ```
 - [Bugfix] jackson版本降至2.2.0兼容JDK1.6，修正时区默认设置东8区。
 
