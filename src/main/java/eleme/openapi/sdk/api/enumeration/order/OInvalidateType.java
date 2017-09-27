@@ -7,7 +7,7 @@ public enum OInvalidateType {
     others("others"), 
     
     /**
-     * 用户信息不符
+     * 用户信息错误
      */
     fakeOrder("fakeOrder"), 
     
@@ -37,12 +37,12 @@ public enum OInvalidateType {
     restaurantTooBusy("restaurantTooBusy"), 
     
     /**
-     * 用户申请取消
+     * 用户要求取消
      */
     forceRejectOrder("forceRejectOrder"), 
     
     /**
-     * 配送出现问题
+     * 暂时无法配送
      */
     deliveryFault("deliveryFault"), 
     

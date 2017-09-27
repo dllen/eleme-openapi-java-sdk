@@ -93,7 +93,7 @@ public class ProductService extends BaseNopService {
      * @return 商品分类
      * @throws ServiceException 服务异常
      */
-    public OCategory getCategory(long categoryId) throws ServiceException {
+    public OCategory getCategory(Long categoryId) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("categoryId", categoryId);
         return call("eleme.product.category.getCategory", params);
@@ -236,6 +236,22 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.product.category.getBackCategory", params);
+    }
+
+    /**
+     * 设置分类类型
+     *
+     * @param shopId 店铺Id
+     * @param categoryId 商品分类Id
+     * @param categoryType 分类类型
+     * @throws ServiceException 服务异常
+     */
+    public void setCategoryType(Long shopId, Long categoryId, OCategoryType categoryType) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("categoryId", categoryId);
+        params.put("categoryType", categoryType);
+        call("eleme.product.category.setCategoryType", params);
     }
 
     /**
@@ -491,5 +507,21 @@ public class ProductService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         return call("eleme.product.item.getItemIdsHasActivityByShopId", params);
+    }
+
+    /**
+     * 设置订单餐盒费
+     *
+     * @param shopId  店铺ID
+     * @param status 是否按照订单设置餐盒费
+     * @param packingFee 订单餐盒费费用
+     * @throws ServiceException 服务异常
+     */
+    public void setOrderPackingFee(Long shopId, boolean status, Double packingFee) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("status", status);
+        params.put("packingFee", packingFee);
+        call("eleme.product.item.setOrderPackingFee", params);
     }
 }

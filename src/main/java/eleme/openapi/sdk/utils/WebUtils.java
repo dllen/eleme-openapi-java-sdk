@@ -263,6 +263,7 @@ public abstract class WebUtils {
 
     private static ServiceException toException(ErrorPayload error) throws ServiceException {
         String code = error.getCode();
+        if(StringUtils.isEmpty(code)) return null;
         String message = error.getMessage();
         if ("ACCESS_DENIED".equals(code))
             return new AccessDeniedException(message);
@@ -280,7 +281,7 @@ public abstract class WebUtils {
             return new UnauthorizedException(message);
         if ("VALIDATION_FAILED".equals(code))
             return new ValidationFailedException(message);
-        if (error.getCode().startsWith("BIZ_")) {
+        if (code.startsWith("BIZ_")) {
             return new BusinessException(error.getCode(), error.getMessage());
         }
         return null;

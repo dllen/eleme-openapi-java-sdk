@@ -1,13 +1,14 @@
 package eleme.openapi.sdk.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import eleme.openapi.sdk.api.exception.JsonParseException;
-import eleme.openapi.sdk.convert.JsonDateDeserializer;
 
 import java.io.IOException;
 import java.util.*;
@@ -17,7 +18,24 @@ public class JacksonUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
+        //去掉默认的时间戳格式
+        //objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+        //设置为中国上海时区
+        //objectMapper.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
+        objectMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+
+        //空值不序列化
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        //反序列化时，属性不存在的兼容处理
+        objectMapper.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        //单引号处理
+        objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
     }
 
     private JacksonUtils() {

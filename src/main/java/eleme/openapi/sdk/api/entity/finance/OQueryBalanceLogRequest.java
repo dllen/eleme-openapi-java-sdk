@@ -4,12 +4,14 @@ import eleme.openapi.sdk.api.enumeration.finance.*;
 import eleme.openapi.sdk.api.entity.finance.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OQueryBalanceLogRequest{
 
     /**
      * 开始日期
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date beginDate;
     public Date getBeginDate() {
         return beginDate;
@@ -21,6 +23,7 @@ public class OQueryBalanceLogRequest{
     /**
      * 结束日期
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date endDate;
     public Date getEndDate() {
         return endDate;

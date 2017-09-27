@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.product.*;
 import eleme.openapi.sdk.api.entity.product.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OCategory{
 
@@ -60,6 +61,17 @@ public class OCategory{
     }
     public void setParentId(long parentId) {
         this.parentId = parentId;
+    }
+    
+    /**
+     * 分类类型 设置分类类型仅支持麻辣烫、香锅砂锅、火锅烤鱼、烧烤、炸鸡炸串、小龙虾6个品类
+     */
+    private OCategoryType categoryType;
+    public OCategoryType getCategoryType() {
+        return categoryType;
+    }
+    public void setCategoryType(OCategoryType categoryType) {
+        this.categoryType = categoryType;
     }
     
     /**

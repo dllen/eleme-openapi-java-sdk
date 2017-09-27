@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.ugc.*;
 import eleme.openapi.sdk.api.entity.ugc.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OpenapiOrderRate{
 
@@ -54,6 +55,7 @@ public class OpenapiOrderRate{
     /**
      * 点评时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date ratedAt;
     public Date getRatedAt() {
         return ratedAt;

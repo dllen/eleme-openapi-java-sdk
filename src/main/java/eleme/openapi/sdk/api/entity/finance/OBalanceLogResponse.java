@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.finance.*;
 import eleme.openapi.sdk.api.entity.finance.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OBalanceLogResponse{
 
