@@ -22,6 +22,78 @@ public class ActivityService extends BaseNopService {
     }
 
     /**
+     * 创建代金券活动
+     *
+     * @param createInfo 创建代金券活动的结构体
+     * @return 创建好的代金券活动Id
+     * @throws ServiceException 服务异常
+     */
+    public Long createCouponActivity(CreateInfo createInfo) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("createInfo", createInfo);
+        return call("eleme.activity.coupon.createCouponActivity", params);
+    }
+
+    /**
+     * 向指定用户发放代金券
+     *
+     * @param shopId 店铺Id
+     * @param couponActivityId 代金券活动Id
+     * @param mobiles 需要发放代金券的用户手机号列表
+     * @return 代金券发放结果：key(手机号)，value(成功或失败信息)
+     * @throws ServiceException 服务异常
+     */
+    public Map<String,String> giveOutCoupons(Long shopId, Long couponActivityId, List<String> mobiles) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("couponActivityId", couponActivityId);
+        params.put("mobiles", mobiles);
+        return call("eleme.activity.coupon.giveOutCoupons", params);
+    }
+
+    /**
+     * 分页查询店铺代金券活动信息
+     *
+     * @param shopId 店铺Id
+     * @param couponActivityType 代金券活动类型
+     * @param activityStatus 活动状态
+     * @param pageNo 页码（第几页）
+     * @param pageSize 每页数量
+     * @return 代金券活动信息列表
+     * @throws ServiceException 服务异常
+     */
+    public List<OCouponActivity> queryCouponActivities(Long shopId, CouponActivityType couponActivityType, OActivityStatus activityStatus, Integer pageNo, Integer pageSize) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("couponActivityType", couponActivityType);
+        params.put("activityStatus", activityStatus);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        return call("eleme.activity.coupon.queryCouponActivities", params);
+    }
+
+    /**
+     * 分页查询店铺代金券领取详情
+     *
+     * @param shopId 店铺Id
+     * @param couponActivityId 代金券活动Id
+     * @param couponStatus 代金券状态
+     * @param pageNo 页码（第几页）
+     * @param pageSize 每页数量
+     * @return 代金券领取详情
+     * @throws ServiceException 服务异常
+     */
+    public ReceivedCouponDetail queryReceivedCouponDetails(Long shopId, Long couponActivityId, CouponStatus couponStatus, Integer pageNo, Integer pageSize) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("shopId", shopId);
+        params.put("couponActivityId", couponActivityId);
+        params.put("couponStatus", couponStatus);
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
+        return call("eleme.activity.coupon.queryReceivedCouponDetails", params);
+    }
+
+    /**
      * 查询店铺邀约活动信息
      *
      * @param shopId 店铺Id
