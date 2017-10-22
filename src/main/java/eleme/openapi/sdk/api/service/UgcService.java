@@ -153,15 +153,17 @@ public class UgcService extends BaseNopService {
      * @param startTime   开始时间,只能查询最近90天的数据
      * @param endTime   结束时间
      * @param offset 页面偏移量
+     * @param pageSize 页面大小
      * @return  评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiItemRate> getItemRatesByItemId(String itemId, Date startTime, Date endTime, int offset) throws ServiceException {
+    public List<OpenapiItemRate> getItemRatesByItemId(String itemId, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         params.put("startTime", startTime);
         params.put("endTime", endTime);
         params.put("offset", offset);
+        params.put("pageSize", pageSize);
         return call("eleme.ugc.getItemRatesByItemId", params);
     }
 
