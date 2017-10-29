@@ -129,6 +129,18 @@
 
 ## CHANGELOG:
 
+### [1.7.19]
+```
+  Release Date : 2017-10-27
+```
+- [Fix] 修复了 eleme.product.item.getItemsByShopIdAndBarCode 返回值的错误
+
+### [1.7.18]
+```
+  Release Date : 2017-10-27
+```
+- [Fix] 增加了零元试吃接口
+
 ### [1.6.18]
 ```
   Release Date : 2017-10-13

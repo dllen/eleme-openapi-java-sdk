@@ -475,7 +475,7 @@ public class ProductService extends BaseNopService {
      * @return 商品
      * @throws ServiceException 服务异常
      */
-    public OItem getItemsByShopIdAndBarCode(Long shopId, String barCode) throws ServiceException {
+    public List<OItem> getItemsByShopIdAndBarCode(Long shopId, String barCode) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("barCode", barCode);
