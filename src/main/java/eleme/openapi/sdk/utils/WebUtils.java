@@ -109,6 +109,9 @@ public abstract class WebUtils {
         conn.setRequestProperty("Content-Type", ctype);
         conn.setRequestProperty("Accept-Encoding", "gzip");
         conn.setRequestProperty("User-Agent", "eleme-openapi-java-sdk");
+        String elemeRequestId = getReqID();
+        System.out.println("eleme-request-id: " + elemeRequestId + "\n\n");
+        conn.setRequestProperty("x-eleme-requestid", elemeRequestId);
         if (headerMap != null) {
             for (Map.Entry<String, String> entry : headerMap.entrySet()) {
                 conn.setRequestProperty(entry.getKey(), entry.getValue());
@@ -178,6 +181,23 @@ public abstract class WebUtils {
             if (stream != null) {
                 stream.close();
             }
+        }
+    }
+
+    private static String getReqID() {
+        String reqId = generateUUID() + "|" + System.currentTimeMillis();
+        return reqId;
+    }
+
+    private static String generateUUID() {
+        try {
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            if (uuid.length() > 32) {
+                uuid = uuid.substring(0, 32);
+            }
+            return uuid.toUpperCase();
+        } catch (Exception e) {
+            return "00112233445566778899AABBCCDDEEFF";
         }
     }
 
