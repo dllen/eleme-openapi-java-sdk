@@ -129,6 +129,12 @@
 
 ## CHANGELOG:
 
+### [1.8.19]
+```
+  Release Date : 2017-10-27
+```
+- [Feature] 增加了 eleme-request-id 用于排障
+
 ### [1.7.19]
 ```
   Release Date : 2017-10-27
