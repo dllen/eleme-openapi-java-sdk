@@ -129,9 +129,21 @@
 
 ## CHANGELOG:
 
+### [1.8.21]
+```
+  Release Date : 2017-10-30
+```
+- [Fix] 修复 eleme-request-id 和 requestId 不统一的问题
+
+### [1.8.20]
+```
+  Release Date : 2017-10-29
+```
+- [Feature] 统一了 eleme-request-id 和 requestId
+
 ### [1.8.19]
 ```
-  Release Date : 2017-10-27
+  Release Date : 2017-10-29
 ```
 - [Feature] 增加了 eleme-request-id 用于排障
 
