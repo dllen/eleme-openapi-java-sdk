@@ -262,18 +262,20 @@ public abstract class WebUtils {
     }
 
     private static ResponsePayload doRequest(Config context, String requestJson,String action) throws SocketTimeoutException, IOException {
+        Long begin = System.currentTimeMillis();
         String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 15000);
-        setLogInfo(context,"ELEBEG******************************************************************************************");
-        setLogInfo(context,"ELE* 饿了么外卖接口调用 "+context.getApiUrl() + "   Action:"+action);
-        setLogInfo(context,"ELE* 接口请求:"+requestJson);
-        setLogInfo(context,"ELE* 接口响应:"+response);
-        setLogInfo(context,"ELEEND******************************************************************************************");
-        setLogInfo(context, "response: " + response);
+        setLogInfo(context,"ELEBEG*************************************************************************");
+        setLogInfo(context,"ELE* 饿了么外卖接口调用 URL: "+context.getApiUrl() + "   Action:"+action+" Res time:"+(System.currentTimeMillis()-begin)+"ms");
+        setLogInfo(context,"ELE* 请求:"+requestJson);
+        setLogInfo(context,"ELE* 响应:"+response);
+        setLogInfo(context,"ELEEND*************************************************************************");
+
         return JacksonUtils.json2pojo(response, ResponsePayload.class);
     }
 
     private static ServiceException toException(ErrorPayload error) throws ServiceException {
         String code = error.getCode();
+        if(StringUtils.isEmpty(code)) return null;
         String message = error.getMessage();
         if ("ACCESS_DENIED".equals(code))
             return new AccessDeniedException(message);
@@ -291,7 +293,7 @@ public abstract class WebUtils {
             return new UnauthorizedException(message);
         if ("VALIDATION_FAILED".equals(code))
             return new ValidationFailedException(message);
-        if (error.getCode().startsWith("BIZ_")) {
+        if (code.startsWith("BIZ_")) {
             return new BusinessException(error.getCode(), error.getMessage());
         }
         return null;
