@@ -143,22 +143,22 @@ public class OGoodsItem{
     /**
      * 用户侧价格
      */
-    private double userPrice;
-    public double getUserPrice() {
+    private Double userPrice;
+    public Double getUserPrice() {
         return userPrice;
     }
-    public void setUserPrice(double userPrice) {
+    public void setUserPrice(Double userPrice) {
         this.userPrice = userPrice;
     }
     
     /**
      * 商户侧价格
      */
-    private double shopPrice;
-    public double getShopPrice() {
+    private Double shopPrice;
+    public Double getShopPrice() {
         return shopPrice;
     }
-    public void setShopPrice(double shopPrice) {
+    public void setShopPrice(Double shopPrice) {
         this.shopPrice = shopPrice;
     }
     

@@ -6,7 +6,7 @@ import java.util.*;
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class OBalanceLogVO{
+public class OBalanceLogV0{
 
     /**
      * 交易时间

@@ -66,11 +66,11 @@ public class OBalanceLogResponse{
     /**
      * 数据明细
      */
-    private List<OBalanceLogVO> pageList;
-    public List<OBalanceLogVO> getPageList() {
+    private List<OBalanceLogV0> pageList;
+    public List<OBalanceLogV0> getPageList() {
         return pageList;
     }
-    public void setPageList(List<OBalanceLogVO> pageList) {
+    public void setPageList(List<OBalanceLogV0> pageList) {
         this.pageList = pageList;
     }
     

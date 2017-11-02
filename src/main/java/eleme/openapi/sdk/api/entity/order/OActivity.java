@@ -42,6 +42,28 @@ public class OActivity{
     }
     
     /**
+     * 饿了么承担部分
+     */
+    private double elemePart;
+    public double getElemePart() {
+        return elemePart;
+    }
+    public void setElemePart(double elemePart) {
+        this.elemePart = elemePart;
+    }
+    
+    /**
+     * 商家承担部分
+     */
+    private double restaurantPart;
+    public double getRestaurantPart() {
+        return restaurantPart;
+    }
+    public void setRestaurantPart(double restaurantPart) {
+        this.restaurantPart = restaurantPart;
+    }
+    
+    /**
      * 金额
      */
     private double amount;
