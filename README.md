@@ -129,6 +129,13 @@
 
 ## CHANGELOG:
 
+### [1.9.21]
+```
+  Release Date : 2017-11-02
+```
+- [Fix] 金融服务类型命名错误 OBalanceLogVO -> OBalanceLogV0
+- [Feature] 新增了商品服务部分新版接口，老接口将于一个月后下线
+
 ### [1.8.21]
 ```
   Release Date : 2017-10-30
