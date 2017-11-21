@@ -50,7 +50,7 @@ public class FinanceService extends BaseNopService {
     /**
      * 查询总店账单
      *
-     * @param shopId 饿了么店总店店铺id
+     * @param shopId 饿了么总店店铺id
      * @param query 查询条件
      * @return 总店账单
      * @throws ServiceException 服务异常
@@ -65,7 +65,7 @@ public class FinanceService extends BaseNopService {
     /**
      * 查询总店订单
      *
-     * @param shopId 饿了么店总店店铺id
+     * @param shopId 饿了么总店店铺id
      * @param query 查询条件
      * @return 总店金融订单
      * @throws ServiceException 服务异常
@@ -80,7 +80,7 @@ public class FinanceService extends BaseNopService {
     /**
      * 查询分店账单
      *
-     * @param shopId 饿了么店总店店铺id
+     * @param shopId 饿了么分店店铺id
      * @param query 查询条件
      * @return 分店账单
      * @throws ServiceException 服务异常
@@ -95,7 +95,7 @@ public class FinanceService extends BaseNopService {
     /**
      * 查询分店订单
      *
-     * @param shopId 饿了么店总店店铺id
+     * @param shopId 饿了么分店店铺id
      * @param query 查询条件
      * @return 分店金融订单
      * @throws ServiceException 服务异常
@@ -110,7 +110,7 @@ public class FinanceService extends BaseNopService {
     /**
      * 查询订单
      *
-     * @param shopId 饿了么店总店店铺id
+     * @param shopId 饿了么店铺id
      * @param orderId 订单id
      * @return 金融订单
      * @throws ServiceException 服务异常

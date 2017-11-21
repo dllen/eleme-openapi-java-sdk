@@ -228,7 +228,7 @@ public abstract class WebUtils {
                              Token token,
                              Type type
     ) throws ServiceException {
-        final long timestamp = System.currentTimeMillis() / 1000;
+        final long timestamp = System.currentTimeMillis();
         final String appKey = context.getApp_key();
         String secret = context.getApp_secret();
         String accessToken = token.getAccessToken();

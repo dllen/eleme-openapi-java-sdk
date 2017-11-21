@@ -63,4 +63,15 @@ public class ORefundOrder{
         this.goodsList = goodsList;
     }
     
+    /**
+     * 用户申请退单原因
+     */
+    private String applyRefundReason;
+    public String getApplyRefundReason() {
+        return applyRefundReason;
+    }
+    public void setApplyRefundReason(String applyRefundReason) {
+        this.applyRefundReason = applyRefundReason;
+    }
+    
 }

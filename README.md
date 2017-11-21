@@ -129,6 +129,13 @@
 
 ## CHANGELOG:
 
+### [1.10.21]
+```
+  Release Date : 2017-11-21
+```
+- [Feature] 新增众包查询配送费接口
+- [Feature] eleme.order.getRefundOrder 返回新增申请退单原因字段 applyRefundReason
+
 ### [1.9.21]
 ```
   Release Date : 2017-11-02
