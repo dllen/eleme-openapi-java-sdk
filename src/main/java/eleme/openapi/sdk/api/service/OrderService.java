@@ -187,6 +187,7 @@ public class OrderService extends BaseNopService {
 
     /**
      * 配送异常或者物流拒单后选择自行配送(推荐)
+ 全推调用
      *
      * @param orderId 订单Id
      * @throws ServiceException 服务异常
@@ -212,6 +213,7 @@ public class OrderService extends BaseNopService {
 
     /**
      * 配送异常或者物流拒单后选择不再配送(推荐)
+ 全推调用
      *
      * @param orderId 订单Id
      * @throws ServiceException 服务异常
@@ -465,7 +467,7 @@ public class OrderService extends BaseNopService {
     }
 
     /**
-     * 选推订单询价,获取配送费
+     * 众包订单询价，获取配送费
      *
      * @param orderId 订单Id
      * @return 配送费

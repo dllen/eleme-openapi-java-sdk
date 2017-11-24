@@ -94,7 +94,12 @@ public enum OSubState {
     /**
      * 系统异常
      */
-    systemError("systemError");
+    systemError("systemError"), 
+    
+    /**
+     * 无配送子状态
+     */
+    noSubstate("noSubstate");
     
 
     private String orderDesc;

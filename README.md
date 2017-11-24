@@ -129,6 +129,13 @@
 
 ## CHANGELOG:
 
+### [1.11.21]
+```
+  Release Date : 2017-11-24
+```
+- [Feature] OSubState 类型中新增 noSubstate
+- [FIX] 为向下兼容 Java 版本，将 UGC 服务中类型为 LocalDateTime 的参数变更为 String
+
 ### [1.10.21]
 ```
   Release Date : 2017-11-21

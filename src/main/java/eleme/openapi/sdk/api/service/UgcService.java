@@ -71,7 +71,7 @@ public class UgcService extends BaseNopService {
      * @return 评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiOrderRate> getOrderRatesByShopId(String shopId, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiOrderRate> getOrderRatesByShopId(String shopId, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("startTime", startTime);
@@ -92,7 +92,7 @@ public class UgcService extends BaseNopService {
      * @return  评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiOrderRate> getOrderRatesByShopIds(List<String> shopIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiOrderRate> getOrderRatesByShopIds(List<String> shopIds, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopIds", shopIds);
         params.put("startTime", startTime);
@@ -113,7 +113,7 @@ public class UgcService extends BaseNopService {
      * @return   未回复的评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiOrderRate> getUnreplyOrderRatesByShopIds(List<String> shopIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiOrderRate> getUnreplyOrderRatesByShopIds(List<String> shopIds, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopIds", shopIds);
         params.put("startTime", startTime);
@@ -135,7 +135,7 @@ public class UgcService extends BaseNopService {
      * @return  评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiOrderRate> getOrderRatesByShopAndRating(String shopId, int score, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiOrderRate> getOrderRatesByShopAndRating(String shopId, int score, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("shopId", shopId);
         params.put("score", score);
@@ -157,7 +157,7 @@ public class UgcService extends BaseNopService {
      * @return  评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiItemRate> getItemRatesByItemId(String itemId, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiItemRate> getItemRatesByItemId(String itemId, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         params.put("startTime", startTime);
@@ -178,7 +178,7 @@ public class UgcService extends BaseNopService {
      * @return  评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiItemRate> getItemRatesByItemIds(List<String> itemIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiItemRate> getItemRatesByItemIds(List<String> itemIds, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         params.put("startTime", startTime);
@@ -199,7 +199,7 @@ public class UgcService extends BaseNopService {
      * @return 未回复的评论信息
      * @throws ServiceException 服务异常
      */
-    public List<OpenapiItemRate> getUnreplyItemRatesByItemIds(List<String> itemIds, Date startTime, Date endTime, int offset, int pageSize) throws ServiceException {
+    public List<OpenapiItemRate> getUnreplyItemRatesByItemIds(List<String> itemIds, String startTime, String endTime, int offset, int pageSize) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         params.put("startTime", startTime);
@@ -278,7 +278,7 @@ public class UgcService extends BaseNopService {
      * @param endTime   结束时间
      * @throws ServiceException 服务异常
      */
-    public void replyRatesByItemId(String itemId, String reply, Date startTime, Date endTime) throws ServiceException {
+    public void replyRatesByItemId(String itemId, String reply, String startTime, String endTime) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemId", itemId);
         params.put("reply", reply);
@@ -296,7 +296,7 @@ public class UgcService extends BaseNopService {
      * @param endTime 结束时间
      * @throws ServiceException 服务异常
      */
-    public void replyRatesByItemIds(List<String> itemIds, String reply, Date startTime, Date endTime) throws ServiceException {
+    public void replyRatesByItemIds(List<String> itemIds, String reply, String startTime, String endTime) throws ServiceException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("itemIds", itemIds);
         params.put("reply", reply);
