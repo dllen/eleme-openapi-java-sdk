@@ -253,7 +253,7 @@ public abstract class WebUtils {
         String requestJson = JacksonUtils.obj2json(requestPayload);
         ResponsePayload responsePayload;
         try {
-            responsePayload = doRequest(context, requestJson);
+            responsePayload = doRequest(context, requestJson,requestId,action);
         } catch (SocketTimeoutException ex) {
             throw new SourceTimeoutException();
         } catch (IOException ex) {
@@ -281,9 +281,9 @@ public abstract class WebUtils {
         return JacksonUtils.json2pojo(response, ResponsePayload.class);
     }
 
-    private static ResponsePayload doRequest(Config context, String requestJson,String action) throws SocketTimeoutException, IOException {
+    private static ResponsePayload doRequest(Config context, String requestJson, String rid,String action) throws SocketTimeoutException, IOException {
         Long begin = System.currentTimeMillis();
-        String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 15000);
+        String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8),rid, 15000, 15000);
         setLogInfo(context,"ELEBEG*************************************************************************");
         setLogInfo(context,"ELE* 饿了么外卖接口调用 URL: "+context.getApiUrl() + "   Action:"+action+" Res time:"+(System.currentTimeMillis()-begin)+"ms");
         setLogInfo(context,"ELE* 请求:"+requestJson);
