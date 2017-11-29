@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CompensationInfo{
 

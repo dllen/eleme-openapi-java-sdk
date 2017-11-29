@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OOrder{
 
@@ -21,6 +22,7 @@ public class OOrder{
     /**
      * 下单时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date createdAt;
     public Date getCreatedAt() {
         return createdAt;
@@ -32,6 +34,7 @@ public class OOrder{
     /**
      * 订单生效时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date activeAt;
     public Date getActiveAt() {
         return activeAt;
@@ -65,6 +68,7 @@ public class OOrder{
     /**
      * 预计送达时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date deliverTime;
     public Date getDeliverTime() {
         return deliverTime;
@@ -395,6 +399,7 @@ public class OOrder{
     /**
      * 保护小号失效时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date secretPhoneExpireTime;
     public Date getSecretPhoneExpireTime() {
         return secretPhoneExpireTime;
@@ -434,6 +439,17 @@ public class OOrder{
     }
     public void setTaxpayerId(String taxpayerId) {
         this.taxpayerId = taxpayerId;
+    }
+    
+    /**
+     * 冷链加价费
+     */
+    private double coldBoxFee;
+    public double getColdBoxFee() {
+        return coldBoxFee;
+    }
+    public void setColdBoxFee(double coldBoxFee) {
+        this.coldBoxFee = coldBoxFee;
     }
     
 }

@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ODeliveryRecord{
 
@@ -65,6 +66,7 @@ public class ODeliveryRecord{
     /**
      * 记录创建时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date createdAt;
     public Date getCreatedAt() {
         return createdAt;

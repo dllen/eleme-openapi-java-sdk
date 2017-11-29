@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OActivity{
 
@@ -38,6 +39,28 @@ public class OActivity{
     }
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+    
+    /**
+     * 饿了么承担部分
+     */
+    private double elemePart;
+    public double getElemePart() {
+        return elemePart;
+    }
+    public void setElemePart(double elemePart) {
+        this.elemePart = elemePart;
+    }
+    
+    /**
+     * 商家承担部分
+     */
+    private double restaurantPart;
+    public double getRestaurantPart() {
+        return restaurantPart;
+    }
+    public void setRestaurantPart(double restaurantPart) {
+        this.restaurantPart = restaurantPart;
     }
     
     /**

@@ -37,6 +37,7 @@ public abstract class WebUtils {
     public static String doPost(Config context, String url,
                                 Map<String, String> params,
                                 String charset,
+                                String rid,
                                 int connectTimeout,
                                 int readTimeout,
                                 Map<String, String> headerMap) throws IOException {
@@ -48,21 +49,21 @@ public abstract class WebUtils {
         if (query != null) {
             content = query.getBytes(charset);
         }
-        return _doPost(context, url, ctype, content, connectTimeout, readTimeout, headerMap);
+        return _doPost(context, url, ctype, content, rid, connectTimeout, readTimeout, headerMap);
     }
 
-    public static String doPost(Config context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout)
+    public static String doPost(Config context, String url, String ctype, byte[] content, String rid, int connectTimeout, int readTimeout)
             throws SocketTimeoutException, IOException {
-        return _doPost(context, url, ctype, content, connectTimeout, readTimeout, null);
+        return _doPost(context, url, ctype, content, rid, connectTimeout, readTimeout, null);
     }
 
-    private static String _doPost(Config context, String url, String ctype, byte[] content, int connectTimeout, int readTimeout,
+    private static String _doPost(Config context, String url, String ctype, byte[] content, String rid, int connectTimeout, int readTimeout,
                                   Map<String, String> headerMap) throws SocketTimeoutException, IOException {
         HttpURLConnection conn = null;
         OutputStream out = null;
         String rsp = null;
         try {
-            conn = getConnection(new URL(url), METHOD_POST, ctype, headerMap);
+            conn = getConnection(new URL(url), METHOD_POST, ctype, headerMap, rid);
             conn.setConnectTimeout(connectTimeout);
             conn.setReadTimeout(readTimeout);
             out = conn.getOutputStream();
@@ -80,7 +81,7 @@ public abstract class WebUtils {
         return rsp;
     }
 
-    private static HttpURLConnection getConnection(URL url, String method, String ctype, Map<String, String> headerMap) throws IOException {
+    private static HttpURLConnection getConnection(URL url, String method, String ctype, Map<String, String> headerMap, String rid) throws IOException {
         HttpURLConnection conn;
         if ("https".equals(url.getProtocol())) {
             SSLContext ctx;
@@ -109,6 +110,8 @@ public abstract class WebUtils {
         conn.setRequestProperty("Content-Type", ctype);
         conn.setRequestProperty("Accept-Encoding", "gzip");
         conn.setRequestProperty("User-Agent", "eleme-openapi-java-sdk");
+        String elemeRequestId = getReqID(rid);
+        conn.setRequestProperty("x-eleme-requestid", elemeRequestId);
         if (headerMap != null) {
             for (Map.Entry<String, String> entry : headerMap.entrySet()) {
                 conn.setRequestProperty(entry.getKey(), entry.getValue());
@@ -181,6 +184,23 @@ public abstract class WebUtils {
         }
     }
 
+    private static String getReqID(String rid) {
+        String reqId = rid + "|" + System.currentTimeMillis();
+        return reqId;
+    }
+
+    public static String generateUUID() {
+        try {
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            if (uuid.length() > 32) {
+                uuid = uuid.substring(0, 32);
+            }
+            return uuid.toUpperCase();
+        } catch (Exception e) {
+            return "00112233445566778899AABBCCDDEEFF";
+        }
+    }
+
     private static String getResponseCharset(String ctype) {
         String charset = DEFAULT_CHARSET;
 
@@ -208,11 +228,11 @@ public abstract class WebUtils {
                              Token token,
                              Type type
     ) throws ServiceException {
-        final long timestamp = System.currentTimeMillis() / 1000;
+        final long timestamp = System.currentTimeMillis();
         final String appKey = context.getApp_key();
         String secret = context.getApp_secret();
         String accessToken = token.getAccessToken();
-        String requestId = UUID.randomUUID().toString().toLowerCase();
+        String requestId = generateUUID();
 
         setLogInfo(context,"requestId: " + requestId);
         Map<String, Object> requestPayload = new HashMap<String, Object>();
@@ -233,7 +253,7 @@ public abstract class WebUtils {
         String requestJson = JacksonUtils.obj2json(requestPayload);
         ResponsePayload responsePayload;
         try {
-            responsePayload = doRequest(context, requestJson,action);
+            responsePayload = doRequest(context, requestJson);
         } catch (SocketTimeoutException ex) {
             throw new SourceTimeoutException();
         } catch (IOException ex) {
@@ -255,8 +275,8 @@ public abstract class WebUtils {
         return JacksonUtils.json2pojo(s2,javaType);
     }
 
-    private static ResponsePayload doRequest(Config context, String requestJson) throws SocketTimeoutException, IOException {
-        String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), 15000, 15000);
+    private static ResponsePayload doRequest(Config context, String requestJson, String rid) throws SocketTimeoutException, IOException {
+        String response = doPost(context, context.getApiUrl(), "application/json; charset=utf-8", requestJson.getBytes(Constants.CHARSET_UTF8), rid, 15000, 15000);
         setLogInfo(context, "response: " + response);
         return JacksonUtils.json2pojo(response, ResponsePayload.class);
     }

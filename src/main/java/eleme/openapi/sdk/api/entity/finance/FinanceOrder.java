@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.finance.*;
 import eleme.openapi.sdk.api.entity.finance.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class FinanceOrder{
 
@@ -32,6 +33,7 @@ public class FinanceOrder{
     /**
      * 账单日期
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date billDate;
     public Date getBillDate() {
         return billDate;
@@ -43,6 +45,7 @@ public class FinanceOrder{
     /**
      * 入账日期
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date checkoutDate;
     public Date getCheckoutDate() {
         return checkoutDate;
@@ -131,6 +134,7 @@ public class FinanceOrder{
     /**
      * 订单创建时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date createAt;
     public Date getCreateAt() {
         return createAt;
@@ -142,6 +146,7 @@ public class FinanceOrder{
     /**
      * 订单完成时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date completeAt;
     public Date getCompleteAt() {
         return completeAt;

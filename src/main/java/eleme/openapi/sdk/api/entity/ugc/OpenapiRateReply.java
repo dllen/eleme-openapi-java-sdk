@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.ugc.*;
 import eleme.openapi.sdk.api.entity.ugc.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OpenapiRateReply{
 

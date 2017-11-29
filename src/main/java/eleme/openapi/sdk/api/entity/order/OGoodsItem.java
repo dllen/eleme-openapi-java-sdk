@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OGoodsItem{
 
@@ -137,6 +138,39 @@ public class OGoodsItem{
     }
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+    
+    /**
+     * 用户侧价格
+     */
+    private Double userPrice;
+    public Double getUserPrice() {
+        return userPrice;
+    }
+    public void setUserPrice(Double userPrice) {
+        this.userPrice = userPrice;
+    }
+    
+    /**
+     * 商户侧价格
+     */
+    private Double shopPrice;
+    public Double getShopPrice() {
+        return shopPrice;
+    }
+    public void setShopPrice(Double shopPrice) {
+        this.shopPrice = shopPrice;
+    }
+    
+    /**
+     * 商品id
+     */
+    private long vfoodId;
+    public long getVfoodId() {
+        return vfoodId;
+    }
+    public void setVfoodId(long vfoodId) {
+        this.vfoodId = vfoodId;
     }
     
 }

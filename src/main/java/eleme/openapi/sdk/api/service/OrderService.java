@@ -187,6 +187,7 @@ public class OrderService extends BaseNopService {
 
     /**
      * 配送异常或者物流拒单后选择自行配送(推荐)
+ 全推调用
      *
      * @param orderId 订单Id
      * @throws ServiceException 服务异常
@@ -212,6 +213,7 @@ public class OrderService extends BaseNopService {
 
     /**
      * 配送异常或者物流拒单后选择不再配送(推荐)
+ 全推调用
      *
      * @param orderId 订单Id
      * @throws ServiceException 服务异常
@@ -252,7 +254,6 @@ public class OrderService extends BaseNopService {
      *
      * @param orderId 订单ID
      * @return 订单
- 为保证核心操作的稳定,减少不必要的信息回传,此接口不建议使用,后期逐步下线,推荐使用 receivedOrderLite
      * @throws ServiceException 服务异常
      */
     public OOrder receivedOrder(String orderId) throws ServiceException {
@@ -463,5 +464,18 @@ public class OrderService extends BaseNopService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderIds", orderIds);
         return call("eleme.order.queryCompensationOrders", params);
+    }
+
+    /**
+     * 众包订单询价，获取配送费
+     *
+     * @param orderId 订单Id
+     * @return 配送费
+     * @throws ServiceException 服务异常
+     */
+    public double getDeliveryFeeForCrowd(String orderId) throws ServiceException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId", orderId);
+        return call("eleme.order.getDeliveryFeeForCrowd", params);
     }
 }

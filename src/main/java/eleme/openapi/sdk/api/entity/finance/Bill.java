@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.finance.*;
 import eleme.openapi.sdk.api.entity.finance.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Bill{
 
@@ -21,6 +22,7 @@ public class Bill{
     /**
      * 账单日期
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date billDate;
     public Date getBillDate() {
         return billDate;
@@ -32,6 +34,7 @@ public class Bill{
     /**
      * 入账日期
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date checkoutDate;
     public Date getCheckoutDate() {
         return checkoutDate;

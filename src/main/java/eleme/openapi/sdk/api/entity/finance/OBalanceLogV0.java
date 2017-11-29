@@ -4,12 +4,14 @@ import eleme.openapi.sdk.api.enumeration.finance.*;
 import eleme.openapi.sdk.api.entity.finance.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class OBalanceLogVO{
+public class OBalanceLogV0{
 
     /**
      * 交易时间
      */
+    @JsonFormat(locale = "zh" , timezone="GMT+8")
     private Date transTime;
     public Date getTransTime() {
         return transTime;

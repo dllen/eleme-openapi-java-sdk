@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.shop.*;
 import eleme.openapi.sdk.api.entity.shop.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OShop{
 

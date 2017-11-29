@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.activity.*;
 import eleme.openapi.sdk.api.entity.activity.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OActivityDateTime{
 

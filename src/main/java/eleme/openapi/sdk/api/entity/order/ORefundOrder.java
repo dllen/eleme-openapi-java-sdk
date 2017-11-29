@@ -4,6 +4,7 @@ import eleme.openapi.sdk.api.enumeration.order.*;
 import eleme.openapi.sdk.api.entity.order.*;
 import java.util.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ORefundOrder{
 
@@ -60,6 +61,17 @@ public class ORefundOrder{
     }
     public void setGoodsList(List<Item> goodsList) {
         this.goodsList = goodsList;
+    }
+    
+    /**
+     * 用户申请退单原因
+     */
+    private String applyRefundReason;
+    public String getApplyRefundReason() {
+        return applyRefundReason;
+    }
+    public void setApplyRefundReason(String applyRefundReason) {
+        this.applyRefundReason = applyRefundReason;
     }
     
 }

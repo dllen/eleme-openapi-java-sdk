@@ -30,6 +30,7 @@ public class DefaultIOAuthClient implements IOAuthClient {
             String respJson = WebUtils.doPost(context, context.getOauthTokenUrl(),
                     request.getBodyMap(),
                     Constants.CHARSET_UTF8,
+                    WebUtils.generateUUID(),
                     connectTimeout,
                     readTimeout,
                     request.getHeaderMap()

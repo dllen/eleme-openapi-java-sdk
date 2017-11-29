@@ -16,7 +16,7 @@
   <dependency>
       <groupId>me.ele.openapi</groupId>
       <artifactId>eleme-openapi-sdk</artifactId>
-      <version>1.5.17</version>
+      <version>1.6.18</version>
   </dependency>
 ```
 ## 基本用法
@@ -133,6 +133,71 @@
 - 使用沙箱店铺的账号密码在napos客户端登陆，会发现刚刚授权的应用已安装，并能够打开应用跳转回调页，展示店铺信息
 
 ## CHANGELOG:
+
+### [1.11.21]
+```
+  Release Date : 2017-11-24
+```
+- [Feature] OSubState 类型中新增 noSubstate
+- [FIX] 为向下兼容 Java 版本，将 UGC 服务中类型为 LocalDateTime 的参数变更为 String
+
+### [1.10.21]
+```
+  Release Date : 2017-11-21
+```
+- [Feature] 新增众包查询配送费接口
+- [Feature] eleme.order.getRefundOrder 返回新增申请退单原因字段 applyRefundReason
+
+### [1.9.21]
+```
+  Release Date : 2017-11-02
+```
+- [Fix] 金融服务类型命名错误 OBalanceLogVO -> OBalanceLogV0
+- [Feature] 新增了商品服务部分新版接口，老接口将于一个月后下线
+
+### [1.8.21]
+```
+  Release Date : 2017-10-30
+```
+- [Fix] 修复 eleme-request-id 和 requestId 不统一的问题
+
+### [1.8.20]
+```
+  Release Date : 2017-10-29
+```
+- [Feature] 统一了 eleme-request-id 和 requestId
+
+### [1.8.19]
+```
+  Release Date : 2017-10-29
+```
+- [Feature] 增加了 eleme-request-id 用于排障
+
+### [1.7.19]
+```
+  Release Date : 2017-10-27
+```
+- [Fix] 修复了 eleme.product.item.getItemsByShopIdAndBarCode 返回值的错误
+
+### [1.7.18]
+```
+  Release Date : 2017-10-27
+```
+- [Fix] 增加了零元试吃接口
+
+### [1.6.18]
+```
+  Release Date : 2017-10-13
+```
+- [Feature] 增加代金券接口
+
+
+### [1.6.17]
+```
+  Release Date : 2017-09-28
+```
+- [Bugfix] jackson版本降至2.2.0兼容JDK1.6，修正时区默认设置东8区。
+
 
 ### [1.5.17]
 ```
